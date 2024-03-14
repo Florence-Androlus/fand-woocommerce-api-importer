@@ -17,29 +17,18 @@ class Colors {
 
     // Vérifier si des variations existent
     if ($variations) {
-       // echo 'Variations du produit : <br>';
 
         foreach ($variations as $variation) {
             $variation_id = $variation->ID;
             $variation_data = new WC_Product_Variation($variation_id);
 
             // Afficher les détails de la variation
-        //    echo 'Variation ID : ' . $variation_id . ', SKU : ' . $variation_data->get_sku() . '<br>';
+ 
             // Vérifie si l'attribut existe déjà, sinon le crée
             $attribute_name = 'Couleur'; // Nom de l'attribut
                 
             // Obtient le nom de la taxonomie associée à l'attribut
             $taxonomy = wc_attribute_taxonomy_name(strtolower($attribute_name));
-
-        
-
-            // Crée le terme 'autre couleur' s'il n'existe pas déjà
-        /* if (!term_exists('silver', $taxonomy)) {
-                wp_insert_term('silver', $taxonomy);
-            }
-
-            // Obtient l'ID du terme 'autre couleur'
-            $term_id = get_term_by('slug', 'autre couleur', $taxonomy)->term_id;*/
 
             // Obtient l'objet produit variable
             $product = wc_get_product($product_id);
@@ -62,25 +51,6 @@ class Colors {
 
         }
 
-        // Demander à l'utilisateur de saisir l'ID de la variation à supprimer
-    /* echo '<form method="post">';
-        echo 'Entrez l\'ID de la variation à supprimer : <input type="number" name="variation_id">';
-        echo '<input type="submit" value="Supprimer la variation">';
-        echo '</form>';
-
-        // Vérifier si l'ID de la variation à supprimer a été soumis
-        if (isset($_POST['variation_id'])) {
-            $variation_id_to_delete = $_POST['variation_id'];
-
-            // Supprimer la variation
-            $deleted = wp_delete_post($variation_id_to_delete, true);
-
-            if ($deleted) {
-                echo 'La variation a été supprimée avec succès.';
-            } else {
-                echo 'Erreur lors de la suppression de la variation.';
-            }
-        }*/
         } 
         else {
            // echo 'Aucune variation trouvée pour ce produit.';
@@ -133,48 +103,7 @@ class Colors {
 
         }
 //die;
-        // Obtient le nom de l'attribut et sa taxonomie
-       /* $attribute_name = 'Couleur';
-        $taxonomy = wc_attribute_taxonomy_name(strtolower($attribute_name));
 
-        // Vérifie si une variation avec l'attribut 'silver' existe déjà
-        $existing_variation = null;
-        // Nom de l'attribut et couleur à vérifier
-        $attribute_name = 'Couleur';
-        $color_to_check = 'silver';
-
-        // Vérifie si une variation avec l'attribut et la couleur spécifiés existe
-        $variation_exists = false;
-   
-        $i=0;
-        foreach ($product->get_available_variations() as $variation) {
-            if (isset($variation['attributes'][strtolower($attribute_name)]) && $variation['attributes'][strtolower($attribute_name)] == $color_to_check) {
-                $variation_exists = true;
-                var_dump($variation_exists);
-                break;
-            }
-            $i++;
-        }
-        var_dump($i);
-       // die;
-        // Si une variation existe, met à jour ses propriétés
-        if ($existing_variation) {
-            $existing_variation_id = $existing_variation['variation_id'];
-            $variation = new \WC_Product_Variation($existing_variation_id);
-            $variation->set_regular_price('10.00'); // Mettez à jour le prix de la variation si nécessaire
-            $variation->set_stock_quantity(100); // Mettez à jour la quantité en stock si nécessaire
-            $variation->set_manage_stock(true); // Activez ou désactivez la gestion du stock selon vos besoins
-            $variation->save();
-        } else {
-            // Si aucune variation avec l'attribut 'silver' n'existe, crée une nouvelle variation
-            $variation = new \WC_Product_Variation();
-            $variation->set_regular_price('10.00'); // Spécifiez ici le prix de la nouvelle variation
-            $variation->set_stock_quantity(100); // Spécifiez ici la quantité de stock de la nouvelle variation
-            $variation->set_manage_stock(true); // Activez la gestion du stock pour la nouvelle variation
-            $variation->set_parent_id($product_id);
-            $variation->set_attributes(array('pa_' . $attribute_name => 'silver')); // Associe l'attribut à la nouvelle variation
-            $variation->save();
-        }*/
     }
 }
 
