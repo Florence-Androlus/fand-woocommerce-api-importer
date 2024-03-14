@@ -1,0 +1,392 @@
+[
+    {
+        "master_code": "S01183",
+        "master_id": "40007997",
+        "type_of_products": "textile",
+        "commodity_code": "6109 1000",
+        "number_of_print_positions": "5",
+        "country_of_origin": "BD",
+        "brand": "Sol's",
+        "product_name": "REGENT FIT KIDS",
+        "category_code": "MOBTEX_TSHJUN",
+        "product_class": "T-shirt",
+        "length": "0",
+        "length_unit": "cm",
+        "width": "0",
+        "width_unit": "cm",
+        "height": "0",
+        "height_unit": "cm",
+        "volume": "0.23",
+        "volume_unit": "cdm3",
+        "gross_weight": "0.056",
+        "gross_weight_unit": "kg",
+        "net_weight": "0.052",
+        "net_weight_unit": "kg",
+        "inner_carton_quantity": "10",
+        "outer_carton_quantity": "100",
+        "carton_length": "0.4",
+        "carton_length_unit": "m",
+        "carton_width": "0.3",
+        "carton_width_unit": "m",
+        "carton_height": "0.33",
+        "carton_height_unit": "m",
+        "carton_volume": "0.04",
+        "carton_volume_unit": "m3",
+        "carton_gross_weight": "8.94",
+        "carton_gross_weight_unit": "kg",
+        "timestamp": "2024-03-03T16:59:20",
+        "digital_assets": [
+            {
+                "url": "https://cdntest1.midocean.com/document/size-chart/s01183-sizechart.pdf",
+                "type": "document",
+                "subtype": "size_chart"
+            },
+            {
+                "url": "https://cdntest1.midocean.com/document/oeko-tex-certificate/s01183-oekotex.pdf",
+                "type": "document",
+                "subtype": "oeko-tex_certificate"
+            },
+            {
+                "url": "https://cdntest1.midocean.com/document/peta-certificate/s01183-peta.pdf",
+                "type": "document",
+                "subtype": "peta_certificate"
+            }
+        ],
+        "short_description": "REGENT F KIDS T-SHIRT 150g",
+        "long_description": "SOL'S REGENT FIT KIDS, TEE-SHIRT ENFANT COL ROND, 100% coton semi-peigné Ringspun Jersey 150, Bande de propreté au col, Col avec bord côte élasthanne, Manches courtes, Coupé cousu, (1) Anthracite chiné : 60 % coton / 40 % polyester, (2) Gris chiné : 85 % coton / 15 % viscose, (3) Denim chiné : 60 % coton / 40 % polyester, (4) Oxblood chiné : 60 % coton / 40 % polyester, (5) Kaki chiné : 60 % coton / 40 % polyester.Pour la correspondance des tailles, veuillez vous référer au size chart dans la documentation produit.",
+        "gender": "junior",
+        "material": "cotton",
+        "printable": "yes",
+        "variants": [
+            {
+                "variant_id": "10216515",
+                "sku": "S01183-AL-3XL",
+                "release_date": "2023-08-25",
+                "product_proposition_category": "375",
+                "category_level1": "Textile SOLO Group",
+                "category_level2": "Catégorie Textile",
+                "category_level3": "Tee-shirt",
+                "color_description": "Bleu Atoll",
+                "color_group": "Bleu",
+                "plc_status": "16",
+                "plc_status_description": "COLLECTION",
+                "gtin": "3660731177081",
+                "size_textile": "3XL",
+                "color_code": "AL",
+                "pms_color": "637C",
+                "digital_assets": [
+                    {
+                        "url": "https://cdntest1.midocean.com/image/700X700/s01183-al.jpg",
+                        "url_highress": "https://cdntest1.midocean.com/image/original/s01183-al.jpg",
+                        "type": "image",
+                        "subtype": "item_picture_front"
+                    },
+                    {
+                        "url": "https://cdntest1.midocean.com/image/700X700/s01183-al-back.jpg",
+                        "url_highress": "https://cdntest1.midocean.com/image/original/s01183-al-back.jpg",
+                        "type": "image",
+                        "subtype": "item_picture_back"
+                    },
+                    {
+                        "url": "https://cdntest1.midocean.com/image/700X700/s01183-al-side.jpg",
+                        "url_highress": "https://cdntest1.midocean.com/image/original/s01183-al-side.jpg",
+                        "type": "image",
+                        "subtype": "item_picture_side"
+                    },
+                    {
+                        "url": "https://cdntest1.midocean.com/image/700X700/s01183-al-print.jpg",
+                        "url_highress": "https://cdntest1.midocean.com/image/original/s01183-al-print.jpg",
+                        "type": "image",
+                        "subtype": "item_picture_printed"
+                    }
+                ]
+            },
+            {
+                "variant_id": "10216516",
+                "sku": "S01183-AL-4XL",
+                "release_date": "2023-08-25",
+                "product_proposition_category": "375",
+                "category_level1": "Textile SOLO Group",
+                "category_level2": "Catégorie Textile",
+                "category_level3": "Tee-shirt",
+                "color_description": "Bleu Atoll",
+                "color_group": "Bleu",
+                "plc_status": "16",
+                "plc_status_description": "COLLECTION",
+                "gtin": "3660731177180",
+                "size_textile": "4XL",
+                "color_code": "AL",
+                "pms_color": "637C",
+                "digital_assets": [
+                    {
+                        "url": "https://cdntest1.midocean.com/image/700X700/s01183-al.jpg",
+                        "url_highress": "https://cdntest1.midocean.com/image/original/s01183-al.jpg",
+                        "type": "image",
+                        "subtype": "item_picture_front"
+                    },
+                    {
+                        "url": "https://cdntest1.midocean.com/image/700X700/s01183-al-back.jpg",
+                        "url_highress": "https://cdntest1.midocean.com/image/original/s01183-al-back.jpg",
+                        "type": "image",
+                        "subtype": "item_picture_back"
+                    },
+                    {
+                        "url": "https://cdntest1.midocean.com/image/700X700/s01183-al-side.jpg",
+                        "url_highress": "https://cdntest1.midocean.com/image/original/s01183-al-side.jpg",
+                        "type": "image",
+                        "subtype": "item_picture_side"
+                    },
+                    {
+                        "url": "https://cdntest1.midocean.com/image/700X700/s01183-al-print.jpg",
+                        "url_highress": "https://cdntest1.midocean.com/image/original/s01183-al-print.jpg",
+                        "type": "image",
+                        "subtype": "item_picture_printed"
+                    }
+                ]
+            },
+            {
+                "variant_id": "10216517",
+                "sku": "S01183-AL-L",
+                "release_date": "2023-08-25",
+                "product_proposition_category": "375",
+                "category_level1": "Textile SOLO Group",
+                "category_level2": "Catégorie Textile",
+                "category_level3": "Tee-shirt",
+                "color_description": "Bleu Atoll",
+                "color_group": "Bleu",
+                "plc_status": "16",
+                "plc_status_description": "COLLECTION",
+                "gtin": "3660731176848",
+                "size_textile": "L",
+                "color_code": "AL",
+                "pms_color": "637C",
+                "digital_assets": [
+                    {
+                        "url": "https://cdntest1.midocean.com/image/700X700/s01183-al.jpg",
+                        "url_highress": "https://cdntest1.midocean.com/image/original/s01183-al.jpg",
+                        "type": "image",
+                        "subtype": "item_picture_front"
+                    },
+                    {
+                        "url": "https://cdntest1.midocean.com/image/700X700/s01183-al-back.jpg",
+                        "url_highress": "https://cdntest1.midocean.com/image/original/s01183-al-back.jpg",
+                        "type": "image",
+                        "subtype": "item_picture_back"
+                    },
+                    {
+                        "url": "https://cdntest1.midocean.com/image/700X700/s01183-al-side.jpg",
+                        "url_highress": "https://cdntest1.midocean.com/image/original/s01183-al-side.jpg",
+                        "type": "image",
+                        "subtype": "item_picture_side"
+                    },
+                    {
+                        "url": "https://cdntest1.midocean.com/image/700X700/s01183-al-print.jpg",
+                        "url_highress": "https://cdntest1.midocean.com/image/original/s01183-al-print.jpg",
+                        "type": "image",
+                        "subtype": "item_picture_printed"
+                    }
+                ]
+            },
+            {
+                "variant_id": "10216518",
+                "sku": "S01183-AL-M",
+                "release_date": "2023-08-25",
+                "product_proposition_category": "375",
+                "category_level1": "Textile SOLO Group",
+                "category_level2": "Catégorie Textile",
+                "category_level3": "Tee-shirt",
+                "color_description": "Bleu Atoll",
+                "color_group": "Bleu",
+                "plc_status": "16",
+                "plc_status_description": "COLLECTION",
+                "gtin": "3660731176763",
+                "size_textile": "M",
+                "color_code": "AL",
+                "pms_color": "637C",
+                "digital_assets": [
+                    {
+                        "url": "https://cdntest1.midocean.com/image/700X700/s01183-al.jpg",
+                        "url_highress": "https://cdntest1.midocean.com/image/original/s01183-al.jpg",
+                        "type": "image",
+                        "subtype": "item_picture_front"
+                    },
+                    {
+                        "url": "https://cdntest1.midocean.com/image/700X700/s01183-al-back.jpg",
+                        "url_highress": "https://cdntest1.midocean.com/image/original/s01183-al-back.jpg",
+                        "type": "image",
+                        "subtype": "item_picture_back"
+                    },
+                    {
+                        "url": "https://cdntest1.midocean.com/image/700X700/s01183-al-side.jpg",
+                        "url_highress": "https://cdntest1.midocean.com/image/original/s01183-al-side.jpg",
+                        "type": "image",
+                        "subtype": "item_picture_side"
+                    },
+                    {
+                        "url": "https://cdntest1.midocean.com/image/700X700/s01183-al-print.jpg",
+                        "url_highress": "https://cdntest1.midocean.com/image/original/s01183-al-print.jpg",
+                        "type": "image",
+                        "subtype": "item_picture_printed"
+                    }
+                ]
+            },
+            {
+                "variant_id": "10216519",
+                "sku": "S01183-AL-XL",
+                "release_date": "2023-08-25",
+                "product_proposition_category": "375",
+                "category_level1": "Textile SOLO Group",
+                "category_level2": "Catégorie Textile",
+                "category_level3": "Tee-shirt",
+                "color_description": "Bleu Atoll",
+                "color_group": "Bleu",
+                "plc_status": "16",
+                "plc_status_description": "COLLECTION",
+                "gtin": "3660731176923",
+                "size_textile": "XL",
+                "color_code": "AL",
+                "pms_color": "637C",
+                "digital_assets": [
+                    {
+                        "url": "https://cdntest1.midocean.com/image/700X700/s01183-al.jpg",
+                        "url_highress": "https://cdntest1.midocean.com/image/original/s01183-al.jpg",
+                        "type": "image",
+                        "subtype": "item_picture_front"
+                    },
+                    {
+                        "url": "https://cdntest1.midocean.com/image/700X700/s01183-al-back.jpg",
+                        "url_highress": "https://cdntest1.midocean.com/image/original/s01183-al-back.jpg",
+                        "type": "image",
+                        "subtype": "item_picture_back"
+                    },
+                    {
+                        "url": "https://cdntest1.midocean.com/image/700X700/s01183-al-side.jpg",
+                        "url_highress": "https://cdntest1.midocean.com/image/original/s01183-al-side.jpg",
+                        "type": "image",
+                        "subtype": "item_picture_side"
+                    },
+                    {
+                        "url": "https://cdntest1.midocean.com/image/700X700/s01183-al-print.jpg",
+                        "url_highress": "https://cdntest1.midocean.com/image/original/s01183-al-print.jpg",
+                        "type": "image",
+                        "subtype": "item_picture_printed"
+                    }
+                ]
+            }
+        ]   
+    },
+    {
+        "master_code": "AR1470",
+        "master_id": "40000048",
+        "type_of_products": "stock",
+        "commodity_code": "4202 9291",
+        "number_of_print_positions": "3",
+        "country_of_origin": "CN",
+        "brand": "midocean",
+        "product_name": "HIGH PARK",
+        "category_code": "MOBL&G_PIC",
+        "product_class": "Outdoor eating & drinking",
+        "length": "27",
+        "length_unit": "cm",
+        "width": "22",
+        "width_unit": "cm",
+        "height": "40",
+        "height_unit": "cm",
+        "volume": "23.2",
+        "volume_unit": "cdm3",
+        "gross_weight": "2.784",
+        "gross_weight_unit": "kg",
+        "net_weight": "2.678",
+        "net_weight_unit": "kg",
+        "outer_carton_quantity": "5",
+        "carton_length": "0.4",
+        "carton_length_unit": "m",
+        "carton_width": "0.4",
+        "carton_width_unit": "m",
+        "carton_height": "0.64",
+        "carton_height_unit": "m",
+        "carton_volume": "0.102",
+        "carton_volume_unit": "m3",
+        "carton_gross_weight": "13.92",
+        "carton_gross_weight_unit": "kg",
+        "timestamp": "2024-03-03T16:55:03",
+        "digital_assets": [
+            {
+                "url": "https://cdntest1.midocean.com/document/declaration-of-sustainability/ar1470-green.pdf",
+                "type": "document",
+                "subtype": "declaration_of_sustainability"
+            },
+            {
+                "url": "https://cdntest1.midocean.com/document/declaration-of-conformity/ar1470-doc.pdf",
+                "type": "document",
+                "subtype": "declaration_of_conformity"
+            },
+            {
+                "url": "https://cdntest1.midocean.com/document/test-fca/ar1470-test-fca.pdf",
+                "type": "document",
+                "subtype": "test_fca"
+            },
+            {
+                "url": "https://cdntest1.midocean.com/document/test-reach/ar1470-test-reach.pdf",
+                "type": "document",
+                "subtype": "test_reach"
+            }
+        ],
+        "short_description": "Sac de pique-nique",
+        "long_description": "Sac (600D) de pique-nique pour 4 personnes. Inclus: Couverture, porte bouteille et accessoires de table de qualité.",
+        "material": "PET",
+        "printable": "yes",
+        "variants": [
+            {
+                "variant_id": "10151795",
+                "sku": "AR1470-01",
+                "release_date": "2015-01-01",
+                "product_proposition_category": "206",
+                "category_level1": "Sacs & Voyages",
+                "category_level2": "Sacs business",
+                "category_level3": "Sacs",
+                "color_description": "Marron",
+                "color_group": "Brown",
+                "plc_status": "16",
+                "plc_status_description": "COLLECTION",
+                "gtin": "8719941012769",
+                "color_code": "01",
+                "pms_color": "4725C",
+                "digital_assets": [
+                    {
+                        "url": "https://cdntest1.midocean.com/image/700X700/ar1470-01.jpg",
+                        "url_highress": "https://cdntest1.midocean.com/image/original/ar1470-01.jpg",
+                        "type": "image",
+                        "subtype": "item_picture_front"
+                    },
+                    {
+                        "url": "https://cdntest1.midocean.com/image/700X700/ar1470-01-back.jpg",
+                        "url_highress": "https://cdntest1.midocean.com/image/original/ar1470-01-back.jpg",
+                        "type": "image",
+                        "subtype": "item_picture_back"
+                    },
+                    {
+                        "url": "https://cdntest1.midocean.com/image/700X700/ar1470-01-side.jpg",
+                        "url_highress": "https://cdntest1.midocean.com/image/original/ar1470-01-side.jpg",
+                        "type": "image",
+                        "subtype": "item_picture_side"
+                    },
+                    {
+                        "url": "https://cdntest1.midocean.com/image/700X700/ar1470-01-top.jpg",
+                        "url_highress": "https://cdntest1.midocean.com/image/original/ar1470-01-top.jpg",
+                        "type": "image",
+                        "subtype": "item_picture_top"
+                    },
+                    {
+                        "url": "https://cdntest1.midocean.com/image/700X700/ar1470-01-ambiant.jpg",
+                        "url_highress": "https://cdntest1.midocean.com/image/original/ar1470-01-ambiant.jpg",
+                        "type": "image",
+                        "subtype": "item_ambiant_picture"
+                    }
+                ]
+            }
+        ]
+    }
+]
+
+

@@ -1,0 +1,119 @@
+[
+    {
+        "master_code": "AR1249",
+        "master_id": "40000011",
+        "type_of_products": "stock",
+        "commodity_code": "9014 1000",
+        "number_of_print_positions": "4",
+        "country_of_origin": "CN",
+        "brand": "midocean",
+        "product_name": "TARGET",
+        "category_code": "MOBL&G_SRVCOP",
+        "product_class": "Sport & receation accessories",
+        "dimensions": "10,5X8X2 CM",
+        "length": "10.5",
+        "length_unit": "cm",
+        "width": "8",
+        "width_unit": "cm",
+        "height": "2",
+        "height_unit": "cm",
+        "volume": "0.34",
+        "volume_unit": "cdm3",
+        "gross_weight": "0.138",
+        "gross_weight_unit": "kg",
+        "net_weight": "0.111",
+        "net_weight_unit": "kg",
+        "inner_carton_quantity": "10",
+        "outer_carton_quantity": "80",
+        "carton_length": "0.57",
+        "carton_length_unit": "m",
+        "carton_width": "0.24",
+        "carton_width_unit": "m",
+        "carton_height": "0.215",
+        "carton_height_unit": "m",
+        "carton_volume": "0.029",
+        "carton_volume_unit": "m3",
+        "carton_gross_weight": "10.96",
+        "carton_gross_weight_unit": "kg",
+        "timestamp": "2024-03-03T16:55:16",
+        "digital_assets": [
+            {
+                "url": "https://cdntest1.midocean.com/document/declaration-of-sustainability/ar1249-green.pdf",
+                "type": "document",
+                "subtype": "declaration_of_sustainability"
+            },
+            {
+                "url": "https://cdntest1.midocean.com/document/declaration-of-conformity/ar1249-doc.pdf",
+                "type": "document",
+                "subtype": "declaration_of_conformity"
+            },
+            {
+                "url": "https://cdntest1.midocean.com/document/test-reach/ar1249-test-reach.pdf",
+                "type": "document",
+                "subtype": "test_reach"
+            }
+        ],
+        "short_description": "Target Boussole",
+        "long_description": "Boussole classique en aluminium. Livrée en boite métal.",
+        "material": "stainless steel",
+        "printable": "yes",
+        "variants": [
+            {
+                "variant_id": "10134325",
+                "sku": "AR1249-16",
+                "release_date": "2015-01-01",
+                "discontinued_date": "2099-12-31",
+                "product_proposition_category": "308",
+                "category_level1": "Bureau & Ecriture",
+                "category_level2": "Accesoires de bureau",
+                "category_level3": "Lampes de bureau",
+                "color_description": "Mastic",
+                "color_group": "Silver",
+                "plc_status": "16",
+                "plc_status_description": "COLLECTION",
+                "gtin": "8719941007840",
+                "color_code": "16",
+                "pms_color": "SILVER",
+                "digital_assets": [
+                    {
+                        "url": "https://cdntest1.midocean.com/image/700X700/ar1249-16.jpg",
+                        "url_highress": "https://cdntest1.midocean.com/image/original/ar1249-16.jpg",
+                        "type": "image",
+                        "subtype": "item_picture_front"
+                    },
+                    {
+                        "url": "https://cdntest1.midocean.com/image/700X700/ar1249-16-side.jpg",
+                        "url_highress": "https://cdntest1.midocean.com/image/original/ar1249-16-side.jpg",
+                        "type": "image",
+                        "subtype": "item_picture_side"
+                    },
+                    {
+                        "url": "https://cdntest1.midocean.com/image/700X700/ar1249-16-open.jpg",
+                        "url_highress": "https://cdntest1.midocean.com/image/original/ar1249-16-open.jpg",
+                        "type": "image",
+                        "subtype": "item_picture_open"
+                    },
+                    {
+                        "url": "https://cdntest1.midocean.com/image/700X700/ar1249-16-print.jpg",
+                        "url_highress": "https://cdntest1.midocean.com/image/original/ar1249-16-print.jpg",
+                        "type": "image",
+                        "subtype": "item_picture_printed"
+                    },
+                    {
+                        "url": "https://cdntest1.midocean.com/image/700X700/ar1249-16-ambiant.jpg",
+                        "url_highress": "https://cdntest1.midocean.com/image/original/ar1249-16-ambiant.jpg",
+                        "type": "image",
+                        "subtype": "item_ambiant_picture"
+                    },
+                    {
+                        "url": "https://cdntest1.midocean.com/image/700X700/ar1249-16-box.jpg",
+                        "url_highress": "https://cdntest1.midocean.com/image/original/ar1249-16-box.jpg",
+                        "type": "image",
+                        "subtype": "item_picture_box"
+                    }
+                ]
+            }
+        ]
+    }
+]
+

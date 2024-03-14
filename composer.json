@@ -1,0 +1,17 @@
+{
+    "name": "androlus/fand-woocommerce-api-importer",
+    "authors": [
+        {
+            "name": "Androlus Florence",
+            "email": "contact@fan-develop.fr"
+        }
+    ],
+
+    "autoload": {
+        "psr-4": {"fwai\\": "."}   
+    },
+
+    "require": {
+        "automattic/woocommerce": "^3.1"
+    }
+}
