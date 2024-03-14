@@ -1,1 +1,9 @@
-/vendor
+# on gitignore le dossier wp A LA RACINE du projet (préfixe "/")
+/wp
+/wp-config.php
+
+# on gitignore tous les dossiers nommés "vendor" (même dans les sous-dossiers => pas de chemin précisé avec "/" par ex.)
+vendor/
+node_modules/
+dist/
+.cache/
