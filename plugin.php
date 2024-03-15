@@ -1,6 +1,8 @@
 <?php
 
 namespace fwai;
+
+use fwai\Classes\Api;
 use fwai\Classes\Products;
 use fwai\Classes\Colors;
 
@@ -16,6 +18,8 @@ class FWAISettingsPage {
     }
 
     public function woocommerce_api_import_products() {
+
+        Api::json_api_test();
         // JSON data containing product information
         $file_path = ABSPATH . 'wp-content/plugins/fand-woocommerce-api-importer/produitunique.json';
         $json = file_get_contents($file_path);
