@@ -78,7 +78,6 @@ class Products {
         $variant = $product['variants'][0];
         categorys($product_id,$variant);
         colors($product_id,$product['variants']);
-
     }
 }
 
@@ -121,8 +120,9 @@ function colors($product_id,$variant){
 function galery_image($variants, $product_id) {
     
     $productImages = $variants;
+    var_dump($productImages[0]['subtype']);
 
-if (empty($existing_attachments)) {
+
     // Add images to the product gallery
     if (!empty($productImages)) {
         $galleryImages = array();
@@ -135,7 +135,8 @@ if (empty($existing_attachments)) {
     
             $imageType = $image['subtype'];
             $upload_dir = wp_upload_dir();
-            $thumbnail_dir = $upload_dir['path'] . '/' .$fileName;
+            $thumbnail_dir = $upload_dir['url'] . '/' .$fileName;
+
             // Check if the image already exists in the media library
             $existing_attachment_id = attachment_url_to_postid($thumbnail_dir);
 
@@ -194,7 +195,7 @@ if (empty($existing_attachments)) {
         update_post_meta($product_id, '_product_image_gallery', implode(',', $galleryImages));
     }
 }
-}
+
 
 
 
