@@ -21,7 +21,8 @@ class FWAISettingsPage {
     public function woocommerce_api_import_products() {
 
       //  Api::json_api_test();
-        //fand_ppom::add_groupe();
+        fand_ppom::ppom_exist();
+      //  die;
         // JSON data containing product information
         $file_path = ABSPATH . 'wp-content/plugins/fand-woocommerce-api-importer/produitunique.json';
         $json = file_get_contents($file_path);
