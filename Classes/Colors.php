@@ -8,6 +8,8 @@ class Colors {
     public static function add_colors($product_id) {
         // Obtient l'objet produit variable
         $product = wc_get_product($product_id);
+        //var_dump($product);
+        //die;
         // Récupérer toutes les variations du produit
         $variations = get_posts(array(
             'post_type' => 'product_variation',
