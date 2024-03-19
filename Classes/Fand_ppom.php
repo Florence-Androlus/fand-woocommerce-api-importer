@@ -61,6 +61,150 @@ class fand_ppom{
 
    // ajout champs ppom
    static function update_ppom_field($ppom_id){
+    global $wpdb;
+// Récupérer les données existantes de la base de données
+
+$table_name = $wpdb->prefix . 'nm_personalized';
+
+$query = $wpdb->prepare(
+    "SELECT `the_meta` FROM `$table_name` WHERE `productmeta_id` = %d",
+    $ppom_id
+);
+
+$existing_data = $wpdb->get_var($query);
+//var_dump($existing_data);
+// Convertir les données existantes en tableau PHP
+$existing_data_array = json_decode($existing_data, true);
+//var_dump($existing_data_array);
+
+
+// Ajouter les nouvelles données
+$new_data = array(
+    "2" => array(
+        "type" => "image",
+        "title" => "option",
+        "data_name" => "option",
+        "description" => "",
+        "error_message" => "",
+        "class" => "",
+        "width" => "12",
+        "selected_img_bordercolor" => "",
+        "images" => array(
+            array(
+                "link" => "http://localhost/ecommerce/wp-content/uploads/2024/03/AR1249-16_POS1.jpg",
+                "id" => "2436",
+                "title" => "AR1249-16_POS1",
+                "price" => "",
+                "stock" => "",
+                "url" => ""
+            ),
+            array(
+                "link" => "http://localhost/ecommerce/wp-content/uploads/2024/03/imageZone-2249578-1.jpg",
+                "id" => "2443",
+                "title" => "imageZone-2249578-1",
+                "price" => "",
+                "stock" => "",
+                "url" => ""
+            ),
+            array(
+                "link" => "http://localhost/ecommerce/wp-content/uploads/2024/03/AR1249-16_POS3.jpg",
+                "id" => "2438",
+                "title" => "AR1249-16_POS3",
+                "price" => "",
+                "stock" => "",
+                "url" => ""
+            ),
+            array(
+                "link" => "http://localhost/ecommerce/wp-content/uploads/2024/03/AR1249-16_POS4.jpg",
+                "id" => "2437",
+                "title" => "AR1249-16_POS4",
+                "price" => "",
+                "stock" => "",
+                "url" => ""
+            )
+        ),
+        "selected" => "",
+        "image_width" => "",
+        "image_height" => "",
+        "min_checked" => "",
+        "max_checked" => "",
+        "visibility" => "everyone",
+        "visibility_role" => "",
+        "conditions" => array(
+            "visibility" => "Show",
+            "bound" => "All",
+            "rules" => array(
+                array(
+                    "elements" => "zone_de_marquages_du_goodies_publicitaire",
+                    "operators" => "is"
+                )
+            )
+        ),
+        "status" => "on",
+        "ppom_id"=>"$ppom_id"
+    )
+);
+
+// Nom que vous souhaitez vérifier s'il existe déjà
+$data_name_to_check = $new_data[2]['data_name'];
+//var_dump($data_name_to_check);
+// Définir une variable pour indiquer si le nom existe déjà
+$data_name_exists = false;
+
+// Parcourir les éléments du tableau existant
+foreach ($existing_data_array as $item) {
+//    var_dump($existing_data_array);
+//    var_dump($item);
+    // Vérifier si le data_name correspond
+    if ($item['data_name'] === $data_name_to_check) {
+        // Le data_name existe déjà dans le tableau
+        $data_name_exists = true;
+        break; // Sortir de la boucle dès que le nom est trouvé
+    }
+}
+
+// Maintenant, $data_name_exists indiquera si le data_name existe déjà dans le tableau
+if ($data_name_exists) {
+    echo "Le data_name existe déjà dans le tableau.";
+}
+else {
+// Fusionner les données existantes avec les nouvelles données
+$merged_data = array_merge($existing_data_array, $new_data);
+//var_dump($merged_data);
+// Créer un nouveau tableau commençant à l'index 1
+$new_merged_data = array();
+$i = 1;
+foreach ($merged_data as $key => $value) {
+   // var_dump($value);
+
+    $new_merged_data[$i++] = $value;
+}
+
+// Convertir le nouveau tableau en chaîne JSON (objet)
+$json_data_string = json_encode($merged_data, JSON_FORCE_OBJECT);
+
+// Mettre à jour la base de données avec les nouvelles données JSON
+$query_update = $wpdb->prepare(
+    "UPDATE `$table_name` SET `the_meta` = %s WHERE `productmeta_id` = %d",
+    $json_data_string,
+    $ppom_id
+);
+
+$result_update = $wpdb->query($query_update);
+
+    echo "Le data_name n'existe pas encore dans le tableau.";
+
+//die;
+
+if ($result_update === false) {
+    // Une erreur s'est produite lors de l'exécution de la requête SQL
+    // Gérer l'erreur ici
+} else {
+    // La requête SQL a été exécutée avec succès
+    // Faire quelque chose ici si nécessaire
+}
+}
+    /*
 
    // var_dump($ppom_id);
      // Données à insérer dans le champ meta
@@ -80,7 +224,7 @@ class fand_ppom{
  //var_dump($ppom_meta);
 
       // Insérer les données dans le champ meta
-    //  $json_data = '{"1":{"type":"collapse","title":"ZONE DE MARQUAGES DU GOODIES PUBLICITAIRE","data_name":"zone_de_marquages_du_goodies_publicitaire","collapse_type":"start","conditions":{"visibility":"Show","bound":"All","rules":[{"elements":"zone_de_marquages_du_goodies_publicitaire","operators":"is"}]},"status":"on","ppom_id":"' . $ppom_id . '"},"2":{"type":"image","title":"option","data_name":"option","description":"","error_message":"","class":"","width":"12","selected_img_bordercolor":"","images":[{"link":"http://localhost/ecommerce/wp-content/uploads/2024/03/AR1249-16_POS1.jpg","id":"2436","title":"AR1249-16_POS1","price":"","stock":"","url":""},{"link":"http://localhost/ecommerce/wp-content/uploads/2024/03/imageZone-2249578-1.jpg","id":"2443","title":"imageZone-2249578-1","price":"","stock":"","url":""},{"link":"http://localhost/ecommerce/wp-content/uploads/2024/03/AR1249-16_POS3.jpg","id":"2438","title":"AR1249-16_POS3","price":"","stock":"","url":""},{"link":"http://localhost/ecommerce/wp-content/uploads/2024/03/AR1249-16_POS4.jpg","id":"2437","title":"AR1249-16_POS4","price":"","stock":"","url":""}],"selected":"","image_width":"","image_height":"","min_checked":"","max_checked":"","visibility":"everyone","visibility_role":"","conditions":{"visibility":"Show","bound":"All","rules":[{"elements":"zone_de_marquages_du_goodies_publicitaire","operators":"is"}]},"status":"on","ppom_id":"' . $ppom_id . '"}}';
+      $json_data = '{"1":{"type":"collapse","title":"ZONE DE MARQUAGES DU GOODIES PUBLICITAIRE","data_name":"zone_de_marquages_du_goodies_publicitaire","collapse_type":"start","conditions":{"visibility":"Show","bound":"All","rules":[{"elements":"zone_de_marquages_du_goodies_publicitaire","operators":"is"}]},"status":"on","ppom_id":"' . $ppom_id . '"},"2":{"type":"image","title":"option","data_name":"option","description":"","error_message":"","class":"","width":"12","selected_img_bordercolor":"","images":[{"link":"http://localhost/ecommerce/wp-content/uploads/2024/03/AR1249-16_POS1.jpg","id":"2436","title":"AR1249-16_POS1","price":"","stock":"","url":""},{"link":"http://localhost/ecommerce/wp-content/uploads/2024/03/imageZone-2249578-1.jpg","id":"2443","title":"imageZone-2249578-1","price":"","stock":"","url":""},{"link":"http://localhost/ecommerce/wp-content/uploads/2024/03/AR1249-16_POS3.jpg","id":"2438","title":"AR1249-16_POS3","price":"","stock":"","url":""},{"link":"http://localhost/ecommerce/wp-content/uploads/2024/03/AR1249-16_POS4.jpg","id":"2437","title":"AR1249-16_POS4","price":"","stock":"","url":""}],"selected":"","image_width":"","image_height":"","min_checked":"","max_checked":"","visibility":"everyone","visibility_role":"","conditions":{"visibility":"Show","bound":"All","rules":[{"elements":"zone_de_marquages_du_goodies_publicitaire","operators":"is"}]},"status":"on","ppom_id":"' . $ppom_id . '"}}';
   //  $result = $wpdb->prepare("UPDATE `wp_nm_personalized` SET `the_meta` = '{"2": {"type":"collapse", "title":"fin", "data_name":"fin", "collapse_type":"end", "conditions": {"visibility":"Show", "bound":"All", "rules": [ {"elements":"zone_de_marquages_du_goodies_publicitaire", "operators":"is" } ] }, "status":"off", "ppom_id":"' . $ppom_id . '" } }' WHERE `wp_nm_personalized`.`productmeta_id` = 5");
     // Exécuter la requête
  //   $ppom_id = $wpdb->get_var($result);
@@ -106,6 +250,6 @@ $result_update = $wpdb->query($query_update);
         // La requête SQL a été exécutée avec succès
         // Faire quelque chose ici si nécessaire
     }
-   }
+   }*/
 }
 }
