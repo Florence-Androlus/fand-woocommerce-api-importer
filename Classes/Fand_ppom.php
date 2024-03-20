@@ -165,7 +165,7 @@ foreach ($existing_data_array as $item) {
 
 // Maintenant, $data_name_exists indiquera si le data_name existe déjà dans le tableau
 if ($data_name_exists) {
-    echo "Le data_name existe déjà dans le tableau.";
+   // echo "Le data_name existe déjà dans le tableau.";
 }
 else {
 // Fusionner les données existantes avec les nouvelles données
@@ -192,7 +192,7 @@ $query_update = $wpdb->prepare(
 
 $result_update = $wpdb->query($query_update);
 
-    echo "Le data_name n'existe pas encore dans le tableau.";
+ //   echo "Le data_name n'existe pas encore dans le tableau.";
 
 //die;
 

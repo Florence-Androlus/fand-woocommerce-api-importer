@@ -10,9 +10,17 @@ class Products {
 // Check if WooCommerce is active
     static function add_product($product)
     {
+       // var_dump($product);
+        // Vérifier si le produit a un nom
+        if (!array_key_exists('product_name', $product)) {
+            // Gérer l'erreur ici, par exemple, enregistrer un message d'erreur ou lever une exception
+            return; // Quitter la fonction sans ajouter le produit
+        }
+
         // Access the product data
         $productName = $product['product_name'];
-        $productDescription = $product['long_description'];
+        $productDescription = isset($product['long_description']) ? $product['long_description'] : '';
+
 
         // insert product
         $product_id = wp_insert_post( array(
@@ -39,10 +47,6 @@ class Products {
         update_post_meta($product_id, '_gross_weight', $productGrossWeight);
         update_post_meta($product_id, '_regular_price', $regularPrice);
 
-
-        // gestion de la galerie d'image du produit
-        $variant = $product['variants'][0]['digital_assets'];
-        galery_image($variant,$product_id);
     }
 
 
@@ -50,12 +54,16 @@ class Products {
     {
 
         // Access the product data
-        $productCode = $product['master_code'];
         $productName = $product['product_name'];
-        $productDescription = $product['long_description'];
+        if (array_key_exists('long_description', $product)) {
+            $productDescription = $product['long_description'];
+        } else {
+            // Gérer l'erreur ici, par exemple, attribuer une valeur par défaut à $productName
+            $productDescription = '';
+        }
+
 
         //insert les informations produits
-        $productCode = $product['master_code'];
         $productShortDescription = $product['short_description'];
         $productLength = $product['length'];
         $productWidth = $product['width'];
@@ -66,7 +74,6 @@ class Products {
         // Définir le type de produit sur "variable"
         wp_set_object_terms($product_id, 'variable', 'product_type');
         update_post_meta($product_id, '_short_description', $productShortDescription);
-        update_post_meta($product_id, '_sku', $productCode);
         update_post_meta($product_id, '_length', $productLength);
         update_post_meta($product_id, '_width', $productWidth);
         update_post_meta($product_id, '_height', $productHeight);
@@ -76,12 +83,17 @@ class Products {
 
         // Access the variations data
         $variant = $product['variants'][0];
-        categorys($product_id,$variant);
-        colors($product_id,$product['variants']);
+        // colors($product_id,$product['variants']);
     }
-}
+    static function delete_product_by_name($product_id)
+    {
+   
+            // Supprimer le produit en utilisant son ID
+            wp_delete_post($product_id, true); // true pour forcer la suppression définitive
+            
+    }
 
-function categorys($product_id,$variant){
+static function categorys($product_id,$variant){
     // Trouver les clés contenant le mot "category"
     $category_keys = array_filter(array_keys($variant), function($key) {
         return strpos($key, 'category') === 0;
@@ -98,7 +110,7 @@ function categorys($product_id,$variant){
     }
 }
 
-function colors($product_id,$variant){
+static function colors($product_id,$variant){
    
     // Trouver les clés contenant le mot "couleur"
     $color_keys = array_filter(array_keys($variant[0]), function($key) {
@@ -117,11 +129,11 @@ function colors($product_id,$variant){
 }
 
 
-function galery_image($variants, $product_id) {
+static function galery_image($variants, $product_id) {
     
     $productImages = $variants;
-    var_dump($productImages[0]['subtype']);
-
+   // var_dump($productImages[0]['subtype']);
+ 
 
     // Add images to the product gallery
     if (!empty($productImages)) {
@@ -131,12 +143,15 @@ function galery_image($variants, $product_id) {
 
             // Generate a unique file name
             $productName = $image['subtype']; 
-            $fileName = $productName . '.jpg';
-    
+            $url = $image['url']; 
+            $fileName =basename($url);
+          //  var_dump($fileName);
+         
             $imageType = $image['subtype'];
             $upload_dir = wp_upload_dir();
             $thumbnail_dir = $upload_dir['url'] . '/' .$fileName;
-
+          //  var_dump($thumbnail_dir);
+ 
             // Check if the image already exists in the media library
             $existing_attachment_id = attachment_url_to_postid($thumbnail_dir);
 
@@ -150,7 +165,9 @@ function galery_image($variants, $product_id) {
 
                     // Upload the image to the media library
                     $upload = wp_upload_bits($fileName, null, $imageData);
-
+                 //   var_dump($imageData);
+                 //   var_dump($upload);
+                  //  die;
                     // Check if the upload was successful
                     if (!$upload['error']) {
                         // Create attachment post
@@ -196,7 +213,7 @@ function galery_image($variants, $product_id) {
     }
 }
 
-
+}
 
 
 

@@ -4,7 +4,7 @@ namespace fwai\Classes;
 
 class Api {
     // api test
-    static function json_api_test()
+    static function json_api_test_product()
     {
         ini_set('memory_limit', '256M');
         // recuperation des données via l'api
@@ -22,7 +22,7 @@ class Api {
                 $body = wp_remote_retrieve_body($response);
                 $data = json_decode($body, true);
                // retour fichier json 
-                var_dump($data);
+                return $data;
             }
 
     }
