@@ -2,9 +2,6 @@
 
 namespace fwai;
 
-use fwai\Classes\fand_ppom;
-use fwai\Classes\Api;
-use fwai\Classes\Colors;
 use fwai\Classes\Products;
 use fwai\Classes\Router;
 
