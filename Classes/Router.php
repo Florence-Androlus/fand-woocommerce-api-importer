@@ -18,7 +18,8 @@ class Router {
         // Vérifier si les données de l'API ont déjà été récupérées
         if (self::$apiData === null) {
             // Si non, récupérer les données de l'API et les stocker dans la propriété statique
-            self::$apiData = Api::json_api_test_product();
+            self::$apiData = Api::json_product();
+            //self::$apiData = Api::json_api_test_product();
             //self::$apiData = Api::json_api_product();
         }
         // objectif :
