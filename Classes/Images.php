@@ -45,11 +45,10 @@ class Images {
                     $galleryImages[] = $existing_attachment_id;
                 }
             }   
-
         }
         // mets a jour la galerie d'images du produit
         update_post_meta($product_id, '_product_image_gallery', implode(',', $galleryImages));
-        //die;
+       // die;
     }
 
     static function add_image($url,$product_id) {
@@ -95,29 +94,16 @@ class Images {
 
                     $attachment_id = wp_insert_attachment($attachment, $upload['file'], $product_id);
                     wp_get_attachment_image_src($attachment_id, 'full');
+                    
                     // on génére également les miniatures associées
                     require_once( ABSPATH . 'wp-admin/includes/image.php' );
                     $attachment_data = wp_generate_attachment_metadata($attachment_id, $thumbnail_dir);
                     wp_update_attachment_metadata($attachment_id, $attachment_data);
-                    // Récupérer les métadonnées actuelles de l'image
-                   /* $image_meta = wp_get_attachment_metadata($attachment_id);
-
-                    // Mettre à jour le champ alt de l'image
-                    $image_meta['image_meta']['alt'] = $alt_text;
-
-                    // Mettre à jour la description de l'image dans la bibliothèque des médias
-                    $image_post = array(
-                        'ID'           => $attachment_id,
-                        'post_content' => $alt_text,
-                    );
-
-                    wp_update_post($image_post);
-
-                    // Enregistrer les métadonnées mises à jour
-                    wp_update_attachment_metadata($attachment_id, $image_meta);*/
+                
                     return $attachment_id;
                 }
             }
+
         }
     }
 
@@ -139,22 +125,7 @@ class Images {
             }
         }
         $alt_text = $product_title.' '.$filename;
-        // Récupérer les métadonnées actuelles de l'image
-        /*$image_meta = wp_get_attachment_metadata($existing_attachment_id);
-
-        // Mettre à jour le champ alt de l'image
-        $image_meta['image_meta']['alt'] = $alt_text;
-
-        // Mettre à jour la description de l'image dans la bibliothèque des médias
-        $image_post = array(
-            'ID'           => $existing_attachment_id,
-            'post_content' => $alt_text,
-        );
-
-        wp_update_post($image_post);
-
-        // Enregistrer les métadonnées mises à jour
-        wp_update_attachment_metadata($existing_attachment_id, $image_meta);*/
+        //var_dump($alt_text);
         // Mettre à jour les informations de l'image
         wp_update_post(array(
             'ID' => $existing_attachment_id,
@@ -163,6 +134,8 @@ class Images {
             'width' => 700, // Largeur souhaitée de l'image
             'height' => 700, // Hauteur souhaitée de l'image
         ));
+        // Insert the _wp_attachment_image_alt meta field
+        update_post_meta($existing_attachment_id, '_wp_attachment_image_alt', $alt_text);
 
     }
 
