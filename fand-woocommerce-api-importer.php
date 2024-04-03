@@ -25,6 +25,7 @@ define('FWAI_MAIN_FILE', __FILE__);
 define( 'FWAI_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'FWAI_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 
+
 /* If this file is called directly, abort.*/
 if ( ! defined( 'WPINC' ) ) {
 	die;

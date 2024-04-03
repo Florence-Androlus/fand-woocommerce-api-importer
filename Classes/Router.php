@@ -1,7 +1,5 @@
 <?php
-
 namespace fwai\Classes;
-use fwai\Classes\Api;
 
 class Router {
     // Définir une propriété statique pour stocker les données de l'API
@@ -29,6 +27,7 @@ class Router {
         // 2e argument : URL réelle correspondant à la "fausse URL" de l'argument 1 
         // 1. ajout de la réécriture = on permet à WP de reconnaître notre URL custom :  
         add_rewrite_rule('product', 'index.php?fwai-page=product', 'top');  
+        add_rewrite_rule('variations', 'index.php?fwai-page=variations', 'top');  
         add_rewrite_rule('category', 'index.php?fwai-page=category', 'top'); 
         add_rewrite_rule('images', 'index.php?fwai-page=images', 'top');   
         
@@ -57,26 +56,7 @@ class Router {
                 if (is_array($data)) {
                     foreach ($data as $product) {
                         // Accéder aux données du produit
-                        if (array_key_exists('master_code', $product)) {
-
-                            $productCode = $product['master_code'];
-                            //var_dump($productCode);
-                        } else {
-                            // Gérer l'erreur ici, par exemple, attribuer une valeur par défaut à $productCode
-                            continue;
-                        }
-     
-                        // Vérifier si le produit existe déjà
-                        global $wpdb;
-
-                        // Requête SQL pour rechercher le post avec le SKU spécifié
-                        // Le produit a été trouvé, retourner l'id du produit correspondant
-                        $product_id = $wpdb->get_var($wpdb->prepare(
-                            "SELECT post_id FROM $wpdb->postmeta WHERE meta_key='_sku' AND meta_value=%s",
-                            $productCode
-                        ));
-
- 
+                        $product_id=self::product_exist($product);
 
                         if ($product_id) {
                           //  Products::delete_product_by_name($product_id);
@@ -97,6 +77,36 @@ class Router {
                 // si c'est le cas, on réagit en conséquence
                 wp_redirect(home_url('wp-admin/admin.php?page=fwai-settings'));
             } 
+            else if (get_query_var('fwai-page') == 'variations') {
+                var_dump('ajout variations');
+                $compteur = 0;
+                $data = self::getApiData();
+                if (is_array($data)) {
+                    foreach ($data as $product) {
+                        $product_id=self::product_exist($product);
+                       // var_dump($product_id);
+                        $variant=$product['variants'];
+                        //var_dump($variant);
+
+                        // Trouver les clés contenant le mot "couleur"
+                        $color_keys = array_filter(array_keys($variant[0]), function($key) {
+                            return strpos($key, 'color_group') === 0;
+                        });
+                      //  var_dump($variant[0]['color_group']);
+
+                        // Vérifier si des couleurs ont été trouvées
+                        if (count($color_keys) > 0) {
+                            Colors::add_colors($product_id,$variant);
+                        } 
+                        else 
+                        {
+                            var_dump("Aucune couleurs trouvée dans le tableau.");
+                        }
+                    }
+                }
+                // si c'est le cas, on réagit en conséquence
+                wp_redirect(home_url('wp-admin/admin.php?page=fwai-settings'));
+            }
             else if (get_query_var('fwai-page') == 'category') {
                 $compteur=0;
                 //$data=Api::json_api_test_product();
@@ -105,16 +115,9 @@ class Router {
                 if (is_array($data)) {
                     foreach ($data as $product) {
                         // Access the product data
-                        if (array_key_exists('product_name', $product)) {
-                            $productname = $product['product_name'];
-                        } else {
-                            continue;
-                        }
-                        // Check if the product already exists
-                        $existing_product = get_page_by_title($productname, OBJECT, 'product');
+                        $product_id=self::product_exist($product);
         
-                        if ($existing_product) {
-                            $product_id=$existing_product->ID;
+                        if ($product_id) {
                             $variant = $product['variants'][0];
                             // Trouver les clés contenant le mot "category"
                             $category_keys = array_filter(array_keys($variant), function($key) {
@@ -148,16 +151,9 @@ class Router {
                     foreach ($data as $product) {
                        // Images::delete_all_media();
                         // Access the product data
-                        if (array_key_exists('product_name', $product)) {
-                            $productname = $product['product_name'];
-                        } else {
-                            continue;
-                        }
-                        // Vérifie si le produit existe déjà
-                        $existing_product = get_page_by_title($productname, OBJECT, 'product');
+                        $product_id=self::product_exist($product);
 
-                        if ($existing_product) {
-                            $product_id=$existing_product->ID;
+                        if ($product_id) {
                             // gestion de la galerie d'image du produit
                             $variant = $product['variants'][0];
 
@@ -190,5 +186,30 @@ class Router {
                 return $template;
             }
         } );
+    }
+
+    static function product_exist($product){
+        // Accéder aux données du produit
+        if (array_key_exists('master_code', $product)) {
+
+            $productCode = $product['master_code'];
+            //var_dump($productCode);
+        } else {
+            // Gérer l'erreur ici, par exemple, attribuer une valeur par défaut à $productCode
+            return;
+        }
+
+        // Vérifier si le produit existe déjà
+        global $wpdb;
+
+        // Requête SQL pour rechercher le post avec le SKU spécifié
+        // Le produit a été trouvé, retourner l'id du produit correspondant
+        $product_id = $wpdb->get_var($wpdb->prepare(
+            "SELECT post_id FROM $wpdb->postmeta WHERE meta_key='_sku' AND meta_value=%s",
+            $productCode
+        ));
+       // var_dump($productCode);
+       // var_dump($product_id);
+        return $product_id;
     }
 }

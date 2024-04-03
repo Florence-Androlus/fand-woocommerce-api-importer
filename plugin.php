@@ -2,6 +2,7 @@
 
 namespace fwai;
 
+use fwai\Classes\Database;
 use fwai\Classes\Products;
 use fwai\Classes\Router;
 
@@ -12,11 +13,12 @@ class fwaiSettingsPage {
         ini_set('memory_limit', '-1'); 
      //   add_action( 'init', [$this,'woocommerce_api_import_products'] );
 		// Register the settings page.
-		add_action( 'admin_menu', array( $this, 'register_settings' ) );
+		add_action( 'admin_menu', [$this, 'register_settings' ] );
 		// on ajoute nos URL custom
 		add_action('init', [$this, 'registerCustomRewrites']);
     }
-
+	
+	// Fonction ajout des URL custom
     public function registerCustomRewrites()
     {
         Router::init();
@@ -77,6 +79,16 @@ class fwaiSettingsPage {
 												<form id="form" name="form" enctype="multipart/form-data" method="post" action="<?= home_url('product') ?>">
 													<input type="hidden" name="action" value="add">
 													<button type="submit">Ajout des produits</button>
+													</div>						
+												</form>	
+											</div>	
+										</div>
+                                        <div class="div_saut_ligne" style="height:50px;">
+                                        <div class="centre">
+											<div class="titre_centre">
+												<form id="form" name="form" enctype="multipart/form-data" method="post" action="<?= home_url('variations') ?>">
+													<input type="hidden" name="action" value="add">
+													<button type="submit">Ajout variations produit</button>
 													</div>						
 												</form>	
 											</div>	
