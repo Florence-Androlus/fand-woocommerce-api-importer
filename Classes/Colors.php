@@ -96,11 +96,6 @@ class Colors {
                 $variation_id = $variation->save();
                 var_dump($variation);
                 die;
-                if ($variation_id) {
-                    echo "La variation avec l'attribut '$nom_attribut' et le terme '$term' a été ajoutée avec succès.";
-                } else {
-                    echo "Erreur lors de l'ajout de la variation.";
-                }*/
             }
             // Rendre la variation visible en définissant la visibilité du produit parent
             $product = wc_get_product($product_id);
