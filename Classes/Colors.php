@@ -39,13 +39,21 @@ class Colors {
             var_dump('contient déjà l\'attribut');
             $sku=$variant[0]['sku'];
             // Obtenez l'ID de la variation existante avec les mêmes attributs
-            $variation_id = self::get_variation_id_with_attributes($sku, $attribut_slug, $term);
-            var_dump($variation_id);
+            $variations = self::get_variation_id_with_attributes($product_id, $attribut_slug, $term);
+            var_dump($variations);
             var_dump($product_id);
             var_dump($attribut_slug);
             var_dump($term);
-            if ($variation_id) {
+            if ($variations) {
                 var_dump('existe');
+                foreach ($variations as $variation_id) {
+                    // Instancier la variation en utilisant son ID
+                    $variation = new WC_Product_Variation($variation_id);
+                    $attributes = $variation->get_attributes();
+                    $sku = $variation->get_sku();
+                    var_dump($sku);
+                }
+
                 die;
                 // Mettez à jour la variation existante
                 $variation_data = new WC_Product_Variation($variation_id);
@@ -59,48 +67,29 @@ class Colors {
                 // Récupérer l'ID de l'attribut de couleur (s'il existe)
                 $attribute_id = wc_attribute_taxonomy_id_by_name($nom_attribut);
                 // La variation n'existe pas, créer une nouvelle variation
-                $variation_data = [
-                    'attributes' => [
+                $variation_data = array(
+                    'attributes' => array(
                         $attribut_slug => $term_slug,
-                    ],
+                    ),
                     'regular_price' => '8,34', // Remplacez par le prix régulier de la variation
                     'sku' => $variant[0]['sku'], // Remplacez par le SKU de la variation
                     'stock_quantity'=>'100',
                     'manage_stock'=>'true',
                     'parent_id'=>$product_id,
                     // Ajoutez d'autres propriétés de la variation si nécessaire
-                ];
+                );
              
                 // Créer la nouvelle variation
                 $variation = new WC_Product_Variation();
                 $variation->set_props($variation_data);
                 $variation->set_parent_id($product_id);
                 $variation->save();
-                /*
-                // Créez une nouvelle variation
-                $variation = new \WC_Product_Variation();
-
-                // Configurez les attributs de la nouvelle variation
-                //$variation->set_title($sku);
-                $variation->set_sku($sku);
-                $variation->set_regular_price('8,34');
-                $variation->set_stock_quantity(100);
-                $variation->set_manage_stock(true);
-                $variation->set_parent_id($product_id);
-
-                $taxonomy = wc_attribute_taxonomy_name(strtolower($nom_attribut));
-                // Associe l'attribut de couleur à la variation
-                // $variation->set_attributes(array($taxonomy => $term));
-
-                // Enregistrez la nouvelle variation
-                $variation_id = $variation->save();
-                var_dump($variation);
-                die;
             }
             // Rendre la variation visible en définissant la visibilité du produit parent
             $product = wc_get_product($product_id);
             $product->set_catalog_visibility('visible');
             $product->save();
+            die;
         }
          else {
             var_dump("ne contient pas l'attribut");
@@ -202,41 +191,32 @@ class Colors {
     }
 
     // Fonction pour obtenir l'ID de la variation avec les mêmes attributs
-    static function get_variation_id_with_attributes($sku, $nom_attribut, $term) {
-            // Vérifier si le terme existe déjà
-            $term_id = term_exists($term, sanitize_title($nom_attribut));
-            //var_dump($nom_attribut);
-            //var_dump( $term_id);
-            // Si le terme n'existe pas, l'ajouter
-            if (!$term_id) {
-                $term_id = wp_insert_term($term, sanitize_title($nom_attribut));
-            }
-        var_dump($term_id);
-        if ($term_id) {
-            $variation_data = new \WC_Product_Variable;
-        //    var_dump($variation_data);
-            $variations =$variation_data->get_available_variations();
+    static function get_variation_id_with_attributes($product_id, $nom_attribut, $term) {
+            $variation_ids = [];
+            $product = wc_get_product($product_id);
+            $variations = $product->get_children();
+
             var_dump($variations);
-            if (empty($variation)){
-                var_dump('Variation pour ce term existe pas');
+
+            if (empty($variations)){
+                var_dump('Variation pour ce produit existe pas');
                 return false;
             }
             else{
-                var_dump('Variation pour ce term existe');
-                die;
-                foreach ($variations as $variation) {
-                    //var_dump($variation['attributes']);
-                    if (isset($variation['attributes'][$nom_attribut]) && $variation['attributes'][$nom_attribut] == $term) {
-                        return $variation['variation_id'];
+                var_dump('Variation pour ce produit existe');
+                foreach ($variations as $variation_id) {
+                    // Instancier la variation en utilisant son ID
+                    $variation = new WC_Product_Variation($variation_id);
+                    $attributes = $variation->get_attributes();
+                    $sku = $variation->get_sku();
+                    var_dump($attributes[$nom_attribut]);
+                    if (isset($attributes) && $attributes[$nom_attribut] == sanitize_title($term)) {
+                        $variation_ids[] =$variation_id;
                     }
-                }
-            }
-        }
-        else{
-            var_dump('on crée le term de l\'attribut');
 
-            die;
-        }
-        return false;
+                }
+                // Retourner les IDs des variations
+                return $variation_ids;
+            }
     }
 }
