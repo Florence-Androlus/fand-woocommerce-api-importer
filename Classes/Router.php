@@ -16,7 +16,8 @@ class Router {
         // Vérifier si les données de l'API ont déjà été récupérées
         if (self::$apiData === null) {
             // Si non, récupérer les données de l'API et les stocker dans la propriété statique
-            self::$apiData = Api::json_product();
+            $file = "produituniqueP.json";
+            self::$apiData = Api::json_product($file);
             //self::$apiData = Api::json_api_test_product();
             //self::$apiData = Api::json_api_product();
         }
@@ -85,18 +86,27 @@ class Router {
                     foreach ($data as $product) {
                         $product_id=self::product_exist($product);
                        // var_dump($product_id);
-                        $variant=$product['variants'];
-                        //var_dump($variant);
+                        $variants=$product['variants'];
+                        if (count($variants) > 0) {
+                            foreach ($variants as $variant){
+                                var_dump($variant);
+                                Variations::add_variations($product_id,$variant);
+                                die;
+                            }
+                        }
+                        else 
+                        {
+                            var_dump("Aucune variations trouvées dans le tableau.");
+                        }
 
-                        // Trouver les clés contenant le mot "couleur"
-                        $color_keys = array_filter(array_keys($variant[0]), function($key) {
-                            return strpos($key, 'color_group') === 0;
+                        die;
+                        // Trouver les clés contenant le mot "color"
+                        $color_keys = array_filter(array_keys($variants[0]), function($key) {
+                        return strpos($key, 'color_group') === 0;
                         });
-                      //  var_dump($variant[0]['color_group']);
-
                         // Vérifier si des couleurs ont été trouvées
                         if (count($color_keys) > 0) {
-                            Colors::add_colors($product_id,$variant);
+                            Variations::add_variations($product_id,$variants);
                         } 
                         else 
                         {

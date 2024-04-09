@@ -5,10 +5,10 @@ namespace fwai\Classes;
 class Api {
 
     // json produit test
-    static function json_product()
+    static function json_product($file)
     {
         // Chemin vers votre fichier JSON
-        $chemin_fichier_json = FWAI_PLUGIN_DIR."produitunique.json";
+        $chemin_fichier_json = FWAI_PLUGIN_DIR.$file;
 
         // Vérification de l'existence du fichier
         if (file_exists($chemin_fichier_json)) {

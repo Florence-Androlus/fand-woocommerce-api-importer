@@ -1,18 +1,81 @@
 <?php
 namespace fwai\Classes;
-use \WC_Product_Variation;
 use \WC_Product_Attribute;
+use \WC_Product_Variation;
 
-class Colors {
+class Variations {
     // Fonction pour ajouter un attribut de couleur à une variation de produit WooCommerce
-    public static function add_colors($product_id, $variant) {
+    public static function add_variations($product_id, $variant) {
 
         // Trouver les clés contenant le mot "couleur"
-        $groupe_keys = array_filter(array_keys($variant[0]), function($key) {
+        $groupe_keys = array_filter(array_keys($variant), function($key) {
             return strpos($key, 'color_group') === 0;
         });
 
-        // Récupérer le groupe de l'attribut
+        // Vérifier si des couleurs ont été trouvées
+        if (count($groupe_keys) > 0) {
+            // Récupérer le groupe de l'attribut
+            $groupe = current($groupe_keys);
+            $groupe_key = explode('_', $groupe);
+            // Récupérer le nom de l'attribut
+            $nom_attribut = $groupe_key[0];
+            // Defini son slug
+            $attribut_slug='pa_'.sanitize_title($nom_attribut);
+
+            // Ajouter l'attribut s'il n'existe pas encore
+            FWAI_ATTRIBUT::ajouter_nouvel_attribut($nom_attribut,$attribut_slug);
+
+            // Récupérer le terme
+            $term = $variant[$groupe];
+            // Trouver les clés contenant le mot "couleur"
+            $groupe_keys = array_filter(array_keys($variant), function($key) {
+                return strpos($key, 'color_description') === 0;
+            });
+            $groupe = current($groupe_keys);
+            $description = $variant[$groupe];
+            var_dump($description);
+            // Ajouter le terme à l'attribut s'il n'existe pas encore
+            FWAI_ATTRIBUT::ajouter_termes_a_attribut($attribut_slug, $term,$description);
+            // Associer l'attribut au produit parent s'il n'est pas déjà associé
+            self::associer_attribut_produit($product_id, $attribut_slug,$term);
+        } 
+        else 
+        {
+            var_dump("Aucune couleurs trouvée dans le tableau.");
+        }
+
+        // Trouver les clés contenant le mot "couleur"
+        $groupe_keys = array_filter(array_keys($variant), function($key) {
+            return strpos($key, 'size_textile') === 0;
+        });
+        // Vérifier si des couleurs ont été trouvées
+        if (count($groupe_keys) > 0) {
+            // Récupérer le groupe de l'attribut
+            $groupe = current($groupe_keys);
+            $groupe_key = explode('_', $groupe);
+            // Récupérer le nom de l'attribut
+            $nom_attribut = $groupe_key[0];
+            // Defini son slug
+            $attribut_slug='pa_'.sanitize_title($nom_attribut);
+
+            // Ajouter l'attribut s'il n'existe pas encore
+            FWAI_ATTRIBUT::ajouter_nouvel_attribut($nom_attribut,$attribut_slug);
+
+            // Récupérer le terme
+            $term = $variant[$groupe];
+
+            // Ajouter le terme à l'attribut s'il n'existe pas encore
+            FWAI_ATTRIBUT::ajouter_termes_a_attribut($attribut_slug,$term,$term);
+            // Associer l'attribut au produit parent s'il n'est pas déjà associé
+            self::associer_attribut_produit($product_id, $attribut_slug,$term);
+        } 
+        else 
+        {
+            var_dump("Aucune taille trouvée dans le tableau.");
+        }
+
+        die;
+    /*    // Récupérer le groupe de l'attribut
         $groupe = current($groupe_keys);
         $groupe_key = explode('_', $groupe);
         // Récupérer le nom de l'attribut
@@ -28,7 +91,7 @@ class Colors {
 
         // Ajouter le terme à l'attribut s'il n'existe pas encore
         self::ajouter_termes_a_attribut($attribut_slug, $term);
-
+        die;
         // Associer l'attribut au produit parent s'il n'est pas déjà associé
         self::associer_attribut_produit($product_id, $attribut_slug,$term);
         $result = has_term($term, $attribut_slug, $product_id);
@@ -48,17 +111,17 @@ class Colors {
                 var_dump('existe');
                 foreach ($variations as $variation_id) {
                     // Instancier la variation en utilisant son ID
-                    $variation = new WC_Product_Variation($variation_id);
-                    $attributes = $variation->get_attributes();
-                    $sku = $variation->get_sku();
+                    $variation_data = new WC_Product_Variation($variation_id);
+                    // Recupere les elements de la variation existante
+                    $attributes = $variation_data->get_attributes();
+                    $sku = $variation_data->get_sku();
+                    var_dump($attributes);
                     var_dump($sku);
-                }
 
-                die;
-                // Mettez à jour la variation existante
-                $variation_data = new WC_Product_Variation($variation_id);
-                $variation_data->set_regular_price('8,34'); // Mettez à jour les autres attributs si nécessaire
-                $variation_data->save();
+                    // Mettez à jour la variation existante
+                    $variation_data->set_regular_price('10'); // Mettez à jour les autres attributs si nécessaire
+                    $variation_data->save();
+                }
             } 
             else {
                 var_dump('existe pas');
@@ -89,7 +152,6 @@ class Colors {
             $product = wc_get_product($product_id);
             $product->set_catalog_visibility('visible');
             $product->save();
-            die;
         }
          else {
             var_dump("ne contient pas l'attribut");
@@ -119,35 +181,7 @@ class Colors {
             $product->set_catalog_visibility('visible');
             $product->save();
 
-        }
-    }
-
-    // Fonction pour ajouter un nouvel attribut
-    static function ajouter_nouvel_attribut($nom_attribut,$attribut_slug) {
-        if (!taxonomy_exists($attribut_slug)) {
-            // Nom de l'attribut
-            $attribut = array(
-                'slug' => $attribut_slug,
-                'name' => $nom_attribut,
-                'type' => 'select', // type de champ (select, radio, etc.)
-                'order_by' => 'menu_order', // tri des termes
-                'has_archives' => true,
-            );
-            // Ajout de l'attribut
-            wc_create_attribute($attribut);
-        }
-        
-    }
-
-    // Fonction pour ajouter des termes à l'attribut
-    static function ajouter_termes_a_attribut($slug, $term) {
-        // Vérifier si le terme existe déjà
-        $term_id = term_exists($term, sanitize_title($slug));
-        // Si le terme n'existe pas, l'ajouter
-        if ($term_id==null) {
-            wp_insert_term($term, $slug);
-        }
-
+        }*/
     }
 
     // Fonction pour associer l'attribut au produit parent
