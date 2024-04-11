@@ -20,12 +20,12 @@ class FWAI_ATTRIBUT {
     }
 
     // Fonction pour ajouter des termes à l'attribut
-    static function ajouter_termes_a_attribut($slug,$term,$description) {
+    static function ajouter_termes_a_attribut($slug,$term) {
 
         // Vérifier si le terme existe déjà
         $term_id = term_exists($term, sanitize_title($slug));
         $args=[
-            'description'=>$description,
+            'description'=>$term,
         ];
         // Si le terme n'existe pas, l'ajouter
         if ($term_id==null) {

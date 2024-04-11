@@ -36,7 +36,8 @@
         "carton_gross_weight": "10.65",
         "carton_gross_weight_unit": "kg",
         "timestamp": "2024-03-03T16:59:20",
-        "digital_assets": [
+        "digital_assets": 
+        [
             {
                 "url": "https://cdntest1.midocean.com/document/size-chart/s11342-sizechart.pdf",
                 "type": "document",
@@ -63,7 +64,8 @@
         "gender": "male",
         "material": "cotton",
         "printable": "yes",
-        "variants": [
+        "variants": 
+        [
             {
                 "variant_id": "10218084",
                 "sku": "S11342-AG-L",

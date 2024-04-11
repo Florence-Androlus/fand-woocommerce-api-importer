@@ -2,13 +2,15 @@
 
 namespace fwai;
 
-use fwai\Classes\Database;
+use fwai\Classes\FWAI_ATTRIBUT;
 use fwai\Classes\Products;
 use fwai\Classes\Router;
 
 class fwaiSettingsPage {
 
     public function __construct() {
+		// déclaration du hook d'activation du plugin
+		register_activation_hook(FWAI_MAIN_FILE, [$this, 'onPluginActivation']);
         ini_set('max_execution_time', 0);
         ini_set('memory_limit', '-1'); 
      //   add_action( 'init', [$this,'woocommerce_api_import_products'] );
@@ -16,7 +18,27 @@ class fwaiSettingsPage {
 		add_action( 'admin_menu', [$this, 'register_settings' ] );
 		// on ajoute nos URL custom
 		add_action('init', [$this, 'registerCustomRewrites']);
+
     }
+
+	// Fonction d'activation du plugin
+	static function onPluginActivation() {
+		// Definit le nom de l'attribut
+		$nom_attribut = 'color';
+		// Defini son slug
+		$attribut_slug='pa_'.sanitize_title($nom_attribut);
+
+		// Ajouter l'attribut s'il n'existe pas encore
+		FWAI_ATTRIBUT::ajouter_nouvel_attribut($nom_attribut,$attribut_slug);
+		
+		// Definit le nom de l'attribut
+		$nom_attribut = 'size';
+		// Defini son slug
+		$attribut_slug='pa_'.sanitize_title($nom_attribut);
+
+		// Ajouter l'attribut s'il n'existe pas encore
+		FWAI_ATTRIBUT::ajouter_nouvel_attribut($nom_attribut,$attribut_slug);
+	}
 	
 	// Fonction ajout des URL custom
     public function registerCustomRewrites()

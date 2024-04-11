@@ -75,8 +75,6 @@ class Router {
                 wp_redirect(add_query_arg(['compteur'=> $compteur,'action'=> "product"], $url));
                 exit(); // on empêche le reste du code de s'exécuter, on laisse la redirection se faire tout de suite.
 
-                // si c'est le cas, on réagit en conséquence
-                wp_redirect(home_url('wp-admin/admin.php?page=fwai-settings'));
             } 
             else if (get_query_var('fwai-page') == 'variations') {
                 var_dump('ajout variations');
@@ -85,37 +83,29 @@ class Router {
                 if (is_array($data)) {
                     foreach ($data as $product) {
                         $product_id=self::product_exist($product);
-                       // var_dump($product_id);
-                        $variants=$product['variants'];
-                        if (count($variants) > 0) {
-                            foreach ($variants as $variant){
-                                var_dump($variant);
-                                Variations::add_variations($product_id,$variant);
-                                die;
+                        if(isset($product_id)){
+                 //           var_dump($product_id);
+                            $variants=$product['variants'];
+                 //           var_dump($variants);
+                            if (count($variants) > 0 && $product_id) {
+                                foreach ($variants as $variant){
+                                 //   var_dump($variant);
+                                    Variations::add_variations($product_id,$variant);
+                                    $compteur++;
+                                }
                             }
-                        }
-                        else 
-                        {
-                            var_dump("Aucune variations trouvées dans le tableau.");
-                        }
-
-                        die;
-                        // Trouver les clés contenant le mot "color"
-                        $color_keys = array_filter(array_keys($variants[0]), function($key) {
-                        return strpos($key, 'color_group') === 0;
-                        });
-                        // Vérifier si des couleurs ont été trouvées
-                        if (count($color_keys) > 0) {
-                            Variations::add_variations($product_id,$variants);
-                        } 
-                        else 
-                        {
-                            var_dump("Aucune couleurs trouvée dans le tableau.");
+                            else 
+                            {
+                                var_dump("Aucune variations trouvées dans le tableau.");
+                            }
                         }
                     }
                 }
-                // si c'est le cas, on réagit en conséquence
-                wp_redirect(home_url('wp-admin/admin.php?page=fwai-settings'));
+                // on redirige vers la page wp-admin/admin.php?page=fwai-settings (mais en GET) => si l'utilisateur rafraîchit, on ne resoumettra pas le formulaire (on rafraîchira la requête GET et non POST)
+                $url=home_url( 'wp-admin/admin.php?page=fwai-settings');
+                wp_redirect(add_query_arg(['compteur'=> $compteur,'action'=> "variations"], $url));
+                exit(); // on empêche le reste du code de s'exécuter, on laisse la redirection se faire tout de suite.
+
             }
             else if (get_query_var('fwai-page') == 'category') {
                 $compteur=0;
@@ -148,9 +138,6 @@ class Router {
                 $url=home_url( 'wp-admin/admin.php?page=fwai-settings');
                 wp_redirect(add_query_arg(['compteur'=> $compteur,'action'=> "category"], $url));
                 exit(); // on empêche le reste du code de s'exécuter, on laisse la redirection se faire tout de suite.
-
-                // si c'est le cas, on réagit en conséquence
-                wp_redirect(home_url('wp-admin/admin.php?page=fwai-settings'));
             } 
             else if (get_query_var('fwai-page') == 'images') {
 
@@ -187,9 +174,7 @@ class Router {
                 $url=home_url( 'wp-admin/admin.php?page=fwai-settings');
                 wp_redirect(add_query_arg(['compteur'=> $compteur,'action'=> "images"], $url));
                 exit(); // on empêche le reste du code de s'exécuter, on laisse la redirection se faire tout de suite.
-
-                // si c'est le cas, on réagit en conséquence
-                wp_redirect(home_url('wp-admin/admin.php?page=fwai-settings'));
+                
             } 
             else {
                 // sinon, on laisse WP faire
