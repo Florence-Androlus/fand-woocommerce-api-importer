@@ -24,10 +24,10 @@ class Api {
     }
 
     // json stock test
-    static function json_stock()
+    static function json_stock($file)
     {
         // Chemin vers votre fichier JSON
-        $chemin_fichier_json = FWAI_PLUGIN_DIR."stockunique.json";
+        $chemin_fichier_json = FWAI_PLUGIN_DIR.$file;
 
         // Vérification de l'existence du fichier
         if (file_exists($chemin_fichier_json)) {
@@ -38,7 +38,7 @@ class Api {
             $data = json_decode($body, true);
 
             // retour fichier json 
-                return $data;
+            return $data;
         }
     }
 

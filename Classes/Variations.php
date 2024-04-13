@@ -38,7 +38,7 @@ class Variations {
         } 
         else 
         {
-            var_dump("Aucune couleurs trouvée dans le tableau.");
+       //     var_dump("Aucune couleurs trouvée dans le tableau.");
         }
 
         // Trouver les clés contenant le mot "couleur"
@@ -68,59 +68,85 @@ class Variations {
         } 
         else 
         {
-            var_dump("Aucune taille trouvée dans le tableau.");
+       //     var_dump("Aucune taille trouvée dans le tableau.");
+            $size='';
+            $attribut_size_slug='';      
         }
+        $term_color=has_term($color, $attribut_color_slug, $product_id);
+        $term_size= has_term($size, $attribut_size_slug, $product_id);
+       // var_dump( $term_color);
+       // var_dump( $term_size);
 
         // Vérifier si le produit contient déjà l'attribut avec le terme
-        if (has_term($size, $attribut_size_slug, $product_id) && has_term($color, $attribut_color_slug, $product_id)) {
+        if ( $term_size===false && $term_color===true || $term_size===true && $term_color===true || $term_size===true && $term_color===false) {
         //    var_dump('contient déjà l\'attribut');
-
             $sku=$variant['sku'];
             // Obtenez l'ID de la variation existante avec les mêmes attributs
             $variations = self::get_variation_id_with_attributes($product_id, [$attribut_color_slug => $color, $attribut_size_slug => $size]);
-          //  var_dump($variations);
+       //     var_dump($variations);
          //   var_dump($product_id);
          /*   var_dump($attribut_size_slug);
             var_dump($size);*/
             if ($variations) {
-                var_dump('existe');
-                die;
+         //       var_dump('existe');
+                //die;
                 foreach ($variations as $variation_id) {
                     // Instancier la variation en utilisant son ID
                     $variation_data = new WC_Product_Variation($variation_id);
                     // Recupere les elements de la variation existante
                     $attributes = $variation_data->get_attributes();
                     $sku = $variation_data->get_sku();
-           //         var_dump($attributes);
+             //       var_dump($variation_data);
             //        var_dump($sku);
+                    $stock= Stock::get_stock($sku);
+               //     var_dump($stock);
+                //    var_dump($sku);
 
                     // Mettez à jour la variation existante
                     $variation_data->set_regular_price('10'); // Mettez à jour les autres attributs si nécessaire
+                    $variation_data->set_stock_quantity($stock);
                     $variation_data->save();
                 }
             } 
             else {
             //    var_dump('existe pas');
             //    var_dump($sku);
-                //die;
-                $variation_data = [
-                    'attributes' => [
+
+                if ($color===false){
+                    $attributs=[
+                        $attribut_color_slug => sanitize_title($color),
+                    ];
+                }
+                elseif ($color===false){
+                    $attributs=[
+                        $attribut_size_slug => sanitize_title($size),
+                    ];
+                }
+                else{
+                    $attributs=[
                         $attribut_color_slug => sanitize_title($color),
                         $attribut_size_slug => sanitize_title($size),
-                    ],
+                    ];
+                }
+                //die;
+                $stock= Stock::get_stock($sku);
+
+                $variation_data = [
+                    'attributes' => $attributs,
                     'regular_price' => '8,34', // Remplacez par le prix régulier de la variation
                     'sku' =>$sku, // Remplacez par le SKU de la variation
-                    'stock_quantity' => '100',
+                    'stock_quantity' => $stock,
                     'manage_stock' => 'true',
                     'parent_id' => $product_id,
                     // Ajoutez d'autres propriétés de la variation si nécessaire
                 ];
-        
+               // var_dump($variation_data);
                 // Créer la nouvelle variation
                 $variation = new WC_Product_Variation();
                 $variation->set_props($variation_data);
                 $variation->set_parent_id($product_id);
-                $variation->save();
+                $result=$variation->save();
+                //var_dump($result);
             }
             // Rendre la variation visible en définissant la visibilité du produit parent
             $product = wc_get_product($product_id);

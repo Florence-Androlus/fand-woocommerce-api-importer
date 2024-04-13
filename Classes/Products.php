@@ -1,10 +1,6 @@
 <?php
 
 namespace fwai\Classes;
-use fwai\Classes\Categorys;
-use fwai\Classes\Colors;
-use \WC_Product_Variable;
-use \WC_Product_Variation;
 
 class Products {
 // Check if WooCommerce is active
@@ -50,7 +46,8 @@ class Products {
             update_post_meta($product_id, '_gross_weight', $productGrossWeight);
         }
         $regularPrice= '8,34';
-
+        // Définir le type de produit sur "variable"
+        wp_set_object_terms($product_id, 'variable', 'product_type');
         update_post_meta($product_id, '_short_description', $productShortDescription);
         update_post_meta($product_id, '_sku', $productCode);
         update_post_meta($product_id, '_regular_price', $regularPrice);
@@ -101,6 +98,7 @@ class Products {
         $variant = $product['variants'][0];
         // colors($product_id,$product['variants']);
     }
+
     static function delete_product_by_name($product_id)
     {
    
@@ -109,23 +107,6 @@ class Products {
             
     }
 
-    static function colors($product_id,$variant){
-    
-        // Trouver les clés contenant le mot "couleur"
-        $color_keys = array_filter(array_keys($variant[0]), function($key) {
-            return strpos($key, 'color_group') === 0;
-        });
-        //var_dump($color_keys);
-
-        // Vérifier si des couleurs ont été trouvées
-        if (count($color_keys) > 0) {
-            Colors::add_colors($product_id,$variant);
-        } 
-        else 
-        {
-            var_dump("Aucune couleurs trouvée dans le tableau.");
-        }
-    }
 }
 
 

@@ -2,13 +2,19 @@
 namespace fwai\Classes;
 
 class Router {
-    // Définir une propriété statique pour stocker les données de l'API
+    // Définir les propriétées statiques pour stocker les données de l'API
     static private $apiData = null;
+    static private $apiStock = null;
 
-    // Méthode pour obtenir les données de l'API
+    // Méthode pour obtenir les données Produits de l'API
     static public function getApiData() {
         // Retourner les données stockées
         return self::$apiData;
+    }
+    // Méthode pour obtenir les données du stock de l'API
+    static public function getApiStock() {
+        // Retourner les données stockées
+        return self::$apiStock;
     }
 
     static public function init()
@@ -17,9 +23,16 @@ class Router {
         if (self::$apiData === null) {
             // Si non, récupérer les données de l'API et les stocker dans la propriété statique
             $file = "produituniqueP.json";
-            self::$apiData = Api::json_product($file);
-            //self::$apiData = Api::json_api_test_product();
+            //self::$apiData = Api::json_product($file);
+            self::$apiData = Api::json_api_test_product();
             //self::$apiData = Api::json_api_product();
+        }
+        // Vérifier si les données de l'API ont déjà été récupérées
+        if (self::$apiStock === null) {
+            // Si non, récupérer les données de l'API et les stocker dans la propriété statique
+            // Chemin vers votre fichier JSON
+            $file = "stock.json";//"stockunique.json";
+            self::$apiStock = Api::json_stock($file);
         }
         // objectif :
 
@@ -53,7 +66,7 @@ class Router {
             if (get_query_var('fwai-page') == 'product') {
                 $compteur = 0;
                 $data = self::getApiData();
-            
+
                 if (is_array($data)) {
                     foreach ($data as $product) {
                         // Accéder aux données du produit
@@ -77,9 +90,10 @@ class Router {
 
             } 
             else if (get_query_var('fwai-page') == 'variations') {
-                var_dump('ajout variations');
+               // var_dump('ajout variations');
                 $compteur = 0;
                 $data = self::getApiData();
+                set_time_limit(30000); // définir la limite de temps d'exécution à 30 secondes
                 if (is_array($data)) {
                     foreach ($data as $product) {
                         $product_id=self::product_exist($product);
