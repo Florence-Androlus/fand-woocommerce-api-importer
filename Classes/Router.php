@@ -22,9 +22,9 @@ class Router {
         // Vérifier si les données de l'API ont déjà été récupérées
         if (self::$apiData === null) {
             // Si non, récupérer les données de l'API et les stocker dans la propriété statique
-            $file = "produituniqueP.json";
-            //self::$apiData = Api::json_product($file);
-            self::$apiData = Api::json_api_test_product();
+            $file = "produituniqueP.json";//"produits.json";//
+            self::$apiData = Api::json_product($file);
+            //self::$apiData = Api::json_api_test_product();
             //self::$apiData = Api::json_api_product();
         }
         // Vérifier si les données de l'API ont déjà été récupérées
@@ -93,7 +93,7 @@ class Router {
                // var_dump('ajout variations');
                 $compteur = 0;
                 $data = self::getApiData();
-                set_time_limit(30000); // définir la limite de temps d'exécution à 30 secondes
+                
                 if (is_array($data)) {
                     foreach ($data as $product) {
                         $product_id=self::product_exist($product);
@@ -104,6 +104,8 @@ class Router {
                             if (count($variants) > 0 && $product_id) {
                                 foreach ($variants as $variant){
                                  //   var_dump($variant);
+                                // set_time_limit(3000); // définir la limite de temps d'exécution à 30 secondes
+
                                     Variations::add_variations($product_id,$variant);
                                     $compteur++;
                                 }

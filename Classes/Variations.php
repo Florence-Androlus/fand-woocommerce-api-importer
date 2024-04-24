@@ -99,20 +99,33 @@ class Variations {
              //       var_dump($variation_data);
             //        var_dump($sku);
                     $stock= Stock::get_stock($sku);
-               //     var_dump($stock);
-                //    var_dump($sku);
+                    //var_dump($stock);
+                   // var_dump($sku);
+                    //die;
 
                     // Mettez à jour la variation existante
                     $variation_data->set_regular_price('10'); // Mettez à jour les autres attributs si nécessaire
                     $variation_data->set_stock_quantity($stock);
                     $variation_data->save();
+
+                    // ajoute l'image a la vairation
+                    // Trouver les clés contenant le mot "digital_assets"
+                    $images_keys = array_filter(array_keys($variant), function($key) {
+                        return strpos($key, 'digital_assets') === 0;
+                    });
+
+                    // Vérifier si des digital_assets ont été trouvées
+                    if (count($images_keys) > 0) {
+                        $digital_assets = $variant['digital_assets'];
+                        Images::add_update_images_variation($variation_id,$digital_assets);
+                    } 
                 }
             } 
             else {
             //    var_dump('existe pas');
             //    var_dump($sku);
 
-                if ($color===false){
+                if ($size===false){
                     $attributs=[
                         $attribut_color_slug => sanitize_title($color),
                     ];
@@ -131,27 +144,37 @@ class Variations {
                 //die;
                 $stock= Stock::get_stock($sku);
 
-                $variation_data = [
-                    'attributes' => $attributs,
-                    'regular_price' => '8,34', // Remplacez par le prix régulier de la variation
-                    'sku' =>$sku, // Remplacez par le SKU de la variation
-                    'stock_quantity' => $stock,
-                    'manage_stock' => 'true',
-                    'parent_id' => $product_id,
-                    // Ajoutez d'autres propriétés de la variation si nécessaire
-                ];
-               // var_dump($variation_data);
-                // Créer la nouvelle variation
-                $variation = new WC_Product_Variation();
-                $variation->set_props($variation_data);
-                $variation->set_parent_id($product_id);
-                $result=$variation->save();
-                //var_dump($result);
+                if ($sku===''){
+                    var_dump($sku);
+                    die;
+                }
+                else{
+                // var_dump($stock);
+                // var_dump($sku);
+                // die;
+                    $variation_data = [
+                        'attributes' => $attributs,
+                        'regular_price' => '8,34', // Remplacez par le prix régulier de la variation
+                        'sku' =>$sku, // Remplacez par le SKU de la variation
+                        'stock_quantity' => $stock,
+                        'manage_stock' => 'true',
+                        'parent_id' => $product_id,
+                        // Ajoutez d'autres propriétés de la variation si nécessaire
+                    ];
+                    // var_dump($variation_data);
+                    // Créer la nouvelle variation
+                    $variation = new WC_Product_Variation();
+                    $variation->set_props($variation_data);
+                    $variation->set_parent_id($product_id);
+                    $result=$variation->save();
+                    //var_dump($result);
+
+                    // Rendre la variation visible en définissant la visibilité du produit parent
+                    $product = wc_get_product($product_id);
+                    $product->set_catalog_visibility('visible');
+                    $product->save();
+                }
             }
-            // Rendre la variation visible en définissant la visibilité du produit parent
-            $product = wc_get_product($product_id);
-            $product->set_catalog_visibility('visible');
-            $product->save();
         }
 
    /*     // Récupérer le groupe de l'attribut

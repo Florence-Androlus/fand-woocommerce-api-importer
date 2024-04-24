@@ -178,7 +178,7 @@ class fwaiSettingsPage {
 	
 	}
 
-    public function woocommerce_api_import_products() {
+  /*  public function woocommerce_api_import_products() {
 
       //  Api::json_api_test();
        // fand_ppom::ppom_exist();
@@ -214,7 +214,7 @@ class fwaiSettingsPage {
                // die;
             }
         }
-    }
+    }*/
 
 }
 
