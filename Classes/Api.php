@@ -42,6 +42,25 @@ class Api {
         }
     }
 
+    // json price test
+    static function json_price($file)
+    {
+        // Chemin vers votre fichier JSON
+        $chemin_fichier_json = FWAI_PLUGIN_DIR.$file;
+
+        // Vérification de l'existence du fichier
+        if (file_exists($chemin_fichier_json)) {
+            // Lecture du contenu du fichier JSON
+            $body = file_get_contents($chemin_fichier_json);
+
+            // Décodage du JSON en tableau associatif
+            $data = json_decode($body, true);
+
+            // retour fichier json 
+            return $data;
+        }
+    }
+
 
     // api test
     static function json_api_test_product()

@@ -31,7 +31,7 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-//require_once FWAI_PLUGIN_DIR . 'inc/scripts.php';
 require_once FWAI_PLUGIN_DIR . 'plugin.php';
-
-new FWAISettingsPage;
+//new FWAISettingsPage;
+$fqrcg = new FWAISettingsPage;
+$fqrcg->init();

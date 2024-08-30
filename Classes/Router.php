@@ -5,6 +5,7 @@ class Router {
     // Définir les propriétées statiques pour stocker les données de l'API
     static private $apiData = null;
     static private $apiStock = null;
+    static private $apiPrice = null;
 
     // Méthode pour obtenir les données Produits de l'API
     static public function getApiData() {
@@ -16,13 +17,18 @@ class Router {
         // Retourner les données stockées
         return self::$apiStock;
     }
+    // Méthode pour obtenir les données du prix de l'API
+    static public function getApiPrice() {
+        // Retourner les données stockées
+        return self::$apiPrice;
+    }
 
     static public function init()
     {
         // Vérifier si les données de l'API ont déjà été récupérées
         if (self::$apiData === null) {
             // Si non, récupérer les données de l'API et les stocker dans la propriété statique
-            $file = "produituniqueP.json";//"produits.json";//
+            $file = "produituniqueT.json";//"produits.json";//
             self::$apiData = Api::json_product($file);
             //self::$apiData = Api::json_api_test_product();
             //self::$apiData = Api::json_api_product();
@@ -34,6 +40,14 @@ class Router {
             $file = "stock.json";//"stockunique.json";
             self::$apiStock = Api::json_stock($file);
         }
+        // Vérifier si les données de l'API ont déjà été récupérées
+        if (self::$apiPrice === null) {
+            // Si non, récupérer les données de l'API et les stocker dans la propriété statique
+            // Chemin vers votre fichier JSON
+            $file = "printpricelist.json";//"stockunique.json";
+            self::$apiPrice = Api::json_price($file);
+        }
+
         // objectif :
 
         // @TODO: déplacer la déclaration de la rewrite rule dans l'activation du plugin
@@ -171,7 +185,7 @@ class Router {
                             $variant = $product['variants'][0];
 
                                 // Trouver les clés contenant le mot "digital_assets"
-                            $images_keys = array_filter(array_keys($variant), function($key) {
+                                $images_keys = array_filter(array_keys($variant), function($key) {
                                 return strpos($key, 'digital_assets') === 0;
                             });
 
@@ -221,6 +235,7 @@ class Router {
         ));
        // var_dump($productCode);
        // var_dump($product_id);
-        return $product_id;
+       $product_id=intval($product_id);
+       return $product_id;
     }
 }

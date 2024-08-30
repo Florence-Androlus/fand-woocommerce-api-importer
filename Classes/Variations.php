@@ -22,7 +22,7 @@ class Variations {
             $attribut_color_slug='pa_'.sanitize_title($color_nom_attribut);
 
             // Ajouter l'attribut s'il n'existe pas encore
-            FWAI_ATTRIBUT::ajouter_nouvel_attribut($color_nom_attribut,$attribut_color_slug);
+            FWAI_Attribut::ajouter_nouvel_attribut($color_nom_attribut,$attribut_color_slug);
 
             // Trouver les clés contenant le mot "couleur"
             $description_groupe_keys = array_filter(array_keys($variant), function($key) {
@@ -32,7 +32,7 @@ class Variations {
             $color = $variant[$description_groupe];
         //    var_dump($color);
             // Ajouter le terme à l'attribut s'il n'existe pas encore
-            FWAI_ATTRIBUT::ajouter_termes_a_attribut($attribut_color_slug, $color);
+            FWAI_Attribut::ajouter_termes_a_attribut($attribut_color_slug, $color);
             // Associer l'attribut au produit parent s'il n'est pas déjà associé
             self::associer_attribut_produit($product_id, $attribut_color_slug,$color);
         } 
@@ -56,13 +56,13 @@ class Variations {
             $attribut_size_slug='pa_'.sanitize_title($size_nom_attribut);
 
             // Ajouter l'attribut s'il n'existe pas encore
-            FWAI_ATTRIBUT::ajouter_nouvel_attribut($size_nom_attribut,$attribut_size_slug);
+            FWAI_Attribut::ajouter_nouvel_attribut($size_nom_attribut,$attribut_size_slug);
 
             // Récupérer le terme
             $size = $variant[$size_groupe];
 
             // Ajouter le terme à l'attribut s'il n'existe pas encore
-            FWAI_ATTRIBUT::ajouter_termes_a_attribut($attribut_size_slug,$size,$size);
+            FWAI_Attribut::ajouter_termes_a_attribut($attribut_size_slug,$size,$size);
             // Associer l'attribut au produit parent s'il n'est pas déjà associé
             self::associer_attribut_produit($product_id, $attribut_size_slug,$size);
         } 
@@ -88,7 +88,7 @@ class Variations {
          /*   var_dump($attribut_size_slug);
             var_dump($size);*/
             if ($variations) {
-         //       var_dump('existe');
+             //   var_dump('existe');
                 //die;
                 foreach ($variations as $variation_id) {
                     // Instancier la variation en utilisant son ID
@@ -96,15 +96,17 @@ class Variations {
                     // Recupere les elements de la variation existante
                     $attributes = $variation_data->get_attributes();
                     $sku = $variation_data->get_sku();
+                    
              //       var_dump($variation_data);
             //        var_dump($sku);
                     $stock= Stock::get_stock($sku);
-                    //var_dump($stock);
+                    $price= Price::get_price($sku);
+                   // var_dump($price);
                    // var_dump($sku);
-                    //die;
+                   //die;
 
                     // Mettez à jour la variation existante
-                    $variation_data->set_regular_price('10'); // Mettez à jour les autres attributs si nécessaire
+                    $variation_data->set_regular_price($price); // Mettez à jour les autres attributs si nécessaire
                     $variation_data->set_stock_quantity($stock);
                     $variation_data->save();
 
@@ -143,6 +145,7 @@ class Variations {
                 }
                 //die;
                 $stock= Stock::get_stock($sku);
+                $price= Price::get_price($sku);
 
                 if ($sku===''){
                     var_dump($sku);
@@ -154,7 +157,7 @@ class Variations {
                 // die;
                     $variation_data = [
                         'attributes' => $attributs,
-                        'regular_price' => '8,34', // Remplacez par le prix régulier de la variation
+                        'regular_price' => $price, // Remplacez par le prix régulier de la variation
                         'sku' =>$sku, // Remplacez par le SKU de la variation
                         'stock_quantity' => $stock,
                         'manage_stock' => 'true',

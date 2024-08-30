@@ -11,9 +11,11 @@ class Images {
         require_once ABSPATH . 'wp-admin/includes/image.php';
         $i = 0;
 
+        // Initialiser $galleryImages avant la boucle
+        $galleryImages = [];
+
         foreach ($digital_assets as $image) {
-            // Réinitialiser $galleryImages à chaque itération
-            $galleryImages = [];
+
             // url de l'image Midocean
             $url = $image['url']; 
             // on recupere le nom du fichier
@@ -50,7 +52,7 @@ class Images {
             // Vérifie si une correspondance a été trouvée
             if (!$matching_attachment_id) {
                 // Aucune correspondance trouvée dans la bibliothèque
-               // echo "L'image n'existe pas dans la bibliothèque.";
+                echo "L'image n'existe pas dans la bibliothèque.";
 
                 $attachment_id = self::add_image($url,$product_id);
                 if ($i === 0) {
@@ -60,11 +62,13 @@ class Images {
                 } else {
                     // Ajoute les autres image à la galerie du produit
                     $galleryImages[] = $attachment_id;
+                   // var_dump($galleryImages);
+                   // die;
                 }
             } 
             else {
                 // L'image existe déjà dans la bibliothèque avec cet ID
-                //echo "L'image existe déjà dans la bibliothèque avec l'ID : $matching_attachment_id";
+                echo "L'image existe déjà dans la bibliothèque avec l'ID : $matching_attachment_id";
                //var_dump('l\'image existe');
                self::update_image($matching_attachment_id,$product_id);
                if ($i === 0) {
@@ -74,17 +78,22 @@ class Images {
                 } else {
                     // Add the existing attachment to the product gallery
                     $galleryImages[] = $matching_attachment_id;
+                   // var_dump($galleryImages);
                 }
             }   
         }
         // mets a jour la galerie d'images du produit
-        update_post_meta($product_id, '_product_image_gallery', implode(',', $galleryImages));
-       // die;
+       // var_dump($galleryImages);
+       $result= update_post_meta($product_id, '_product_image_gallery', implode(',', $galleryImages));
+       //var_dump($result);
+       //die;
     }
 
     static function add_update_images_variation($variation_id, $digital_assets) {
         // Tableau des images à ajouter
         $woo_variation_gallery_images = [82719,82720,82721];
+        //var_dump($digital_assets);
+        
            // Inclure le fichier nécessaire
            require_once ABSPATH . 'wp-admin/includes/media.php';
            require_once ABSPATH . 'wp-admin/includes/file.php';
@@ -146,10 +155,10 @@ class Images {
                     $galleryImages[] = $matching_attachment_id;
                }   
            }
-         //  var_dump($galleryImages);
+        //var_dump($galleryImages);
            
         update_post_meta($variation_id, 'woo_variation_gallery_images', $galleryImages);
-          // die;
+        //   die;
         // Ajouter les métadonnées pour chaque image dans le tableau
         foreach ($woo_variation_gallery_images as $image_id) {
             
