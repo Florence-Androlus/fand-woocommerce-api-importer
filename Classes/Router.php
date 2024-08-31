@@ -28,24 +28,28 @@ class Router {
         // Vérifier si les données de l'API ont déjà été récupérées
         if (self::$apiData === null) {
             // Si non, récupérer les données de l'API et les stocker dans la propriété statique
-            $file = "produituniqueT.json";//"produits.json";//
-            self::$apiData = Api::json_product($file);
+            /*$file = "produituniqueP.json";//"produits.json";//
+            self::$apiData = Api::json_product($file);*/
             //self::$apiData = Api::json_api_test_product();
-            //self::$apiData = Api::json_api_product();
+            self::$apiData = Api::json_api_product();
         }
         // Vérifier si les données de l'API ont déjà été récupérées
         if (self::$apiStock === null) {
             // Si non, récupérer les données de l'API et les stocker dans la propriété statique
             // Chemin vers votre fichier JSON
-            $file = "stock.json";//"stockunique.json";
-            self::$apiStock = Api::json_stock($file);
+            /*$file = "stock.json";//"stockunique.json";
+            self::$apiStock = Api::json_stock($file);*/
+            //self::$apiData = Api::json_api_test_stock();
+            self::$apiData = Api::json_api_stock();
         }
         // Vérifier si les données de l'API ont déjà été récupérées
         if (self::$apiPrice === null) {
             // Si non, récupérer les données de l'API et les stocker dans la propriété statique
             // Chemin vers votre fichier JSON
-            $file = "printpricelist.json";//"stockunique.json";
-            self::$apiPrice = Api::json_price($file);
+           /* $file = "printpricelist.json";//"stockunique.json";
+            self::$apiPrice = Api::json_price($file);*/
+            //self::$apiData = Api::json_api_test_printpricelist();
+            self::$apiData = Api::json_api_printpricelist();
         }
 
         // objectif :

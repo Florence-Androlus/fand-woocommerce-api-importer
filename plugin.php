@@ -10,16 +10,122 @@ class FWAISettingsPage {
 	
     public function init() {
 		// déclaration du hook d'activation du plugin
-		register_activation_hook(FWAI_MAIN_FILE, [$this, 'onPluginActivation']);
+		register_activation_hook(FWAI_MAIN_FILE, [$this,'onPluginActivation']);
         ini_set('max_execution_time', 0);
         ini_set('memory_limit', '-1'); 
     //    add_action( 'init', [$this,'woocommerce_api_import_products'] );
 		// Register the settings page.
-		add_action( 'admin_menu', [$this, 'register_settings' ] );
-		// on ajoute nos URL custom
-		add_action('init', [$this, 'registerCustomRewrites']);
+		add_action( 'admin_menu', [$this,'register_settings' ] );
 
+		// on ajoute nos URL custom
+		add_action('init', [$this,'registerCustomRewrites']);
+
+		//ajout de tache cron
+		//add_filter('cron_schedules', [$this,'ajouter_intervalle_cron_quotidien']);
+		//add_action('wp', [$this,'planifier_tache_cron_quotidienne']);
+		//add_filter('cron_schedules', [$this,'ajouter_intervalle_cron_quinze_minutes']);
+		//add_action('wp', [$this,'planifier_tache_cron_quinze_minutes']);
+		add_action('wp', [$this,'planifier_tache_cron_quotidienne']);
+		add_action('envoyer_requete_post', [$this,'envoyer_requete_post']);
     }
+
+	/*// Ajouter un intervalle personnalisé de 15 minutes
+	function ajouter_intervalle_cron_quinze_minutes($schedules) {
+		$schedules['quinze_minutes'] = array(
+			'interval' => 900, // 900 secondes = 15 minutes
+			'display'  => __('Toutes les 15 minutes')
+		);
+		return $schedules;
+	}
+
+	// Planification de la tâche cron pour toutes les 15 minutes
+	function planifier_tache_cron_quinze_minutes() {
+		if (!wp_next_scheduled('envoyer_requete_post')) {
+			wp_schedule_event(time(), 'quinze_minutes', 'envoyer_requete_post');
+		}
+	}*/
+
+	// Planification de la tâche cron quotidienne à 1h du matin
+	function planifier_tache_cron_quotidienne() {
+		if (!wp_next_scheduled('envoyer_requete_post')) {
+			$timestamp = strtotime('tomorrow 1:00 am');
+			wp_schedule_event($timestamp, 'daily', 'envoyer_requete_post');
+		}
+	}
+
+	// Fonction pour envoyer une requête POST (équivalent du formulaire)
+	function envoyer_requete_post() {
+
+		//envoie des produits
+		$url = home_url('product');
+		$data = array('action' => 'add');
+
+		$args = array(
+			'body' => $data,
+			'timeout' => 15,
+			'blocking' => true,
+		);
+
+		$response = wp_remote_post($url, $args);
+
+		if (is_wp_error($response)) {
+			error_log("Erreur lors de l'exécution de la tâche cron : " . $response->get_error_message());
+		} else {
+			error_log("Tâche cron exécutée avec succès : " . print_r($response, true));
+		}
+
+		//envoie des variations
+		$url = home_url('variations');
+		$data = array('action' => 'add');
+
+		$args = array(
+			'body' => $data,
+			'timeout' => 15,
+			'blocking' => true,
+		);
+
+		$response = wp_remote_post($url, $args);
+		if (is_wp_error($response)) {
+			error_log("Erreur lors de l'exécution de la tâche cron : " . $response->get_error_message());
+		} else {
+			error_log("Tâche cron exécutée avec succès : " . print_r($response, true));
+		}
+
+		//envoi des categories
+		$url = home_url('category');
+		$data = array('action' => 'add');
+
+		$args = array(
+			'body' => $data,
+			'timeout' => 15,
+			'blocking' => true,
+		);
+
+		$response = wp_remote_post($url, $args);
+		if (is_wp_error($response)) {
+			error_log("Erreur lors de l'exécution de la tâche cron : " . $response->get_error_message());
+		} else {
+			error_log("Tâche cron exécutée avec succès : " . print_r($response, true));
+		}
+
+		//envoie des images
+		$url = home_url('images');
+		$data = array('action' => 'add');
+
+		$args = array(
+			'body' => $data,
+			'timeout' => 15,
+			'blocking' => true,
+		);
+
+		$response = wp_remote_post($url, $args);
+		if (is_wp_error($response)) {
+			error_log("Erreur lors de l'exécution de la tâche cron : " . $response->get_error_message());
+		} else {
+			error_log("Tâche cron exécutée avec succès : " . print_r($response, true));
+		}
+	}
+
 	// Fonction d'activation du plugin
 	static function onPluginActivation() {
 		// Definit le nom de l'attribut
@@ -176,7 +282,7 @@ class FWAISettingsPage {
 <?php
 	
 	}
-
+	
   /*  public function woocommerce_api_import_products() {
 
       //  Api::json_api_test();
