@@ -24,9 +24,7 @@ class FWAI_ppom{
     if ($ppom_id == null) {
       $ppom_id = self::add_groupe($productmeta_name,$table_name);
     }
-    else{
-      self::update_ppom_field($ppom_id);
-    }
+    return $ppom_id;
   }
   
   // ajout groupe ppom
@@ -58,7 +56,7 @@ class FWAI_ppom{
   }   
 
    // ajout champs ppom
-    static function update_ppom_field($ppom_id){
+    static function update_ppom_field($ppom_id,$zonemarquage){
         global $wpdb;
         // Récupérer les données existantes de la base de données
 
@@ -75,7 +73,7 @@ class FWAI_ppom{
         $existing_data_array = json_decode($existing_data, true);
         //var_dump($existing_data_array);
 
-        $first_field =[
+        $labelzonedemarquages =[
             "1"=>[
                 "type"=>"collapse",
                 "title"=>"ZONE DE MARQUAGES DU GOODIES PUBLICITAIRE",
@@ -95,9 +93,10 @@ class FWAI_ppom{
                 "ppom_id"=>"' . $ppom_id . '"
             ]
         ];
-
-        // Ajouter les nouvelles données
-        $new_data = [
+        
+        // Ajouter les zones de arquages
+        // Dynamiser le tableau new_data
+        $zonedemarquages = [
             "2" => [
                 "type" => "image",
                 "title" => "option",
@@ -107,40 +106,7 @@ class FWAI_ppom{
                 "class" => "",
                 "width" => "12",
                 "selected_img_bordercolor" => "",
-                "images" => [
-                    [
-                        "link" => "http://localhost/ecommerce/wp-content/uploads/2024/03/AR1249-16_POS1.jpg",
-                        "id" => "2436",
-                        "title" => "AR1249-16_POS1",
-                        "price" => "",
-                        "stock" => "",
-                        "url" => ""
-                    ],
-                    [
-                        "link" => "http://localhost/ecommerce/wp-content/uploads/2024/03/imageZone-2249578-1.jpg",
-                        "id" => "2443",
-                        "title" => "imageZone-2249578-1",
-                        "price" => "",
-                        "stock" => "",
-                        "url" => ""
-                    ],
-                    [
-                        "link" => "http://localhost/ecommerce/wp-content/uploads/2024/03/AR1249-16_POS3.jpg",
-                        "id" => "2438",
-                        "title" => "AR1249-16_POS3",
-                        "price" => "",
-                        "stock" => "",
-                        "url" => ""
-                    ],
-                    [
-                        "link" => "http://localhost/ecommerce/wp-content/uploads/2024/03/AR1249-16_POS4.jpg",
-                        "id" => "2437",
-                        "title" => "AR1249-16_POS4",
-                        "price" => "",
-                        "stock" => "",
-                        "url" => ""
-                    ]
-                ],
+                "images" => [],
                 "selected" => "",
                 "image_width" => "",
                 "image_height" => "",
@@ -159,13 +125,48 @@ class FWAI_ppom{
                     ]
                 ],
                 "status" => "on",
-                "ppom_id"=>"$ppom_id"
+                "ppom_id" => "$ppom_id"
             ]
         ];
 
+        // Ajouter les données de printData au tableau new_data
+        foreach ($zonemarquage as $item) {
+            $new_data["2"]["images"][] = [
+                "link" => $item['image_url'],
+                "id" => "", // Vous pouvez définir l'ID si nécessaire
+                "title" => $item['position_id'], // Vous pouvez définir le titre si nécessaire
+                "price" => "",
+                "stock" => "",
+                "url" => ""
+            ];
+        }
+
+        $labeltypedemarquages =[
+            "3"=>[
+                "type"=>"collapse",
+                "title"=>"Type de marquage",
+                "data_name"=>"type_de_marquage",
+                "collapse_type"=>"start",
+                "conditions"=>[
+                    "visibility"=>"Show",
+                    "bound"=>"All",
+                    "rules"=>[
+                        [
+                            "elements"=>"type_de_marquage",
+                            "operators"=>"is"
+                        ]
+                    ]
+                ],
+                "status"=>"on",
+                "ppom_id"=>"' . $ppom_id . '"
+            ]
+        ];
+
+
+
         // Nom que vous souhaitez vérifier s'il existe déjà
         $data_name_to_check = $new_data[2]['data_name'];
-        var_dump($data_name_to_check);
+        //var_dump($data_name_to_check);
         // Définir une variable pour indiquer si le nom existe déjà
         $data_name_exists = false;
 
@@ -189,10 +190,10 @@ class FWAI_ppom{
         if ($data_name_exists== false) {
             if (is_array($existing_data_array)) {
                 // Fusionner les données existantes avec les nouvelles données
-                $merged_data = array_merge($existing_data_array, $new_data);
+                $merged_data = array_merge($existing_data_array, $zonedemarquages);
             }
             else{
-                $merged_data = $first_field;
+                $merged_data = $labelzonedemarquages;
             }
             // echo "Le data_name existe déjà dans le tableau.";
 

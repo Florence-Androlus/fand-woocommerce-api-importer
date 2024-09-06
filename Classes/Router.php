@@ -41,10 +41,10 @@ class Router {
             // pour lire une query var, on utilise get_query_var()
             if (get_query_var('fwai-page') == 'product') {
                 $compteur = 0;
-                $data = Api::getApiData();
+                $products = Api::getApiData();
 
-                if (is_array($data)) {
-                    foreach ($data as $product) {
+                if (is_array($products)) {
+                    foreach ($products as $product) {
                         // Accéder aux données du produit
                         $product_id=self::product_exist($product);
                         //var_dump($product);
@@ -69,10 +69,10 @@ class Router {
             else if (get_query_var('fwai-page') == 'variations') {
                // var_dump('ajout variations');
                 $compteur = 0;
-                $data = Api::getApiData();
+                $products = Api::getApiData();
                 
-                if (is_array($data)) {
-                    foreach ($data as $product) {
+                if (is_array($products)) {
+                    foreach ($products as $product) {
                         $product_id=self::product_exist($product);
                         if(isset($product_id)){
                  //           var_dump($product_id);
@@ -103,10 +103,10 @@ class Router {
             else if (get_query_var('fwai-page') == 'category') {
                 $compteur=0;
                 //$data=Api::json_api_test_product();
-                $data = Api::getApiData();
+                $products = Api::getApiData();
 
-                if (is_array($data)) {
-                    foreach ($data as $product) {
+                if (is_array($products)) {
+                    foreach ($products as $product) {
                         // Access the product data
                         $product_id=self::product_exist($product);
         
@@ -135,10 +135,10 @@ class Router {
             else if (get_query_var('fwai-page') == 'images') {
 
                 $compteur=0;
-                $data = Api::getApiData();
+                $products = Api::getApiData();
 
-                if (is_array($data)) {
-                    foreach ($data as $product) {
+                if (is_array($products)) {
+                    foreach ($products as $product) {
                        // Images::delete_all_media();
                         // Access the product data
                         $product_id=self::product_exist($product);
@@ -172,22 +172,23 @@ class Router {
             else if (get_query_var('fwai-page') == 'ppom') {
 
                 $compteur = 0;
-                $data = Api::getApiData();
+                $products = Api::getApiData();
 
-                if (is_array($data)) {
-                    foreach ($data as $product) {
-                        // Accéder aux données du produit
-                        // Vérifier si le produit a un nom
-                        if (!array_key_exists('product_name', $product)) {
-                            // Gérer l'erreur ici, par exemple, enregistrer un message d'erreur ou lever une exception
-                            return; // Quitter la fonction sans ajouter le produit
-                        }
+                if (is_array($products)) {
+                    foreach ($products as $product) {
+                        $master_code=$product['master_code'];
+                        var_dump($master_code);
+                        $apiPrintData = Api::getApiPrintData();
+                        $zonemarquage=PrintData::getPrintData($master_code,$apiPrintData);
+                        var_dump($zonemarquage);
 
                         // Access the product data
                         $productName = $product['product_name'];
                         $ppom_id=FWAI_ppom::ppom_exist($productName);
+                        var_dump($ppom_id);
+                        FWAI_ppom::update_ppom_field($ppom_id,$zonemarquage);
                         //insert champ ppom
-                        
+
                         $compteur++;
                     }
                 }          
