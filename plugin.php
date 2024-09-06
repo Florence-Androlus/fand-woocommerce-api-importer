@@ -2,6 +2,8 @@
 
 namespace fwai;
 
+use fwai\Classes\Api;
+use fwai\Classes\Database\Database;
 use fwai\Classes\FWAI_Attribut;
 use fwai\Classes\Products;
 use fwai\Classes\Router;
@@ -19,17 +21,16 @@ class FWAISettingsPage {
 
 		// on ajoute nos URL custom
 		add_action('init', [$this,'registerCustomRewrites']);
+		add_action('init', [$this,'registerDatabase']);
 
 		//ajout de tache cron
-		//add_filter('cron_schedules', [$this,'ajouter_intervalle_cron_quotidien']);
-		//add_action('wp', [$this,'planifier_tache_cron_quotidienne']);
 		//add_filter('cron_schedules', [$this,'ajouter_intervalle_cron_quinze_minutes']);
 		//add_action('wp', [$this,'planifier_tache_cron_quinze_minutes']);
-		add_action('wp', [$this,'planifier_tache_cron_quotidienne']);
-		add_action('envoyer_requete_post', [$this,'envoyer_requete_post']);
+		//add_action('wp', [$this,'planifier_tache_cron_quotidienne']);
+		//add_action('envoyer_requete_post', [$this,'envoyer_requete_post']);
     }
 
-	/*// Ajouter un intervalle personnalisé de 15 minutes
+	// Ajouter un intervalle personnalisé de 15 minutes
 	function ajouter_intervalle_cron_quinze_minutes($schedules) {
 		$schedules['quinze_minutes'] = array(
 			'interval' => 900, // 900 secondes = 15 minutes
@@ -43,18 +44,24 @@ class FWAISettingsPage {
 		if (!wp_next_scheduled('envoyer_requete_post')) {
 			wp_schedule_event(time(), 'quinze_minutes', 'envoyer_requete_post');
 		}
-	}*/
+	}
 
 	// Planification de la tâche cron quotidienne à 1h du matin
-	function planifier_tache_cron_quotidienne() {
+	/*function planifier_tache_cron_quotidienne() {
 		if (!wp_next_scheduled('envoyer_requete_post')) {
 			$timestamp = strtotime('tomorrow 1:00 am');
 			wp_schedule_event($timestamp, 'daily', 'envoyer_requete_post');
 		}
-	}
+	}*/
 
 	// Fonction pour envoyer une requête POST (équivalent du formulaire)
 	function envoyer_requete_post() {
+
+		ini_set('max_execution_time', 0);
+        ini_set('memory_limit', '-1'); 
+		
+		// récupéres les données de l'API 
+		Api::init();
 
 		//envoie des produits
 		$url = home_url('product');
@@ -151,6 +158,12 @@ class FWAISettingsPage {
         Router::init();
     }
 
+	// Fonction ajout des tables custom
+    public function registerDatabase()
+    {
+        Database::init();
+    }
+
     // Register settings.
 	public function register_settings(){
 		add_menu_page(
@@ -194,53 +207,65 @@ class FWAISettingsPage {
 								<h1>Ajouter les produits fournisseur Midocean via API</h1>
 								</div>
 					
-								<div class="div_saut_ligne">
-								</div>	
+								<div class="div_saut_ligne" style="height:50px;"></div>	
 								
 								<div style="width:100%;height:auto;text-align:center;">
 											
 									<div style="width:800px;display:inline-block;" id="conteneur">
-									
+										<div class="centre">
+											<div class="titre_centre">
+												<form id="form" name="form" enctype="multipart/form-data" method="post" action="<?= home_url('printingtechniques') ?>">
+													<input type="hidden" name="action" value="add">
+													<button type="submit">Ajout des techniques d'impression</button>					
+												</form>	
+											</div>	
+										</div>
+                                        <div class="div_saut_ligne" style="height:50px;"></div>
+										<div class="centre">
+											<div class="titre_centre">
+												<form id="form" name="form" enctype="multipart/form-data" method="post" action="<?= home_url('ppom') ?>">
+													<input type="hidden" name="action" value="add">
+													<button type="submit">Ajout des ppom</button>		
+												</form>	
+											</div>	
+										</div>
+                                        <div class="div_saut_ligne" style="height:50px;"></div>
 										<div class="centre">
 											<div class="titre_centre">
 												<form id="form" name="form" enctype="multipart/form-data" method="post" action="<?= home_url('product') ?>">
 													<input type="hidden" name="action" value="add">
-													<button type="submit">Ajout des produits</button>
-													</div>						
+													<button type="submit">Ajout des produits</button>						
 												</form>	
 											</div>	
 										</div>
-                                        <div class="div_saut_ligne" style="height:50px;">
+                                        <div class="div_saut_ligne" style="height:50px;"></div>
                                         <div class="centre">
 											<div class="titre_centre">
 												<form id="form" name="form" enctype="multipart/form-data" method="post" action="<?= home_url('variations') ?>">
 													<input type="hidden" name="action" value="add">
-													<button type="submit">Ajout variations produit</button>
-													</div>						
+													<button type="submit">Ajout variations produit</button>					
 												</form>	
 											</div>	
 										</div>
-                                        <div class="div_saut_ligne" style="height:50px;">
+                                        <div class="div_saut_ligne" style="height:50px;"></div>
                                         <div class="centre">
 											<div class="titre_centre">
 												<form id="form" name="form" enctype="multipart/form-data" method="post" action="<?= home_url('category') ?>">
 													<input type="hidden" name="action" value="add">
-													<button type="submit">Mettre à jour category</button>
-													</div>						
+													<button type="submit">Mettre à jour category</button>					
 												</form>	
 											</div>	
 										</div>
-                                        <div class="div_saut_ligne" style="height:50px;">
+                                        <div class="div_saut_ligne" style="height:50px;"></div>
                                         <div class="centre">
 											<div class="titre_centre">
 												<form id="form" name="form" enctype="multipart/form-data" method="post" action="<?= home_url('images') ?>">
 													<input type="hidden" name="action" value="add">
-													<button type="submit">Mettre à jour images produit</button>
-													</div>						
+													<button type="submit">Mettre à jour images produit</button>					
 												</form>	
 											</div>	
 										</div>
-                                        <div class="div_saut_ligne" style="height:50px;">
+                                        <div class="div_saut_ligne" style="height:50px;"></div>
 								</div>
 
 								<?php 
@@ -270,10 +295,7 @@ class FWAISettingsPage {
 								}
 								?>	
 										
-									</div>
-								
-								</div>
-
+							</div>								
 						</div>
 					</div>	
 				</div>

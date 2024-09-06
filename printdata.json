@@ -3604,6 +3604,859 @@
         ],
         "products": [
         {
+          "master_code": "S11342",
+          "master_id": "40008019",
+          "item_color_numbers": [
+            "AS",
+            "PK",
+            "FN",
+            "BK",
+            "NY",
+            "WH",
+            "AG",
+            "AL",
+            "AQ",
+            "AR",
+            "BG",
+            "CH",
+            "DA",
+            "DU",
+            "GG",
+            "GO",
+            "GY",
+            "KG",
+            "OR",
+            "RB",
+            "RD",
+            "SA",
+            "SP"
+          ],
+          "print_manipulation": null,
+          "print_template": "https://printtemplates-v2.cdn.midocean.com/S11342-print-template.pdf",
+          "printing_positions": [
+            {
+              "position_id": "FRONT",
+              "print_size_unit": "mm",
+              "max_print_size_height": 270.00,
+              "max_print_size_width": 270.00,
+              "rotation": 0.00,
+              "print_position_type": "Rectangle",
+              "printing_techniques": [
+                {
+                  "default": false,
+                  "id": "E",
+                  "max_colours": "8"
+                },
+                {
+                  "default": true,
+                  "id": "ST1",
+                  "max_colours": "8"
+                },
+                {
+                  "default": false,
+                  "id": "TDT",
+                  "max_colours": "0"
+                },
+                {
+                  "default": false,
+                  "id": "TT",
+                  "max_colours": "8"
+                },
+                {
+                  "default": false,
+                  "id": "TR",
+                  "max_colours": "1"
+                }
+              ],
+              "points": [
+                {
+                  "distance_from_left": 343,
+                  "distance_from_top": 303,
+                  "sequence_no": 1
+                },
+                {
+                  "distance_from_left": 652,
+                  "distance_from_top": 612,
+                  "sequence_no": 2
+                }
+              ],
+              "images": [
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-KG_POS1-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-KG_POS1.jpg",
+                  "variant_color": "KG"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-OR_POS1-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-OR_POS1.jpg",
+                  "variant_color": "OR"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-RB_POS1-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-RB_POS1.jpg",
+                  "variant_color": "RB"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-RD_POS1-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-RD_POS1.jpg",
+                  "variant_color": "RD"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-SA_POS1-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-SA_POS1.jpg",
+                  "variant_color": "SA"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-SP_POS1-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-SP_POS1.jpg",
+                  "variant_color": "SP"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-WH_POS1-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-WH_POS1.jpg",
+                  "variant_color": "WH"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-BK_POS1-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-BK_POS1.jpg",
+                  "variant_color": "BK"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-NY_POS1-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-NY_POS1.jpg",
+                  "variant_color": "NY"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-PK_POS1-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-PK_POS1.jpg",
+                  "variant_color": "PK"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-FN_POS1-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-FN_POS1.jpg",
+                  "variant_color": "FN"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-AS_POS1-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-AS_POS1.jpg",
+                  "variant_color": "AS"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-AL_POS1-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-AL_POS1.jpg",
+                  "variant_color": "AL"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-AQ_POS1-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-AQ_POS1.jpg",
+                  "variant_color": "AQ"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-AR_POS1-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-AR_POS1.jpg",
+                  "variant_color": "AR"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-BG_POS1-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-BG_POS1.jpg",
+                  "variant_color": "BG"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-CH_POS1-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-CH_POS1.jpg",
+                  "variant_color": "CH"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-DA_POS1-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-DA_POS1.jpg",
+                  "variant_color": "DA"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-DU_POS1-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-DU_POS1.jpg",
+                  "variant_color": "DU"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-GG_POS1-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-GG_POS1.jpg",
+                  "variant_color": "GG"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-GO_POS1-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-GO_POS1.jpg",
+                  "variant_color": "GO"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-GY_POS1-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-GY_POS1.jpg",
+                  "variant_color": "GY"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-AG_POS1-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-AG_POS1.jpg",
+                  "variant_color": "AG"
+                }
+              ]
+            },
+            {
+              "position_id": "BACK",
+              "print_size_unit": "mm",
+              "max_print_size_height": 270.00,
+              "max_print_size_width": 270.00,
+              "rotation": 0.00,
+              "print_position_type": "Rectangle",
+              "printing_techniques": [
+                {
+                  "default": false,
+                  "id": "TR",
+                  "max_colours": "1"
+                },
+                {
+                  "default": false,
+                  "id": "E",
+                  "max_colours": "8"
+                },
+                {
+                  "default": true,
+                  "id": "ST1",
+                  "max_colours": "8"
+                },
+                {
+                  "default": false,
+                  "id": "TDT",
+                  "max_colours": "0"
+                },
+                {
+                  "default": false,
+                  "id": "TT",
+                  "max_colours": "8"
+                }
+              ],
+              "points": [
+                {
+                  "distance_from_left": 353,
+                  "distance_from_top": 127,
+                  "sequence_no": 1
+                },
+                {
+                  "distance_from_left": 662,
+                  "distance_from_top": 437,
+                  "sequence_no": 2
+                }
+              ],
+              "images": [
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-DA_POS2-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-DA_POS2.jpg",
+                  "variant_color": "DA"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-SP_POS2-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-SP_POS2.jpg",
+                  "variant_color": "SP"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-NY_POS2-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-NY_POS2.jpg",
+                  "variant_color": "NY"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-KG_POS2-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-KG_POS2.jpg",
+                  "variant_color": "KG"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-GY_POS2-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-GY_POS2.jpg",
+                  "variant_color": "GY"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-GO_POS2-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-GO_POS2.jpg",
+                  "variant_color": "GO"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-GG_POS2-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-GG_POS2.jpg",
+                  "variant_color": "GG"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-DU_POS2-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-DU_POS2.jpg",
+                  "variant_color": "DU"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-CH_POS2-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-CH_POS2.jpg",
+                  "variant_color": "CH"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-BK_POS2-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-BK_POS2.jpg",
+                  "variant_color": "BK"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-BG_POS2-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-BG_POS2.jpg",
+                  "variant_color": "BG"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-AR_POS2-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-AR_POS2.jpg",
+                  "variant_color": "AR"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-AQ_POS2-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-AQ_POS2.jpg",
+                  "variant_color": "AQ"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-AL_POS2-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-AL_POS2.jpg",
+                  "variant_color": "AL"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-AG_POS2-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-AG_POS2.jpg",
+                  "variant_color": "AG"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-FN_POS2-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-FN_POS2.jpg",
+                  "variant_color": "FN"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-AS_POS2-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-AS_POS2.jpg",
+                  "variant_color": "AS"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-WH_POS2-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-WH_POS2.jpg",
+                  "variant_color": "WH"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-PK_POS2-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-PK_POS2.jpg",
+                  "variant_color": "PK"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-SA_POS2-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-SA_POS2.jpg",
+                  "variant_color": "SA"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-RD_POS2-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-RD_POS2.jpg",
+                  "variant_color": "RD"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-RB_POS2-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-RB_POS2.jpg",
+                  "variant_color": "RB"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-OR_POS2-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-OR_POS2.jpg",
+                  "variant_color": "OR"
+                }
+              ]
+            },
+            {
+              "position_id": "CHEST",
+              "print_size_unit": "mm",
+              "max_print_size_height": 100.00,
+              "max_print_size_width": 100.00,
+              "rotation": 0.00,
+              "print_position_type": "Rectangle",
+              "printing_techniques": [
+                {
+                  "default": false,
+                  "id": "E",
+                  "max_colours": "8"
+                },
+                {
+                  "default": true,
+                  "id": "ST1",
+                  "max_colours": "8"
+                },
+                {
+                  "default": false,
+                  "id": "TDT",
+                  "max_colours": "0"
+                },
+                {
+                  "default": false,
+                  "id": "TT",
+                  "max_colours": "8"
+                },
+                {
+                  "default": false,
+                  "id": "TR",
+                  "max_colours": "1"
+                }
+              ],
+              "points": [
+                {
+                  "distance_from_left": 595,
+                  "distance_from_top": 235,
+                  "sequence_no": 1
+                },
+                {
+                  "distance_from_left": 709,
+                  "distance_from_top": 349,
+                  "sequence_no": 2
+                }
+              ],
+              "images": [
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-OR_POS3-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-OR_POS3.jpg",
+                  "variant_color": "OR"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-RB_POS3-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-RB_POS3.jpg",
+                  "variant_color": "RB"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-RD_POS3-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-RD_POS3.jpg",
+                  "variant_color": "RD"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-SA_POS3-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-SA_POS3.jpg",
+                  "variant_color": "SA"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-WH_POS3-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-WH_POS3.jpg",
+                  "variant_color": "WH"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-SP_POS3-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-SP_POS3.jpg",
+                  "variant_color": "SP"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-AQ_POS3-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-AQ_POS3.jpg",
+                  "variant_color": "AQ"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-PK_POS3-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-PK_POS3.jpg",
+                  "variant_color": "PK"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-BK_POS3-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-BK_POS3.jpg",
+                  "variant_color": "BK"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-NY_POS3-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-NY_POS3.jpg",
+                  "variant_color": "NY"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-AS_POS3-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-AS_POS3.jpg",
+                  "variant_color": "AS"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-FN_POS3-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-FN_POS3.jpg",
+                  "variant_color": "FN"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-AG_POS3-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-AG_POS3.jpg",
+                  "variant_color": "AG"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-AL_POS3-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-AL_POS3.jpg",
+                  "variant_color": "AL"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-AR_POS3-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-AR_POS3.jpg",
+                  "variant_color": "AR"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-BG_POS3-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-BG_POS3.jpg",
+                  "variant_color": "BG"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-DA_POS3-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-DA_POS3.jpg",
+                  "variant_color": "DA"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-DU_POS3-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-DU_POS3.jpg",
+                  "variant_color": "DU"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-GG_POS3-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-GG_POS3.jpg",
+                  "variant_color": "GG"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-GY_POS3-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-GY_POS3.jpg",
+                  "variant_color": "GY"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-KG_POS3-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-KG_POS3.jpg",
+                  "variant_color": "KG"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-CH_POS3-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-CH_POS3.jpg",
+                  "variant_color": "CH"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-GO_POS3-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-GO_POS3.jpg",
+                  "variant_color": "GO"
+                }
+              ]
+            },
+            {
+              "position_id": "ARM RIGHT",
+              "print_size_unit": "mm",
+              "max_print_size_height": 70.00,
+              "max_print_size_width": 100.00,
+              "rotation": 0.00,
+              "print_position_type": "Rectangle",
+              "printing_techniques": [
+                {
+                  "default": false,
+                  "id": "TR",
+                  "max_colours": "1"
+                },
+                {
+                  "default": false,
+                  "id": "E",
+                  "max_colours": "8"
+                },
+                {
+                  "default": true,
+                  "id": "ST1",
+                  "max_colours": "8"
+                },
+                {
+                  "default": false,
+                  "id": "TDT",
+                  "max_colours": "0"
+                },
+                {
+                  "default": false,
+                  "id": "TT",
+                  "max_colours": "8"
+                }
+              ],
+              "points": [
+                {
+                  "distance_from_left": 90,
+                  "distance_from_top": 82,
+                  "sequence_no": 1
+                },
+                {
+                  "distance_from_left": 213,
+                  "distance_from_top": 168,
+                  "sequence_no": 2
+                }
+              ],
+              "images": [
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-AG_POS4-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-AG_POS4.jpg",
+                  "variant_color": "AG"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-DA_POS4-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-DA_POS4.jpg",
+                  "variant_color": "DA"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-AR_POS4-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-AR_POS4.jpg",
+                  "variant_color": "AR"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-NY_POS4-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-NY_POS4.jpg",
+                  "variant_color": "NY"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-KG_POS4-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-KG_POS4.jpg",
+                  "variant_color": "KG"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-GY_POS4-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-GY_POS4.jpg",
+                  "variant_color": "GY"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-GO_POS4-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-GO_POS4.jpg",
+                  "variant_color": "GO"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-GG_POS4-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-GG_POS4.jpg",
+                  "variant_color": "GG"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-DU_POS4-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-DU_POS4.jpg",
+                  "variant_color": "DU"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-CH_POS4-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-CH_POS4.jpg",
+                  "variant_color": "CH"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-BG_POS4-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-BG_POS4.jpg",
+                  "variant_color": "BG"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-BK_POS4-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-BK_POS4.jpg",
+                  "variant_color": "BK"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-AQ_POS4-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-AQ_POS4.jpg",
+                  "variant_color": "AQ"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-AL_POS4-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-AL_POS4.jpg",
+                  "variant_color": "AL"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-FN_POS4-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-FN_POS4.jpg",
+                  "variant_color": "FN"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-AS_POS4-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-AS_POS4.jpg",
+                  "variant_color": "AS"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-PK_POS4-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-PK_POS4.jpg",
+                  "variant_color": "PK"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-WH_POS4-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-WH_POS4.jpg",
+                  "variant_color": "WH"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-SP_POS4-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-SP_POS4.jpg",
+                  "variant_color": "SP"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-SA_POS4-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-SA_POS4.jpg",
+                  "variant_color": "SA"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-RD_POS4-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-RD_POS4.jpg",
+                  "variant_color": "RD"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-RB_POS4-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-RB_POS4.jpg",
+                  "variant_color": "RB"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-OR_POS4-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-OR_POS4.jpg",
+                  "variant_color": "OR"
+                }
+              ]
+            },
+            {
+              "position_id": "ARM LEFT",
+              "print_size_unit": "mm",
+              "max_print_size_height": 70.00,
+              "max_print_size_width": 100.00,
+              "rotation": 0.00,
+              "print_position_type": "Rectangle",
+              "printing_techniques": [
+                {
+                  "default": false,
+                  "id": "E",
+                  "max_colours": "8"
+                },
+                {
+                  "default": true,
+                  "id": "ST1",
+                  "max_colours": "8"
+                },
+                {
+                  "default": false,
+                  "id": "TDT",
+                  "max_colours": "0"
+                },
+                {
+                  "default": false,
+                  "id": "TT",
+                  "max_colours": "8"
+                },
+                {
+                  "default": false,
+                  "id": "TR",
+                  "max_colours": "1"
+                }
+              ],
+              "points": [
+                {
+                  "distance_from_left": 178,
+                  "distance_from_top": 86,
+                  "sequence_no": 1
+                },
+                {
+                  "distance_from_left": 301,
+                  "distance_from_top": 172,
+                  "sequence_no": 2
+                }
+              ],
+              "images": [
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-OR_POS5-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-OR_POS5.jpg",
+                  "variant_color": "OR"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-RB_POS5-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-RB_POS5.jpg",
+                  "variant_color": "RB"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-RD_POS5-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-RD_POS5.jpg",
+                  "variant_color": "RD"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-WH_POS5-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-WH_POS5.jpg",
+                  "variant_color": "WH"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-SP_POS5-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-SP_POS5.jpg",
+                  "variant_color": "SP"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-SA_POS5-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-SA_POS5.jpg",
+                  "variant_color": "SA"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-BK_POS5-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-BK_POS5.jpg",
+                  "variant_color": "BK"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-NY_POS5-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-NY_POS5.jpg",
+                  "variant_color": "NY"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-AS_POS5-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-AS_POS5.jpg",
+                  "variant_color": "AS"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-PK_POS5-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-PK_POS5.jpg",
+                  "variant_color": "PK"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-FN_POS5-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-FN_POS5.jpg",
+                  "variant_color": "FN"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-AG_POS5-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-AG_POS5.jpg",
+                  "variant_color": "AG"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-AQ_POS5-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-AQ_POS5.jpg",
+                  "variant_color": "AQ"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-AR_POS5-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-AR_POS5.jpg",
+                  "variant_color": "AR"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-BG_POS5-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-BG_POS5.jpg",
+                  "variant_color": "BG"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-CH_POS5-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-CH_POS5.jpg",
+                  "variant_color": "CH"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-DA_POS5-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-DA_POS5.jpg",
+                  "variant_color": "DA"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-DU_POS5-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-DU_POS5.jpg",
+                  "variant_color": "DU"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-GG_POS5-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-GG_POS5.jpg",
+                  "variant_color": "GG"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-GO_POS5-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-GO_POS5.jpg",
+                  "variant_color": "GO"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-GY_POS5-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-GY_POS5.jpg",
+                  "variant_color": "GY"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-KG_POS5-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-KG_POS5.jpg",
+                  "variant_color": "KG"
+                },
+                {
+                  "print_position_image_blank": "https://printposition-images-api-v2.cdn.midocean.com/S11342-AL_POS5-no-area.jpg",
+                  "print_position_image_with_area": "https://printposition-images-api-v2.cdn.midocean.com/S11342-AL_POS5.jpg",
+                  "variant_color": "AL"
+                }
+              ]
+            }
+          ]
+        },
+        {
             "master_code": "AR1249",
             "master_id": "40000011",
             "item_color_numbers": [

@@ -31,6 +31,7 @@ class fand_ppom{
     }
     
   }
+  
   // ajout groupe ppom
   static function add_groupe($productmeta_name,$table_name)
   {

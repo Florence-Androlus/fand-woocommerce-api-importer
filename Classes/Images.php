@@ -52,7 +52,7 @@ class Images {
             // Vérifie si une correspondance a été trouvée
             if (!$matching_attachment_id) {
                 // Aucune correspondance trouvée dans la bibliothèque
-                echo "L'image n'existe pas dans la bibliothèque.";
+                //echo "L'image n'existe pas dans la bibliothèque.";
 
                 $attachment_id = self::add_image($url,$product_id);
                 if ($i === 0) {
@@ -68,7 +68,7 @@ class Images {
             } 
             else {
                 // L'image existe déjà dans la bibliothèque avec cet ID
-                echo "L'image existe déjà dans la bibliothèque avec l'ID : $matching_attachment_id";
+                //echo "L'image existe déjà dans la bibliothèque avec l'ID : $matching_attachment_id";
                //var_dump('l\'image existe');
                self::update_image($matching_attachment_id,$product_id);
                if ($i === 0) {
@@ -419,6 +419,7 @@ class Images {
 
 
     static function delete_all_media(){
+
         // Récupérer tous les médias de WordPress
         $args = array(
             'post_type'      => 'attachment',

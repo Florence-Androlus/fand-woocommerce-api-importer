@@ -101,7 +101,8 @@ class Products {
 
     static function delete_product_by_name($product_id)
     {
-   
+           // var_dump('delete product');
+            //die;
             // Supprimer le produit en utilisant son ID
             wp_delete_post($product_id, true); // true pour forcer la suppression définitive
             

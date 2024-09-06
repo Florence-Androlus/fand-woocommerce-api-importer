@@ -1,67 +1,25 @@
 <?php
 namespace fwai\Classes;
 
+use fwai\Classes\Database\Database;
+
 class Router {
-    // Définir les propriétées statiques pour stocker les données de l'API
-    static private $apiData = null;
-    static private $apiStock = null;
-    static private $apiPrice = null;
-
-    // Méthode pour obtenir les données Produits de l'API
-    static public function getApiData() {
-        // Retourner les données stockées
-        return self::$apiData;
-    }
-    // Méthode pour obtenir les données du stock de l'API
-    static public function getApiStock() {
-        // Retourner les données stockées
-        return self::$apiStock;
-    }
-    // Méthode pour obtenir les données du prix de l'API
-    static public function getApiPrice() {
-        // Retourner les données stockées
-        return self::$apiPrice;
-    }
-
+    
     static public function init()
     {
-        // Vérifier si les données de l'API ont déjà été récupérées
-        if (self::$apiData === null) {
-            // Si non, récupérer les données de l'API et les stocker dans la propriété statique
-            /*$file = "produituniqueP.json";//"produits.json";//
-            self::$apiData = Api::json_product($file);*/
-            //self::$apiData = Api::json_api_test_product();
-            self::$apiData = Api::json_api_product();
-        }
-        // Vérifier si les données de l'API ont déjà été récupérées
-        if (self::$apiStock === null) {
-            // Si non, récupérer les données de l'API et les stocker dans la propriété statique
-            // Chemin vers votre fichier JSON
-            /*$file = "stock.json";//"stockunique.json";
-            self::$apiStock = Api::json_stock($file);*/
-            //self::$apiData = Api::json_api_test_stock();
-            self::$apiData = Api::json_api_stock();
-        }
-        // Vérifier si les données de l'API ont déjà été récupérées
-        if (self::$apiPrice === null) {
-            // Si non, récupérer les données de l'API et les stocker dans la propriété statique
-            // Chemin vers votre fichier JSON
-           /* $file = "printpricelist.json";//"stockunique.json";
-            self::$apiPrice = Api::json_price($file);*/
-            //self::$apiData = Api::json_api_test_printpricelist();
-            self::$apiData = Api::json_api_printpricelist();
-        }
-
+        Api::init();
         // objectif :
 
         // @TODO: déplacer la déclaration de la rewrite rule dans l'activation du plugin
         // si l'URL courante est ajout, afficher le template readfile.php du thème
         // 2e argument : URL réelle correspondant à la "fausse URL" de l'argument 1 
-        // 1. ajout de la réécriture = on permet à WP de reconnaître notre URL custom :  
+        // 1. ajout de la réécriture = on permet à WP de reconnaître notre URL custom :
+        add_rewrite_rule('ppom', 'index.php?fwai-page=ppom', 'top');    
         add_rewrite_rule('product', 'index.php?fwai-page=product', 'top');  
         add_rewrite_rule('variations', 'index.php?fwai-page=variations', 'top');  
         add_rewrite_rule('category', 'index.php?fwai-page=category', 'top'); 
         add_rewrite_rule('images', 'index.php?fwai-page=images', 'top');   
+        add_rewrite_rule('printingtechniques', 'index.php?fwai-page=printingtechniques', 'top');  
         
         add_rewrite_rule('suppression', 'index.php?fwai-page=suppression', 'top');
 
@@ -83,13 +41,14 @@ class Router {
             // pour lire une query var, on utilise get_query_var()
             if (get_query_var('fwai-page') == 'product') {
                 $compteur = 0;
-                $data = self::getApiData();
+                $data = Api::getApiData();
 
                 if (is_array($data)) {
                     foreach ($data as $product) {
                         // Accéder aux données du produit
                         $product_id=self::product_exist($product);
-
+                        //var_dump($product);
+                        //die;
                         if ($product_id) {
                           //  Products::delete_product_by_name($product_id);
                             Products::update_product($product, $product_id);
@@ -110,7 +69,7 @@ class Router {
             else if (get_query_var('fwai-page') == 'variations') {
                // var_dump('ajout variations');
                 $compteur = 0;
-                $data = self::getApiData();
+                $data = Api::getApiData();
                 
                 if (is_array($data)) {
                     foreach ($data as $product) {
@@ -144,7 +103,7 @@ class Router {
             else if (get_query_var('fwai-page') == 'category') {
                 $compteur=0;
                 //$data=Api::json_api_test_product();
-                $data = self::getApiData();
+                $data = Api::getApiData();
 
                 if (is_array($data)) {
                     foreach ($data as $product) {
@@ -176,7 +135,7 @@ class Router {
             else if (get_query_var('fwai-page') == 'images') {
 
                 $compteur=0;
-                $data = self::getApiData();
+                $data = Api::getApiData();
 
                 if (is_array($data)) {
                     foreach ($data as $product) {
@@ -210,6 +169,51 @@ class Router {
                 exit(); // on empêche le reste du code de s'exécuter, on laisse la redirection se faire tout de suite.
                 
             } 
+            else if (get_query_var('fwai-page') == 'ppom') {
+
+                $compteur = 0;
+                $data = Api::getApiData();
+
+                if (is_array($data)) {
+                    foreach ($data as $product) {
+                        // Accéder aux données du produit
+                        // Vérifier si le produit a un nom
+                        if (!array_key_exists('product_name', $product)) {
+                            // Gérer l'erreur ici, par exemple, enregistrer un message d'erreur ou lever une exception
+                            return; // Quitter la fonction sans ajouter le produit
+                        }
+
+                        // Access the product data
+                        $productName = $product['product_name'];
+                        $ppom_id=FWAI_ppom::ppom_exist($productName);
+                        //insert champ ppom
+                        
+                        $compteur++;
+                    }
+                }          
+
+                // on redirige vers la page wp-admin/admin.php?page=fwai-settings (mais en GET) => si l'utilisateur rafraîchit, on ne resoumettra pas le formulaire (on rafraîchira la requête GET et non POST)
+                $url=home_url( 'wp-admin/admin.php?page=fwai-settings');
+                wp_redirect(add_query_arg(['compteur'=> $compteur,'action'=> "ppom"], $url));
+                exit(); // on empêche le reste du code de s'exécuter, on laisse la redirection se faire tout de suite.
+                
+            } 
+            else if (get_query_var('fwai-page') == 'printingtechniques') {
+                // var_dump('ajout printingtechniques');
+                $compteur = 0;
+                $data = Api::getApiPrintData();
+                
+                global $wpdb;
+                $table_name = $wpdb->prefix . 'printing_technique_descriptions';
+
+                $compteur=Database::insert_printing_techniques($data,$compteur);
+
+                // on redirige vers la page wp-admin/admin.php?page=fwai-settings (mais en GET) => si l'utilisateur rafraîchit, on ne resoumettra pas le formulaire (on rafraîchira la requête GET et non POST)
+                $url=home_url( 'wp-admin/admin.php?page=fwai-settings');
+                wp_redirect(add_query_arg(['compteur'=> $compteur,'action'=> "printingtechniques"], $url));
+                exit(); // on empêche le reste du code de s'exécuter, on laisse la redirection se faire tout de suite.
+
+            }
             else {
                 // sinon, on laisse WP faire
                 return $template;

@@ -7,7 +7,7 @@ class Stock {
 
         //var_dump($sku);
         //recupere le stock via Sku
-        $data_stock = router::getApiStock();
+        $data_stock = Api::getApiStock();
         // Rechercher le SKU dans la liste de stocks
         $quantite = null;
         foreach ($data_stock['stock'] as $item) {
