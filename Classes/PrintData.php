@@ -5,7 +5,7 @@ class PrintData {
     static public function getPrintData($master_code, $apiPrintData)
     {
         $result = []; // Tableau pour stocker les données
-
+        $desired_color = "AG";
         // Parcourir les produits
         foreach ($apiPrintData['products'] as $product) {
 
@@ -15,51 +15,52 @@ class PrintData {
                 foreach ($product['printing_positions'] as $position) {
                     $position_id = $position['position_id'];
 
-                    // Récupérer la première image avec une zone d'impression
-                    if (!empty($position['images'])) {
-                        $first_image = $position['images'][0]['print_position_image_with_area'];
-                        
-                        // Ajouter les données au tableau résultat
-                        $result[] = [
-                            'position_id' => $position_id,
-                            'image_url' => $first_image
-                        ];
+                    // Parcourir les images et récupérer uniquement celles qui correspondent à 'variant_color' = 'AQ'
+                    foreach ($position['images'] as $image) {
+                        if ($image['variant_color'] === $desired_color) {
+                            $result[] = [
+                                'position_id' => $position_id,
+                                'image_url' => $image['print_position_image_with_area']
+                            ];
+                        }
                     }
                 }
             }
         }
 
-        return $result; // Retourner le tableau avec les données
+        return $result; // Retourner le tableau avec les données filtrées
     }
-    /*static public function getPrintData($master_code,$apiPrintData)
+
+    static public function getPrintingTechniques($master_code, $apiPrintData)
     {
+        $result = []; // Tableau pour stocker les données
+    
         // Parcourir les produits
         foreach ($apiPrintData['products'] as $product) {
-
-            if ($master_code===$product['master_code']){
-
-                echo "Master Code: " . $master_code . "<br>";
-
+            if ($master_code === $product['master_code']) {
+    
+                // Tableau associatif pour éviter les doublons de techniques
+                $unique_techniques = [];
+    
                 // Parcourir les positions d'impression
                 foreach ($product['printing_positions'] as $position) {
-                    $position_id = $position['position_id'];
-                    echo "Position ID: " . $position_id . "<br>";
-
                     // Parcourir les techniques d'impression
-                 echo "Printing Techniques:<br>";
                     foreach ($position['printing_techniques'] as $technique) {
-                        echo "- ID: " . $technique['id'] . "<br> Max Colors: " . $technique['max_colours'] . "<br>";
+                        // Ajouter uniquement les techniques uniques basées sur leur ID
+                        if (!isset($unique_techniques[$technique['id']])) {
+                            $unique_techniques[$technique['id']] = [
+                                'technique_id' => $technique['id'],
+                                'max_colours' => $technique['max_colours']
+                            ];
+                        }
                     }
-
-                    // Récupérer la première image avec une zone d'impression
-                    if (!empty($position['images'])) {
-                        $first_image = $position['images'][0]['print_position_image_with_area'];
-                        echo "First Image with Print Area: " . $first_image . "<br>";
-                    }
-
-                    echo "<br>";
                 }
+    
+                // Ajouter les techniques uniques au résultat final
+                $result = array_values($unique_techniques);
             }
         }
-    }*/
+    
+        return $result; // Retourner le tableau avec les données filtrées
+    }
 }

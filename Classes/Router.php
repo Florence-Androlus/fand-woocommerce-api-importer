@@ -177,16 +177,17 @@ class Router {
                 if (is_array($products)) {
                     foreach ($products as $product) {
                         $master_code=$product['master_code'];
-                        var_dump($master_code);
+                        //var_dump($master_code);
                         $apiPrintData = Api::getApiPrintData();
                         $zonemarquage=PrintData::getPrintData($master_code,$apiPrintData);
-                        var_dump($zonemarquage);
-
+                        $printing_techniques=PrintData::getPrintingTechniques($master_code,$apiPrintData);
+                        //var_dump($printing_techniques);
+                        //die;
                         // Access the product data
                         $productName = $product['product_name'];
                         $ppom_id=FWAI_ppom::ppom_exist($productName);
-                        var_dump($ppom_id);
-                        FWAI_ppom::update_ppom_field($ppom_id,$zonemarquage);
+                        //var_dump($ppom_id);
+                        FWAI_ppom::update_ppom_field($ppom_id,$zonemarquage,$printing_techniques);
                         //insert champ ppom
 
                         $compteur++;
