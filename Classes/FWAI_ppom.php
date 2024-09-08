@@ -167,7 +167,7 @@ class FWAI_ppom{
             $typemarquage_options[] = [
                 'link' => $technique['image_url'],  // Lien de l'image
                 'id' =>  $technique['image_id'],     // ID de l'image
-                'title' => $technique['technique_id'] , // Nom de la technique (ex: Broderie)
+                'title' => $technique['technique_id'] , // Nom de la technique (ex=> Broderie)
                 'price' => '',                 // Laisser vide si non applicable
                 'stock' => '',                 // Laisser vide si non applicable
                 'url' => ''                    // Laisser vide si non applicable
@@ -209,10 +209,194 @@ class FWAI_ppom{
             ]
         ];
 
-        //$formattedOutput = self::formatPrintData($zonemarquage, $ppom_id);
+        $labelnombredecouleurs = [
+            "5" => [
+                "type" => "collapse",
+                "title" => "NOMBRE DE COULEURS",
+                "data_name" => "nombre_de_couleurs",
+                "collapse_type" => "start",
+                "conditions" => [
+                    "visibility" => "Show",
+                    "bound" => "All",
+                    "rules" => [
+                        [
+                            "elements" => "nombre_de_couleurs",
+                            "operators" => "is"
+                        ]
+                    ]
+                ],
+                "status" => "on",
+                "ppom_id" => $ppom_id
+            ]
+        ];
 
-        //var_dump($formattedOutput);
-        //die;
+        $nombrecouleurs_options=self::formatPrintData($zonemarquage['techniques'], $ppom_id);
+        
+        $labelfichier = [
+            "11"=>
+            [
+                "type"=>"collapse",
+                "title"=>"VOTRE FICHIER",
+                "data_name"=>"votre_fichier",
+                "collapse_type"=>"start",
+                "conditions"=>
+                [
+                    "visibility"=>"Show",
+                    "bound"=>"All",
+                    "rules"=>
+                    [
+                        [
+                            "elements"=>"zone_de_marquages_du_goodies_publicitaire",
+                            "operators"=>"is"
+                            ]
+                    ]
+                ],
+                "status"=>"on",
+                "ppom_id"=>$ppom_id
+            ],
+            "12"=>
+            [
+                "type"=>"textarea",
+                "title"=>"Commentaires",
+                "data_name"=>"commentaires_gravure",
+                "description"=>"",
+                "placeholder"=>"",
+                "error_message"=>"",
+                "default_value"=>"",
+                "max_length"=>"",
+                "price"=>"",
+                "class"=>"",
+                "width"=>"12",
+                "visibility"=>"everyone",
+                "visibility_role"=>"",
+                "conditions"=>
+                [
+                    "visibility"=>"Show",
+                    "bound"=>"All",
+                    "rules"=>
+                    [
+                        [
+                            "elements"=>"zone_de_marquages_du_goodies_publicitaire",
+                            "operators"=>"is"
+                            ]
+                    ]
+                ],
+                "status"=>"on",
+                "ppom_id"=>$ppom_id
+            ],
+            "13"=>
+            [
+                "type"=>"section",
+                "data_name"=>"et/ou",
+                "width"=>"12",
+                "description"=>"",
+                "html"=>"et/ou",
+                "visibility"=>"everyone",
+                "visibility_role"=>"",
+                "conditions"=>
+                [
+                    "visibility"=>"Show",
+                    "bound"=>"All",
+                    "rules"=>
+                    [
+                        [
+                            "elements"=>"zone_de_marquages_du_goodies_publicitaire",
+                            "operators"=>"is"
+                            ]
+                    ]
+                ],
+                "status"=>"on",
+                "ppom_id"=>$ppom_id
+            ],
+            "14"=>
+            [
+                "type"=>"file",
+                "title"=>"votre fichier ou logo d'entreprise",
+                "data_name"=>"votre_fichier_ou_logo_d_entreprise",
+                "description"=>"",
+                "error_message"=>"",
+                "file_cost"=>"",
+                "class"=>"",
+                "width"=>"12",
+                "button_label_select"=>"",
+                "button_class"=>"",
+                "files_allowed"=>"",
+                "file_types"=>"jpg,jpeg,gif",
+                "file_size"=>"10mb",
+                "min_img_h"=>"",
+                "max_img_h"=>"",
+                "min_img_w"=>"",
+                "max_img_w"=>"",
+                "img_dimension_error"=>"",
+                "visibility"=>"everyone",
+                "visibility_role"=>"",
+                "conditions"=>
+                [
+                    "visibility"=>"Show",
+                    "bound"=>"All",
+                    "rules"=>
+                    [
+                        [
+                            "elements"=>"zone_de_marquages_du_goodies_publicitaire",
+                            "operators"=>"is"
+                            ]
+                    ]
+                ],
+                "status"=>"on",
+                "ppom_id"=>$ppom_id
+            ],
+            "15"=>
+            [
+                "type"=>"collapse",
+                "title"=>"COMMENTAIRES",
+                "data_name"=>"commentaires",
+                "collapse_type"=>"start",
+                "conditions"=>
+                [
+                    "visibility"=>"Show",
+                    "bound"=>"All",
+                    "rules"=>
+                    [
+                        [
+                            "elements"=>"zone_de_marquages_du_goodies_publicitaire",
+                            "operators"=>"is"
+                        ]
+                    ]
+                ],
+                "status"=>"on",
+                "ppom_id"=>$ppom_id
+            ],
+            "16"=>
+            [
+                "type"=>"textarea",
+                "title"=>"Commentaires",
+                "data_name"=>"commentaires_textarea",
+                "description"=>"",
+                "placeholder"=>"",
+                "error_message"=>"",
+                "default_value"=>"",
+                "max_length"=>"",
+                "price"=>"",
+                "class"=>"",
+                "width"=>"12",
+                "visibility"=>"everyone",
+                "visibility_role"=>"",
+                "conditions"=>
+                [
+                    "visibility"=>"Show",
+                    "bound"=>"All",
+                    "rules"=>
+                    [
+                        [
+                            "elements"=>"zone_de_marquages_du_goodies_publicitaire",
+                            "operators"=>"is"
+                        ]
+                    ]
+                ],
+                "status"=>"on",
+                "ppom_id"=>$ppom_id
+            ]
+        ];
 
         // Vérification de la présence de data_name
         $data_name_to_check = $zonedemarquages[2]['data_name'];
@@ -229,7 +413,7 @@ class FWAI_ppom{
 
         if (!$data_name_exists) {
             if (is_array($existing_data_array)) {
-                $merged_data = array_replace($labelzonedemarquages, $zonedemarquages, $labeltypedemarquages,$typedemarquages);
+                $merged_data = array_replace($labelzonedemarquages, $zonedemarquages, $labeltypedemarquages,$typedemarquages,$labelnombredecouleurs,$nombrecouleurs_options,$labelfichier);
             } else {
                 $merged_data = $labelzonedemarquages;
             }
@@ -256,7 +440,7 @@ class FWAI_ppom{
             }
         } else {
             // Mêmes modifications
-            $merged_data = array_replace($labelzonedemarquages, $zonedemarquages, $labeltypedemarquages,$typedemarquages);
+            $merged_data = array_replace($labelzonedemarquages, $zonedemarquages, $labeltypedemarquages,$typedemarquages,$labelnombredecouleurs,$nombrecouleurs_options,$labelfichier);
 
             $new_merged_data = array();
             $i = 0;
@@ -276,63 +460,60 @@ class FWAI_ppom{
         }
     }
 
-    static function formatPrintData($inputData, $ppom_id)
+    static function formatPrintData($zonemarquage, $ppom_id)
     {
         $formattedData = [];
-        $counter = 4; // Commence à "4" comme dans l'exemple fourni
+        $counter = 6; // Commence à "6" comme dans l'exemple fourni
+        // Tableau pour stocker les options de marquage
+        $nombrecouleurs_options = [];
 
-        foreach ($inputData['techniques'] as $technique) {
+        foreach ($zonemarquage as $technique) {
             // Récupérer les informations sur la technique
             $technique_id = $technique['technique_id'];
-            $image_id = $technique['image_id'];
-            $image_url = $technique['image_url'];
+
+            $i = 1;
+            while ($i <= $technique['max_colours']) {
+               // Ajouter chaque technique dans le tableau sous forme d'option avec les informations de l'image
+               $nombrecouleurs_options[] = [
+                   "option"=>$i,
+                   "price"=>"",// Laisser vide si non applicable
+                   "weight"=>"",// Laisser vide si non applicable
+                   "stock"=>"",// Laisser vide si non applicable
+                   "id"=>$i            
+               ];
+               $i++;
+           }
 
             // Formater les données pour chaque technique
             $formattedData[$counter] = [
-                'type' => 'image',
-                'title' => self::getTitleFromTechnique($technique_id), // Fonction personnalisée pour générer le titre
-                'data_name' => strtolower(str_replace(' ', '_', self::getTitleFromTechnique($technique_id))),
-                'description' => '',
-                'error_message' => '',
-                'class' => '',
-                'width' => '12',
-                'selected_img_bordercolor' => '',
-                'images' => [
-                    [
-                        'link' => $image_url,
-                        'id' => $image_id, 
-                        'title' => $technique_id,
-                        'price' => '',
-                        'stock' => '',
-                        'url' => ''
+                "type"=>"select",
+                "title"=>"Nombre de couleurs",
+                "data_name"=>"nombres_de_couleurs",
+                "description"=>"",
+                "error_message"=>"",
+                "options"=>$nombrecouleurs_options,
+                "selected"=>"",
+                "first_option"=>"",
+                "class"=>"",
+                "width"=>"12",
+                "visibility"=>"everyone",
+                "visibility_role"=>"",
+                "logic"=>"on",
+                "conditions"=>[
+                    "visibility"=>"Show",
+                    "bound"=>"Any",
+                    "rules"=>[
+                        [
+                            "elements"=>"option_de_marquage",
+                            "operators"=>"is",
+                            "element_values"=> $technique_id
+                        ]
                     ]
                 ],
-                'selected' => '',
-                'image_width' => '',
-                'image_height' => '',
-                'min_checked' => '',
-                'max_checked' => '',
-                'visibility' => 'everyone',
-                'visibility_role' => '',
-                'logic' => 'on',
-                "conditions"=>[
-                "visibility"=>"Show",
-                "bound"=>"Any",
-                "rules"=>[[
-                        "elements"=>"option",
-                        "operators"=>"is",
-                        "element_values"=>"FRONT"
-                    ],
-                    [
-                        "elements"=>"option",
-                        "operators"=>"is",
-                        "element_values"=>"CHEST"
-                    ]]
-                ],
-                'status' => 'on',
-                'ppom_id' => $ppom_id
+                "status"=>"on",
+                "ppom_id"=>$ppom_id
             ];
-
+            $nombrecouleurs_options = [];
             $counter++; // Incrémenter pour le prochain élément
         }
 
@@ -342,40 +523,19 @@ class FWAI_ppom{
     // Fonction pour générer un titre basé sur l'ID de la technique (peut être personnalisée)
     static function getTitleFromTechnique($technique_id)
     {
-        $titles = [
-            'E' => 'Gravure laser',
-            'ST1' => 'Sérigraphie',
-            'TDT' => 'Transfert numérique',
-            'TT' => 'Tampographie',
-            'TR' => 'Thermo-impression'
-        ];
 
-        return $titles[$technique_id] ?? 'Technique inconnue';
+        // Globaliser l'objet wpdb pour accéder à la base de données
+        global $wpdb;
+
+        // Définir la table et l'ID pour lequel vous souhaitez récupérer la description
+        $table_name = $wpdb->prefix . 'printing_technique_descriptions';
+        
+        // Préparer la requête pour récupérer la description correspondant à l'ID
+        $description = $wpdb->get_var( $wpdb->prepare(
+            "SELECT name FROM $table_name WHERE id = %s", $technique_id
+        ));
+
+        return $description ?? 'Technique inconnue';
     }
-
-    // Fonction pour générer un ID unique (basé sur l'URL ou autre méthode)
-    static function generateUniqueID($url)
-    {
-        return crc32($url); // Utilise une simple méthode de hachage pour générer un ID unique
-    }
-
-    // Fonction pour générer les règles de visibilité
-    static function generateRulesForTechnique($images)
-    {
-        $rules = [];
-
-        foreach ($images as $image) {
-            $rules[] = [
-                'elements' => 'option',
-                'operators' => 'is',
-                'element_values' => $image['position_id'] . '_POS' . $image['position_id']
-            ];
-        }
-
-        return $rules;
-    }
-
-
-
 
 }
