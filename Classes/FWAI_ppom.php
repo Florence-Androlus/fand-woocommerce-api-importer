@@ -56,7 +56,7 @@ class FWAI_ppom{
   }   
 
    // ajout champs ppom
-   static function update_ppom_field($ppom_id, $zonemarquage,$printingtechniques) {
+   static function update_ppom_field($ppom_id, $zonemarquage) {
         global $wpdb;
         $table_name = $wpdb->prefix . 'nm_personalized';
 
@@ -89,6 +89,18 @@ class FWAI_ppom{
             ]
         ];
 
+        // Tableau pour stocker les options de marquage
+        $zonemarquage_options = [];
+        foreach ($zonemarquage['images'] as $item) {
+            $zonemarquage_options[] = [
+                "link" => $item['image_url'],
+                "id" => "",
+                "title" => $item['position_id'],
+                "price" => "",
+                "stock" => "",
+                "url" => ""
+            ];
+        }
         // Ajouter les zones de marquages
         $zonedemarquages = [
             "2" => [
@@ -100,7 +112,7 @@ class FWAI_ppom{
                 "class" => "",
                 "width" => "12",
                 "selected_img_bordercolor" => "",
-                "images" => [],
+                "images" => $zonemarquage_options,
                 "selected" => "",
                 "image_width" => "",
                 "image_height" => "",
@@ -123,16 +135,7 @@ class FWAI_ppom{
             ]
         ];
 
-        foreach ($zonemarquage as $item) {
-            $zonedemarquages["2"]["images"][] = [
-                "link" => $item['image_url'],
-                "id" => "",
-                "title" => $item['position_id'],
-                "price" => "",
-                "stock" => "",
-                "url" => ""
-            ];
-        }
+
 
         $labeltypedemarquages = [
             "3" => [
@@ -155,20 +158,60 @@ class FWAI_ppom{
             ]
         ];
 
+        // Tableau pour stocker les options de marquage
+        $typemarquage_options = [];
+        
+        foreach ($zonemarquage['techniques'] as $technique) {
 
-        // Parcourir chaque technique d'impression
-        // on Récupére l'URL de l'image à partir de la bibliothèque des médias
-        foreach ($printingtechniques as $technique) {
-           // var_dump($technique);
-            // ID du fichier média WordPress (l'ID de l'image dans les médias WP)
-            $technique_id = $technique['technique_id']; // Cela suppose que tu as l'ID du média lié à ta technique
-           // var_dump($technique_id);
-            // Récupérer l'URL de l'image à partir de la bibliothèque des médias
-
-            // Recherche de l'image dans la base de données
-            $image_url = self::getImageUrlForTechnique($technique_id);
-           // var_dump($image_url);
+            // Ajouter chaque technique dans le tableau sous forme d'option avec les informations de l'image
+            $typemarquage_options[] = [
+                'link' => $technique['image_url'],  // Lien de l'image
+                'id' =>  $technique['image_id'],     // ID de l'image
+                'title' => $technique['technique_id'] , // Nom de la technique (ex: Broderie)
+                'price' => '',                 // Laisser vide si non applicable
+                'stock' => '',                 // Laisser vide si non applicable
+                'url' => ''                    // Laisser vide si non applicable
+            ];
+            
         }
+
+         // Construction de la structure JSON finale avec les options de marquage et le collapse
+        $typedemarquages = [
+            '4' => [
+                'type' => 'image',
+                'title' => 'OPTION DE MARQUAGE',
+                'data_name' => 'option_de_marquage',
+                'description' => '',
+                'error_message' => '',
+                'class' => '',
+                'width' => '12',
+                'selected_img_bordercolor' => '',
+                'images' => $typemarquage_options, // Les options de marquage créées précédemment
+                'selected' => '',
+                'image_width' => '',
+                'image_height' => '',
+                'min_checked' => '',
+                'max_checked' => '',
+                'visibility' => 'everyone',
+                'visibility_role' => '',
+                "conditions" => [
+                    "visibility" => "Show",
+                    "bound" => "All",
+                    "rules" => [
+                        [
+                            "elements" => "zone_de_marquages_du_goodies_publicitaire",
+                            "operators" => "is"
+                        ]
+                    ]
+                ],
+                'status' => 'on',
+                "ppom_id" => $ppom_id
+            ]
+        ];
+
+        //$formattedOutput = self::formatPrintData($zonemarquage, $ppom_id);
+
+        //var_dump($formattedOutput);
         //die;
 
         // Vérification de la présence de data_name
@@ -186,7 +229,7 @@ class FWAI_ppom{
 
         if (!$data_name_exists) {
             if (is_array($existing_data_array)) {
-                $merged_data = array_replace($labelzonedemarquages, $zonedemarquages, $labeltypedemarquages);
+                $merged_data = array_replace($labelzonedemarquages, $zonedemarquages, $labeltypedemarquages,$typedemarquages);
             } else {
                 $merged_data = $labelzonedemarquages;
             }
@@ -213,7 +256,7 @@ class FWAI_ppom{
             }
         } else {
             // Mêmes modifications
-            $merged_data = array_replace($labelzonedemarquages, $zonedemarquages, $labeltypedemarquages);
+            $merged_data = array_replace($labelzonedemarquages, $zonedemarquages, $labeltypedemarquages,$typedemarquages);
 
             $new_merged_data = array();
             $i = 0;
@@ -233,46 +276,106 @@ class FWAI_ppom{
         }
     }
 
-    // Fonction pour obtenir le nom de la technique
-    static function getTechniqueNameById($technique_id) {
-        global $wpdb;
-        $table_name = $wpdb->prefix . 'printing_technique_descriptions';
-        
-        $query = $wpdb->prepare(
-            "SELECT `name` FROM `$table_name` WHERE `id` = %s",
-            $technique_id
-        );
+    static function formatPrintData($inputData, $ppom_id)
+    {
+        $formattedData = [];
+        $counter = 4; // Commence à "4" comme dans l'exemple fourni
 
-        return $wpdb->get_var($query);
-    }
+        foreach ($inputData['techniques'] as $technique) {
+            // Récupérer les informations sur la technique
+            $technique_id = $technique['technique_id'];
+            $image_id = $technique['image_id'];
+            $image_url = $technique['image_url'];
 
-    // Fonction pour obtenir l'URL de l'image par titre
-    static function getImageUrlByTitle($image_title) {
-        global $wpdb;
-        
-        // Obtenez le lien de l'image via WP Media
-        $query = $wpdb->prepare(
-            "SELECT guid FROM {$wpdb->posts} WHERE post_type = 'attachment' AND post_title = %s",
-            $image_title
-        );
+            // Formater les données pour chaque technique
+            $formattedData[$counter] = [
+                'type' => 'image',
+                'title' => self::getTitleFromTechnique($technique_id), // Fonction personnalisée pour générer le titre
+                'data_name' => strtolower(str_replace(' ', '_', self::getTitleFromTechnique($technique_id))),
+                'description' => '',
+                'error_message' => '',
+                'class' => '',
+                'width' => '12',
+                'selected_img_bordercolor' => '',
+                'images' => [
+                    [
+                        'link' => $image_url,
+                        'id' => $image_id, 
+                        'title' => $technique_id,
+                        'price' => '',
+                        'stock' => '',
+                        'url' => ''
+                    ]
+                ],
+                'selected' => '',
+                'image_width' => '',
+                'image_height' => '',
+                'min_checked' => '',
+                'max_checked' => '',
+                'visibility' => 'everyone',
+                'visibility_role' => '',
+                'logic' => 'on',
+                "conditions"=>[
+                "visibility"=>"Show",
+                "bound"=>"Any",
+                "rules"=>[[
+                        "elements"=>"option",
+                        "operators"=>"is",
+                        "element_values"=>"FRONT"
+                    ],
+                    [
+                        "elements"=>"option",
+                        "operators"=>"is",
+                        "element_values"=>"CHEST"
+                    ]]
+                ],
+                'status' => 'on',
+                'ppom_id' => $ppom_id
+            ];
 
-        $image_url = $wpdb->get_var($query);
-
-        return $image_url;
-    }
-
-    static function getImageUrlForTechnique($technique_id) {
-        // Étape 1: Obtenez le nom de la technique
-        $technique_name = self::getTechniqueNameById($technique_id);
-    
-        if ($technique_name) {
-            // Étape 2: Obtenez l'URL de l'image par titre
-            $image_url = self::getImageUrlByTitle($technique_name);
-    
-            return $image_url;
+            $counter++; // Incrémenter pour le prochain élément
         }
-    
-        return null;
+
+        return $formattedData;
     }
+
+    // Fonction pour générer un titre basé sur l'ID de la technique (peut être personnalisée)
+    static function getTitleFromTechnique($technique_id)
+    {
+        $titles = [
+            'E' => 'Gravure laser',
+            'ST1' => 'Sérigraphie',
+            'TDT' => 'Transfert numérique',
+            'TT' => 'Tampographie',
+            'TR' => 'Thermo-impression'
+        ];
+
+        return $titles[$technique_id] ?? 'Technique inconnue';
+    }
+
+    // Fonction pour générer un ID unique (basé sur l'URL ou autre méthode)
+    static function generateUniqueID($url)
+    {
+        return crc32($url); // Utilise une simple méthode de hachage pour générer un ID unique
+    }
+
+    // Fonction pour générer les règles de visibilité
+    static function generateRulesForTechnique($images)
+    {
+        $rules = [];
+
+        foreach ($images as $image) {
+            $rules[] = [
+                'elements' => 'option',
+                'operators' => 'is',
+                'element_values' => $image['position_id'] . '_POS' . $image['position_id']
+            ];
+        }
+
+        return $rules;
+    }
+
+
+
 
 }
