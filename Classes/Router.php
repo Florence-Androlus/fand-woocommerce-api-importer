@@ -177,17 +177,28 @@ class Router {
                 if (is_array($products)) {
                     foreach ($products as $product) {
                         $master_code=$product['master_code'];
-                        //var_dump($master_code);
+                        $color_code=$product['variants'][0]['color_code'];
+
                         $apiPrintData = Api::getApiPrintData();
-                        $zonemarquage=PrintData::getPrintData($master_code,$apiPrintData);
+                        $zonemarquage=PrintData::getPrintData($master_code,$color_code,$apiPrintData);
+
                         // Access the product data
+                        if(isset($product['product_name'])){
                         $productName = $product['product_name'];
                         $ppom_id=FWAI_ppom::ppom_exist($productName);
-                        //var_dump($ppom_id);
+
                         FWAI_ppom::update_ppom_field($ppom_id,$zonemarquage);
                         //insert champ ppom
+                        // L'ID du produit auquel tu veux associer le PPOM
+                        $product_id=self::product_exist($product);
 
+                        // La clé pour associer un PPOM à un produit dans WooCommerce
+                        $meta_key = '_product_meta_id';
+                        // Mettre à jour la métadonnée du produit avec l'ID du PPOM
+                        update_post_meta($product_id, $meta_key, $ppom_id);
+           
                         $compteur++;
+                        }
                     }
                 }          
 

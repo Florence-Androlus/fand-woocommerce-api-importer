@@ -34,10 +34,10 @@ class Api {
     static function init(){
         
         // Si non, récupérer les données de l'API et les stocker dans la propriété statique
-        $file = "produituniqueP.json";//"produits.json";//
-        self::$apiData = Api::json_product($file);
+        /*$file = "produituniqueP.json";//"produits.json";//
+        self::$apiData = Api::json_product($file);*/
         //self::$apiData = Api::json_api_test_product();
-        //self::$apiData = Api::json_api_product();
+        self::$apiData = Api::json_api_product();
 
         // Si non, récupérer les données de l'API et les stocker dans la propriété statique
         // Chemin vers votre fichier JSON
@@ -55,10 +55,10 @@ class Api {
 
         // Si non, récupérer les données de l'API et les stocker dans la propriété statique
         // Chemin vers votre fichier JSON
-        $file = "printdata.json";//"stockunique.json";
-        self::$apiPrintData = Api::json_printdata($file);
+       /* $file = "printdata.json";//"stockunique.json";
+        self::$apiPrintData = Api::json_printdata($file);*/
         //self::$apiPrintData = Api::json_api_test_printdata();
-        //self::$apiPrintData = Api::json_api_printdata();
+        self::$apiPrintData = Api::json_api_printdata();
 
     }
 

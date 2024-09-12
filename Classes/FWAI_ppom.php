@@ -41,16 +41,16 @@ class FWAI_ppom{
 
         // Format des données pour insertion sécurisée
         $format = array('%s', '%s'); // %s pour les chaînes de caractères
-
+        if ($productmeta_name != null) {
         // Insérer les données dans la table
         $ppom_id = $wpdb->insert($table_name, $data, $format);
-
+        }
         // Vérifier si l'insertion a réussi
         if ($wpdb->insert_id) {
-            echo "Données insérées avec succès!";
+            echo "Données insérées avec succès!".$productmeta_name;
             return $ppom_id;
         } else {
-            echo "Erreur lors de l'insertion des données.";
+            echo "Erreur lors de l'insertion des données.".$productmeta_name;
         }
     
   }   
@@ -65,11 +65,15 @@ class FWAI_ppom{
             $ppom_id
         );
         $existing_data = $wpdb->get_var($query);
-        $existing_data_array = json_decode($existing_data, true);
 
+        /*if ($existing_data != null) {
+        $existing_data_array = json_decode($existing_data, true);
+        }*/
+
+        $counter=1;
         // Label zone de marquages
         $labelzonedemarquages = [
-            "1" => [
+            $counter => [
                 "type" => "collapse",
                 "title" => "ZONE DE MARQUAGES DU GOODIES PUBLICITAIRE",
                 "data_name" => "zone_de_marquages_du_goodies_publicitaire",
@@ -101,9 +105,11 @@ class FWAI_ppom{
                 "url" => ""
             ];
         }
+
+        $counter++;
         // Ajouter les zones de marquages
         $zonedemarquages = [
-            "2" => [
+            $counter => [
                 "type" => "image",
                 "title" => "option",
                 "data_name" => "option",
@@ -135,10 +141,10 @@ class FWAI_ppom{
             ]
         ];
 
+        $counter++;
 
-
-        $labeltypedemarquages = [
-            "3" => [
+        /*$labeltypedemarquages = [
+            $counter => [
                 "type" => "collapse",
                 "title" => "TYPE DE MARQUAGE",
                 "data_name" => "type_de_marquage",
@@ -157,60 +163,15 @@ class FWAI_ppom{
                 "ppom_id" => $ppom_id
             ]
         ];
+        $counter++;*/
+        $result=self::TechniquePrintData($zonemarquage,$counter,$ppom_id);
 
-        // Tableau pour stocker les options de marquage
-        $typemarquage_options = [];
-        
-        foreach ($zonemarquage['techniques'] as $technique) {
+        $typedemarquages=$result['typedemarquages'];
 
-            // Ajouter chaque technique dans le tableau sous forme d'option avec les informations de l'image
-            $typemarquage_options[] = [
-                'link' => $technique['image_url'],  // Lien de l'image
-                'id' =>  $technique['image_id'],     // ID de l'image
-                'title' => $technique['technique_id'] , // Nom de la technique (ex=> Broderie)
-                'price' => '',                 // Laisser vide si non applicable
-                'stock' => '',                 // Laisser vide si non applicable
-                'url' => ''                    // Laisser vide si non applicable
-            ];
-            
-        }
+        $counter=$result['counter'];
 
-         // Construction de la structure JSON finale avec les options de marquage et le collapse
-        $typedemarquages = [
-            '4' => [
-                'type' => 'image',
-                'title' => 'OPTION DE MARQUAGE',
-                'data_name' => 'option_de_marquage',
-                'description' => '',
-                'error_message' => '',
-                'class' => '',
-                'width' => '12',
-                'selected_img_bordercolor' => '',
-                'images' => $typemarquage_options, // Les options de marquage créées précédemment
-                'selected' => '',
-                'image_width' => '',
-                'image_height' => '',
-                'min_checked' => '',
-                'max_checked' => '',
-                'visibility' => 'everyone',
-                'visibility_role' => '',
-                "conditions" => [
-                    "visibility" => "Show",
-                    "bound" => "All",
-                    "rules" => [
-                        [
-                            "elements" => "zone_de_marquages_du_goodies_publicitaire",
-                            "operators" => "is"
-                        ]
-                    ]
-                ],
-                'status' => 'on',
-                "ppom_id" => $ppom_id
-            ]
-        ];
-
-        $labelnombredecouleurs = [
-            "5" => [
+       /* $labelnombredecouleurs = [
+            $counter => [
                 "type" => "collapse",
                 "title" => "NOMBRE DE COULEURS",
                 "data_name" => "nombre_de_couleurs",
@@ -229,11 +190,17 @@ class FWAI_ppom{
                 "ppom_id" => $ppom_id
             ]
         ];
-
-        $nombrecouleurs_options=self::formatPrintData($zonemarquage['techniques'], $ppom_id);
+        $counter++;
+        */
         
+        $result=self::formatPrintData($zonemarquage['techniques'],$counter,$ppom_id);
+        
+        $nombrecouleurs_options=$result['nombrecouleurs_options'];
+
+        $counter=$result['counter'];
+
         $labelfichier = [
-            "11"=>
+            $counter=>
             [
                 "type"=>"collapse",
                 "title"=>"VOTRE FICHIER",
@@ -253,8 +220,11 @@ class FWAI_ppom{
                 ],
                 "status"=>"on",
                 "ppom_id"=>$ppom_id
-            ],
-            "12"=>
+            ]        
+        ];
+        $counter++;
+        $Commentaire = [
+            $counter=>
             [
                 "type"=>"textarea",
                 "title"=>"Commentaires",
@@ -283,8 +253,11 @@ class FWAI_ppom{
                 ],
                 "status"=>"on",
                 "ppom_id"=>$ppom_id
-            ],
-            "13"=>
+            ]        
+        ];
+        $counter++;
+        $section = [
+            $counter=>
             [
                 "type"=>"section",
                 "data_name"=>"et/ou",
@@ -307,8 +280,11 @@ class FWAI_ppom{
                 ],
                 "status"=>"on",
                 "ppom_id"=>$ppom_id
-            ],
-            "14"=>
+            ]
+        ];
+        $counter++;
+        $file = [
+            $counter=>
             [
                 "type"=>"file",
                 "title"=>"votre fichier ou logo d'entreprise",
@@ -344,8 +320,11 @@ class FWAI_ppom{
                 ],
                 "status"=>"on",
                 "ppom_id"=>$ppom_id
-            ],
-            "15"=>
+            ]            
+        ];
+        $counter++;
+        $commentaires = [
+            $counter=>
             [
                 "type"=>"collapse",
                 "title"=>"COMMENTAIRES",
@@ -365,8 +344,11 @@ class FWAI_ppom{
                 ],
                 "status"=>"on",
                 "ppom_id"=>$ppom_id
-            ],
-            "16"=>
+            ]
+        ];
+        $counter++;
+        $commentaires_textarea = [
+            $counter=>
             [
                 "type"=>"textarea",
                 "title"=>"Commentaires",
@@ -398,11 +380,31 @@ class FWAI_ppom{
             ]
         ];
 
+        // Mêmes modifications
+        $merged_data = array_replace($labelzonedemarquages, $zonedemarquages,$typedemarquages,$nombrecouleurs_options,$labelfichier,$Commentaire,$section,$file,$commentaires,$commentaires_textarea);
+        //  , $labeltypedemarquages,$labelnombredecouleurs,
+        $new_merged_data = array();
+        $i = 0;
+        foreach ($merged_data as $key => $value) {
+            $new_merged_data[$i++] = $value;
+        }
+
+        $json_data_string = json_encode($new_merged_data, JSON_FORCE_OBJECT);
+
+        $query_update = $wpdb->prepare(
+            "UPDATE `$table_name` SET `the_meta` = %s WHERE `productmeta_id` = %d",
+            $json_data_string,
+            $ppom_id
+        );
+
+        $result_update = $wpdb->query($query_update);
         // Vérification de la présence de data_name
-        $data_name_to_check = $zonedemarquages[2]['data_name'];
+       /* $data_name_to_check = $zonedemarquages[2]['data_name'];
+       
+        // var_dump($data_name_to_check);
         $data_name_exists = false;
 
-        if (is_array($existing_data_array)) {
+       if (is_array($existing_data_array)) {
             foreach ($existing_data_array as $item) {
                 if ($item['data_name'] === $data_name_to_check) {
                     $data_name_exists = true;
@@ -413,7 +415,7 @@ class FWAI_ppom{
 
         if (!$data_name_exists) {
             if (is_array($existing_data_array)) {
-                $merged_data = array_replace($labelzonedemarquages, $zonedemarquages, $labeltypedemarquages,$typedemarquages,$labelnombredecouleurs,$nombrecouleurs_options,$labelfichier);
+                $merged_data = array_replace($labelzonedemarquages, $zonedemarquages,$typedemarquages,$nombrecouleurs_options,$labelfichier,$Commentaire,$section,$file,$commentaires,$commentaires_textarea);
             } else {
                 $merged_data = $labelzonedemarquages;
             }
@@ -440,8 +442,8 @@ class FWAI_ppom{
             }
         } else {
             // Mêmes modifications
-            $merged_data = array_replace($labelzonedemarquages, $zonedemarquages, $labeltypedemarquages,$typedemarquages,$labelnombredecouleurs,$nombrecouleurs_options,$labelfichier);
-
+            $merged_data = array_replace($labelzonedemarquages, $zonedemarquages,$typedemarquages,$nombrecouleurs_options,$labelfichier,$Commentaire,$section,$file,$commentaires,$commentaires_textarea);
+            //  , $labeltypedemarquages,$labelnombredecouleurs,
             $new_merged_data = array();
             $i = 0;
             foreach ($merged_data as $key => $value) {
@@ -457,19 +459,99 @@ class FWAI_ppom{
             );
 
             $result_update = $wpdb->query($query_update);
-        }
+        }*/
     }
 
-    static function formatPrintData($zonemarquage, $ppom_id)
+
+    static function TechniquePrintData($zonemarquage, $counter, $ppom_id)
+    {
+        //var_dump($zonemarquage);
+        $technique_positions=$zonemarquage['technique_positions'];
+
+        foreach ($technique_positions as $item) {
+            $typedemarquages[$counter]=[];
+            // Extraire les règles et images
+            $rules[] = [
+                "elements" => "option",
+                "operators" => "is",
+                "element_values"=>$item['rule']
+            ];
+            $typemarquage_options = [];
+            
+            foreach ($item['printing_techniques'] as $technique) {
+
+                // Vérifier si image_id et image_url ne sont pas vides
+                if (!empty($technique['image_id']) && !empty($technique['image_url'])) {
+                    $typemarquage_options[] = [
+                        'link' => $technique['image_url'],  // Lien de l'image
+                        'id' => $technique['image_id'],     // ID de l'image
+                        'title' => $technique['technique_id'], // Nom de la technique (ex: Broderie)
+                        'price' => '',  // Laisser vide si non applicable
+                        'stock' => '',  // Laisser vide si non applicable
+                        'url' => ''     // Laisser vide si non applicable
+                    ];
+                }
+            }
+           
+            // Construire la structure JSON pour chaque technique
+            $typedemarquages[$counter] = [
+                'type' => 'image',
+                'title' => 'TYPE DE MARQUAGE',
+                'data_name' => 'option_de_marquage',
+                'description' => '',
+                'error_message' => '',
+                'class' => '',
+                'width' => '12',
+                'selected_img_bordercolor' => '',
+                'images' => $typemarquage_options,  // Utiliser les images associées
+                'selected' => '',
+                'image_width' => '',
+                'image_height' => '',
+                'min_checked' => '',
+                'max_checked' => '',
+                'visibility' => 'everyone',
+                'visibility_role' => '',
+                'logic' => 'on',
+                'conditions' => [
+                    'visibility' => 'Show',
+                    'bound' => 'Any',
+                    'rules' => $rules  // Ajouter les règles ici
+                ],
+                'status' => 'on',
+                'ppom_id' => $ppom_id  // Assurez-vous que $ppom_id est défini
+            ];
+            $rules=[];
+            $counter++;
+        }
+
+        //var_dump($typedemarquages);
+        //die;
+        // Retourner le tableau contenant typedemarquages et counter
+        return [
+            'typedemarquages' => $typedemarquages,
+            'counter' => $counter
+        ];
+    }
+
+    static function formatPrintData($zonemarquage,$counter, $ppom_id)
     {
         $formattedData = [];
-        $counter = 6; // Commence à "6" comme dans l'exemple fourni
         // Tableau pour stocker les options de marquage
         $nombrecouleurs_options = [];
 
         foreach ($zonemarquage as $technique) {
+            //var_dump($technique);
             // Récupérer les informations sur la technique
             $technique_id = $technique['technique_id'];
+            if($technique['technique_id']=="PD3"){
+                $nombrecouleurs_options[] = [
+                    "option"=>"Quadrichromie",
+                    "price"=>"",// Laisser vide si non applicable
+                    "weight"=>"",// Laisser vide si non applicable
+                    "stock"=>"",// Laisser vide si non applicable
+                    "id"=>"Quadrichromie"            
+                ];
+            }else{
 
             $i = 1;
             while ($i <= $technique['max_colours']) {
@@ -483,7 +565,8 @@ class FWAI_ppom{
                ];
                $i++;
            }
-
+        }
+           //var_dump($nombrecouleurs_options);
             // Formater les données pour chaque technique
             $formattedData[$counter] = [
                 "type"=>"select",
@@ -492,8 +575,8 @@ class FWAI_ppom{
                 "description"=>"",
                 "error_message"=>"",
                 "options"=>$nombrecouleurs_options,
-                "selected"=>"",
-                "first_option"=>"",
+                "selected"=>"Sélectionner votre choix",
+                "first_option"=>"Sélectionner votre choix",
                 "class"=>"",
                 "width"=>"12",
                 "visibility"=>"everyone",
@@ -517,7 +600,10 @@ class FWAI_ppom{
             $counter++; // Incrémenter pour le prochain élément
         }
 
-        return $formattedData;
+        return [
+            'nombrecouleurs_options'=>$formattedData,
+            'counter' => $counter
+        ];
     }
 
     // Fonction pour générer un titre basé sur l'ID de la technique (peut être personnalisée)
