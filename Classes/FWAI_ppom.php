@@ -167,280 +167,221 @@ class FWAI_ppom{
         $result=self::TechniquePrintData($zonemarquage,$counter,$ppom_id);
 
         $typedemarquages=$result['typedemarquages'];
+        if($typedemarquages==null){
+            echo $typedemarquages ."est null";
+        }else{
+            $counter=$result['counter'];
 
-        $counter=$result['counter'];
-
-       /* $labelnombredecouleurs = [
-            $counter => [
-                "type" => "collapse",
-                "title" => "NOMBRE DE COULEURS",
-                "data_name" => "nombre_de_couleurs",
-                "collapse_type" => "start",
-                "conditions" => [
-                    "visibility" => "Show",
-                    "bound" => "All",
-                    "rules" => [
-                        [
-                            "elements" => "nombre_de_couleurs",
-                            "operators" => "is"
+        /* $labelnombredecouleurs = [
+                $counter => [
+                    "type" => "collapse",
+                    "title" => "NOMBRE DE COULEURS",
+                    "data_name" => "nombre_de_couleurs",
+                    "collapse_type" => "start",
+                    "conditions" => [
+                        "visibility" => "Show",
+                        "bound" => "All",
+                        "rules" => [
+                            [
+                                "elements" => "nombre_de_couleurs",
+                                "operators" => "is"
+                            ]
                         ]
-                    ]
-                ],
-                "status" => "on",
-                "ppom_id" => $ppom_id
-            ]
-        ];
-        $counter++;
-        */
-        
-        $result=self::formatPrintData($zonemarquage['techniques'],$counter,$ppom_id);
-        
-        $nombrecouleurs_options=$result['nombrecouleurs_options'];
+                    ],
+                    "status" => "on",
+                    "ppom_id" => $ppom_id
+                ]
+            ];
+            $counter++;
+            */
+            
+            $result=self::formatPrintData($zonemarquage['techniques'],$counter,$ppom_id);
+            
+            $nombrecouleurs_options=$result['nombrecouleurs_options'];
 
-        $counter=$result['counter'];
+            $counter=$result['counter'];
 
-        $labelfichier = [
-            $counter=>
-            [
-                "type"=>"collapse",
-                "title"=>"VOTRE FICHIER",
-                "data_name"=>"votre_fichier",
-                "collapse_type"=>"start",
-                "conditions"=>
+            $labelfichier = [
+                $counter=>
                 [
-                    "visibility"=>"Show",
-                    "bound"=>"All",
-                    "rules"=>
+                    "type"=>"collapse",
+                    "title"=>"VOTRE FICHIER",
+                    "data_name"=>"votre_fichier",
+                    "collapse_type"=>"start",
+                    "conditions"=>
                     [
+                        "visibility"=>"Show",
+                        "bound"=>"All",
+                        "rules"=>
                         [
-                            "elements"=>"zone_de_marquages_du_goodies_publicitaire",
-                            "operators"=>"is"
-                            ]
-                    ]
-                ],
-                "status"=>"on",
-                "ppom_id"=>$ppom_id
-            ]        
-        ];
-        $counter++;
-        $Commentaire = [
-            $counter=>
-            [
-                "type"=>"textarea",
-                "title"=>"Commentaires",
-                "data_name"=>"commentaires_gravure",
-                "description"=>"",
-                "placeholder"=>"",
-                "error_message"=>"",
-                "default_value"=>"",
-                "max_length"=>"",
-                "price"=>"",
-                "class"=>"",
-                "width"=>"12",
-                "visibility"=>"everyone",
-                "visibility_role"=>"",
-                "conditions"=>
-                [
-                    "visibility"=>"Show",
-                    "bound"=>"All",
-                    "rules"=>
-                    [
-                        [
-                            "elements"=>"zone_de_marquages_du_goodies_publicitaire",
-                            "operators"=>"is"
-                            ]
-                    ]
-                ],
-                "status"=>"on",
-                "ppom_id"=>$ppom_id
-            ]        
-        ];
-        $counter++;
-        $section = [
-            $counter=>
-            [
-                "type"=>"section",
-                "data_name"=>"et/ou",
-                "width"=>"12",
-                "description"=>"",
-                "html"=>"et/ou",
-                "visibility"=>"everyone",
-                "visibility_role"=>"",
-                "conditions"=>
-                [
-                    "visibility"=>"Show",
-                    "bound"=>"All",
-                    "rules"=>
-                    [
-                        [
-                            "elements"=>"zone_de_marquages_du_goodies_publicitaire",
-                            "operators"=>"is"
-                            ]
-                    ]
-                ],
-                "status"=>"on",
-                "ppom_id"=>$ppom_id
-            ]
-        ];
-        $counter++;
-        $file = [
-            $counter=>
-            [
-                "type"=>"file",
-                "title"=>"votre fichier ou logo d'entreprise",
-                "data_name"=>"votre_fichier_ou_logo_d_entreprise",
-                "description"=>"",
-                "error_message"=>"",
-                "file_cost"=>"",
-                "class"=>"",
-                "width"=>"12",
-                "button_label_select"=>"",
-                "button_class"=>"",
-                "files_allowed"=>"",
-                "file_types"=>"jpg,jpeg,gif",
-                "file_size"=>"10mb",
-                "min_img_h"=>"",
-                "max_img_h"=>"",
-                "min_img_w"=>"",
-                "max_img_w"=>"",
-                "img_dimension_error"=>"",
-                "visibility"=>"everyone",
-                "visibility_role"=>"",
-                "conditions"=>
-                [
-                    "visibility"=>"Show",
-                    "bound"=>"All",
-                    "rules"=>
-                    [
-                        [
-                            "elements"=>"zone_de_marquages_du_goodies_publicitaire",
-                            "operators"=>"is"
-                            ]
-                    ]
-                ],
-                "status"=>"on",
-                "ppom_id"=>$ppom_id
-            ]            
-        ];
-        $counter++;
-        $commentaires = [
-            $counter=>
-            [
-                "type"=>"collapse",
-                "title"=>"COMMENTAIRES",
-                "data_name"=>"commentaires",
-                "collapse_type"=>"start",
-                "conditions"=>
-                [
-                    "visibility"=>"Show",
-                    "bound"=>"All",
-                    "rules"=>
-                    [
-                        [
-                            "elements"=>"zone_de_marquages_du_goodies_publicitaire",
-                            "operators"=>"is"
+                            [
+                                "elements"=>"zone_de_marquages_du_goodies_publicitaire",
+                                "operators"=>"is"
+                                ]
                         ]
-                    ]
-                ],
-                "status"=>"on",
-                "ppom_id"=>$ppom_id
-            ]
-        ];
-        $counter++;
-        $commentaires_textarea = [
-            $counter=>
-            [
-                "type"=>"textarea",
-                "title"=>"Commentaires",
-                "data_name"=>"commentaires_textarea",
-                "description"=>"",
-                "placeholder"=>"",
-                "error_message"=>"",
-                "default_value"=>"",
-                "max_length"=>"",
-                "price"=>"",
-                "class"=>"",
-                "width"=>"12",
-                "visibility"=>"everyone",
-                "visibility_role"=>"",
-                "conditions"=>
+                    ],
+                    "status"=>"on",
+                    "ppom_id"=>$ppom_id
+                ]        
+            ];
+            $counter++;
+            $Commentaire = [
+                $counter=>
                 [
-                    "visibility"=>"Show",
-                    "bound"=>"All",
-                    "rules"=>
+                    "type"=>"textarea",
+                    "title"=>"Commentaires",
+                    "data_name"=>"commentaires_gravure",
+                    "description"=>"",
+                    "placeholder"=>"",
+                    "error_message"=>"",
+                    "default_value"=>"",
+                    "max_length"=>"",
+                    "price"=>"",
+                    "class"=>"",
+                    "width"=>"12",
+                    "visibility"=>"everyone",
+                    "visibility_role"=>"",
+                    "conditions"=>
                     [
+                        "visibility"=>"Show",
+                        "bound"=>"All",
+                        "rules"=>
                         [
-                            "elements"=>"zone_de_marquages_du_goodies_publicitaire",
-                            "operators"=>"is"
+                            [
+                                "elements"=>"zone_de_marquages_du_goodies_publicitaire",
+                                "operators"=>"is"
+                                ]
                         ]
-                    ]
-                ],
-                "status"=>"on",
-                "ppom_id"=>$ppom_id
-            ]
-        ];
+                    ],
+                    "status"=>"on",
+                    "ppom_id"=>$ppom_id
+                ]        
+            ];
+            $counter++;
+            $section = [
+                $counter=>
+                [
+                    "type"=>"section",
+                    "data_name"=>"et/ou",
+                    "width"=>"12",
+                    "description"=>"",
+                    "html"=>"et/ou",
+                    "visibility"=>"everyone",
+                    "visibility_role"=>"",
+                    "conditions"=>
+                    [
+                        "visibility"=>"Show",
+                        "bound"=>"All",
+                        "rules"=>
+                        [
+                            [
+                                "elements"=>"zone_de_marquages_du_goodies_publicitaire",
+                                "operators"=>"is"
+                                ]
+                        ]
+                    ],
+                    "status"=>"on",
+                    "ppom_id"=>$ppom_id
+                ]
+            ];
+            $counter++;
+            $file = [
+                $counter=>
+                [
+                    "type"=>"file",
+                    "title"=>"votre fichier ou logo d'entreprise",
+                    "data_name"=>"votre_fichier_ou_logo_d_entreprise",
+                    "description"=>"",
+                    "error_message"=>"",
+                    "file_cost"=>"",
+                    "class"=>"",
+                    "width"=>"12",
+                    "button_label_select"=>"",
+                    "button_class"=>"",
+                    "files_allowed"=>"",
+                    "file_types"=>"jpg,jpeg,gif",
+                    "file_size"=>"10mb",
+                    "min_img_h"=>"",
+                    "max_img_h"=>"",
+                    "min_img_w"=>"",
+                    "max_img_w"=>"",
+                    "img_dimension_error"=>"",
+                    "visibility"=>"everyone",
+                    "visibility_role"=>"",
+                    "conditions"=>
+                    [
+                        "visibility"=>"Show",
+                        "bound"=>"All",
+                        "rules"=>
+                        [
+                            [
+                                "elements"=>"zone_de_marquages_du_goodies_publicitaire",
+                                "operators"=>"is"
+                                ]
+                        ]
+                    ],
+                    "status"=>"on",
+                    "ppom_id"=>$ppom_id
+                ]            
+            ];
+            $counter++;
+            $commentaires = [
+                $counter=>
+                [
+                    "type"=>"collapse",
+                    "title"=>"COMMENTAIRES",
+                    "data_name"=>"commentaires",
+                    "collapse_type"=>"start",
+                    "conditions"=>
+                    [
+                        "visibility"=>"Show",
+                        "bound"=>"All",
+                        "rules"=>
+                        [
+                            [
+                                "elements"=>"zone_de_marquages_du_goodies_publicitaire",
+                                "operators"=>"is"
+                            ]
+                        ]
+                    ],
+                    "status"=>"on",
+                    "ppom_id"=>$ppom_id
+                ]
+            ];
+            $counter++;
+            $commentaires_textarea = [
+                $counter=>
+                [
+                    "type"=>"textarea",
+                    "title"=>"Commentaires",
+                    "data_name"=>"commentaires_textarea",
+                    "description"=>"",
+                    "placeholder"=>"",
+                    "error_message"=>"",
+                    "default_value"=>"",
+                    "max_length"=>"",
+                    "price"=>"",
+                    "class"=>"",
+                    "width"=>"12",
+                    "visibility"=>"everyone",
+                    "visibility_role"=>"",
+                    "conditions"=>
+                    [
+                        "visibility"=>"Show",
+                        "bound"=>"All",
+                        "rules"=>
+                        [
+                            [
+                                "elements"=>"zone_de_marquages_du_goodies_publicitaire",
+                                "operators"=>"is"
+                            ]
+                        ]
+                    ],
+                    "status"=>"on",
+                    "ppom_id"=>$ppom_id
+                ]
+            ];
 
-        // Mêmes modifications
-        $merged_data = array_replace($labelzonedemarquages, $zonedemarquages,$typedemarquages,$nombrecouleurs_options,$labelfichier,$Commentaire,$section,$file,$commentaires,$commentaires_textarea);
-        //  , $labeltypedemarquages,$labelnombredecouleurs,
-        $new_merged_data = array();
-        $i = 0;
-        foreach ($merged_data as $key => $value) {
-            $new_merged_data[$i++] = $value;
-        }
-
-        $json_data_string = json_encode($new_merged_data, JSON_FORCE_OBJECT);
-
-        $query_update = $wpdb->prepare(
-            "UPDATE `$table_name` SET `the_meta` = %s WHERE `productmeta_id` = %d",
-            $json_data_string,
-            $ppom_id
-        );
-
-        $result_update = $wpdb->query($query_update);
-        // Vérification de la présence de data_name
-       /* $data_name_to_check = $zonedemarquages[2]['data_name'];
-       
-        // var_dump($data_name_to_check);
-        $data_name_exists = false;
-
-       if (is_array($existing_data_array)) {
-            foreach ($existing_data_array as $item) {
-                if ($item['data_name'] === $data_name_to_check) {
-                    $data_name_exists = true;
-                    break;
-                }
-            }
-        }
-
-        if (!$data_name_exists) {
-            if (is_array($existing_data_array)) {
-                $merged_data = array_replace($labelzonedemarquages, $zonedemarquages,$typedemarquages,$nombrecouleurs_options,$labelfichier,$Commentaire,$section,$file,$commentaires,$commentaires_textarea);
-            } else {
-                $merged_data = $labelzonedemarquages;
-            }
-
-            // Créer un nouveau tableau commençant à l'index 0
-            $new_merged_data = array();
-            $i = 0;
-            foreach ($merged_data as $key => $value) {
-                $new_merged_data[$i++] = $value;
-            }
-
-            $json_data_string = json_encode($new_merged_data, JSON_FORCE_OBJECT);
-
-            $query_update = $wpdb->prepare(
-                "UPDATE `$table_name` SET `the_meta` = %s WHERE `productmeta_id` = %d",
-                $json_data_string,
-                $ppom_id
-            );
-
-            $result_update = $wpdb->query($query_update);
-
-            if ($result_update === false) {
-                // Gérer l'erreur
-            }
-        } else {
             // Mêmes modifications
             $merged_data = array_replace($labelzonedemarquages, $zonedemarquages,$typedemarquages,$nombrecouleurs_options,$labelfichier,$Commentaire,$section,$file,$commentaires,$commentaires_textarea);
             //  , $labeltypedemarquages,$labelnombredecouleurs,
@@ -459,17 +400,19 @@ class FWAI_ppom{
             );
 
             $result_update = $wpdb->query($query_update);
-        }*/
+        }
     }
 
 
     static function TechniquePrintData($zonemarquage, $counter, $ppom_id)
     {
+        // Initialiser la variable
+        $typedemarquages = [];
         //var_dump($zonemarquage);
         $technique_positions=$zonemarquage['technique_positions'];
 
         foreach ($technique_positions as $item) {
-            $typedemarquages[$counter]=[];
+            //$typedemarquages[$counter]=[];
             // Extraire les règles et images
             $rules[] = [
                 "elements" => "option",
@@ -479,14 +422,17 @@ class FWAI_ppom{
             $typemarquage_options = [];
             
             foreach ($item['printing_techniques'] as $technique) {
-
+                //var_dump($technique);
+                //die;
                 // Vérifier si image_id et image_url ne sont pas vides
                 if (!empty($technique['image_id']) && !empty($technique['image_url'])) {
+                    //$techniqueprice=$technique['price'];
+                    //$techniqueprice=floatval($technique['price']);
                     $typemarquage_options[] = [
                         'link' => $technique['image_url'],  // Lien de l'image
                         'id' => $technique['image_id'],     // ID de l'image
                         'title' => $technique['technique_id'], // Nom de la technique (ex: Broderie)
-                        'price' => '',  // Laisser vide si non applicable
+                        'price' => '',//$techniqueprice,  // Laisser vide si non applicable
                         'stock' => '',  // Laisser vide si non applicable
                         'url' => ''     // Laisser vide si non applicable
                     ];
@@ -543,7 +489,7 @@ class FWAI_ppom{
             //var_dump($technique);
             // Récupérer les informations sur la technique
             $technique_id = $technique['technique_id'];
-            if($technique['technique_id']=="PD3"){
+            if($technique['technique_id']=="PD1"||$technique['technique_id']=="PD2"||$technique['technique_id']=="PD3"||$technique['technique_id']=="PD4"||$technique['technique_id']=="PD5"||$technique['technique_id']=="PD6"||$technique['technique_id']=="PD7"||$technique['technique_id']=="DO1"){
                 $nombrecouleurs_options[] = [
                     "option"=>"Quadrichromie",
                     "price"=>"",// Laisser vide si non applicable
@@ -551,7 +497,17 @@ class FWAI_ppom{
                     "stock"=>"",// Laisser vide si non applicable
                     "id"=>"Quadrichromie"            
                 ];
-            }else{
+            }            
+            elseif($technique['technique_id']=="TD"||$technique['technique_id']=="TD1"){
+                $nombrecouleurs_options[] = [
+                    "option"=>"Quadrichromie avec à plat",
+                    "price"=>"",// Laisser vide si non applicable
+                    "weight"=>"",// Laisser vide si non applicable
+                    "stock"=>"",// Laisser vide si non applicable
+                    "id"=>"quadrichromieavecaplat"            
+                ];
+            }
+            else{
 
             $i = 1;
             while ($i <= $technique['max_colours']) {

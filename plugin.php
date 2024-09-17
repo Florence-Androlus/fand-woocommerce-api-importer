@@ -26,12 +26,18 @@ class FWAISettingsPage {
 		//ajout de tache cron
 		//add_filter('cron_schedules', [$this,'ajouter_intervalle_cron_quinze_minutes']);
 		//add_action('wp', [$this,'planifier_tache_cron_quinze_minutes']);
-		//add_action('wp', [$this,'planifier_tache_cron_quotidienne']);
-		//add_action('envoyer_requete_post', [$this,'envoyer_requete_post']);
-    }
+		add_action('wp', [$this,'planifier_tache_cron_quotidienne']);
+		add_action('wp', [$this, 'planifier_tache_cron_variations']); // Ajout de la tâche cron par heure
+		add_action('wp', [$this, 'planifier_tache_cron_images']); // Ajout de la tâche cron par heure
+		add_action('wp', [$this, 'planifier_tache_cron_ppom']); // Ajout de la tâche cron par heure
+		add_action('envoyer_requete_post', [$this,'envoyer_requete_post']);
+		add_action('envoyer_requete_post_variations', [$this, 'envoyer_requete_post_variations']); // Ajout de l'action pour la tâche par heure
+		add_action('envoyer_requete_post_images', [$this, 'envoyer_requete_post_images']); // Ajout de l'action pour la tâche par heure
+		add_action('envoyer_requete_post_ppom', [$this, 'envoyer_requete_post_ppom']); // Ajout de l'action pour la tâche par heure
+	}
 
 	// Ajouter un intervalle personnalisé de 15 minutes
-	function ajouter_intervalle_cron_quinze_minutes($schedules) {
+	static function ajouter_intervalle_cron_quinze_minutes($schedules) {
 		$schedules['quinze_minutes'] = array(
 			'interval' => 900, // 900 secondes = 15 minutes
 			'display'  => __('Toutes les 15 minutes')
@@ -40,22 +46,43 @@ class FWAISettingsPage {
 	}
 
 	// Planification de la tâche cron pour toutes les 15 minutes
-	function planifier_tache_cron_quinze_minutes() {
+	static function planifier_tache_cron_quinze_minutes() {
 		if (!wp_next_scheduled('envoyer_requete_post')) {
 			wp_schedule_event(time(), 'quinze_minutes', 'envoyer_requete_post');
 		}
 	}
 
 	// Planification de la tâche cron quotidienne à 1h du matin
-	/*function planifier_tache_cron_quotidienne() {
+	static function planifier_tache_cron_quotidienne() {
 		if (!wp_next_scheduled('envoyer_requete_post')) {
 			$timestamp = strtotime('tomorrow 1:00 am');
 			wp_schedule_event($timestamp, 'daily', 'envoyer_requete_post');
 		}
-	}*/
+	}
+
+	// Planification de la tâche cron pour toutes les heures
+	static function planifier_tache_cron_variations() {
+		if (!wp_next_scheduled('envoyer_requete_post_variations')) {
+			wp_schedule_event(time(), 'hourly', 'envoyer_requete_post_variations'); // Planification toutes les heures
+		}
+	}
+
+	// Planification de la tâche cron pour toutes les heures
+	static function planifier_tache_cron_images() {
+		if (!wp_next_scheduled('envoyer_requete_post_images')) {
+			wp_schedule_event(time(), 'hourly', 'envoyer_requete_post_images'); // Planification toutes les heures
+		}
+	}
+
+	// Planification de la tâche cron pour toutes les heures
+	static function planifier_tache_cron_ppom() {
+		if (!wp_next_scheduled('envoyer_requete_post_ppom')) {
+			wp_schedule_event(time(), 'hourly', 'envoyer_requete_post_ppom'); // Planification toutes les heures
+		}
+	}
 
 	// Fonction pour envoyer une requête POST (équivalent du formulaire)
-	function envoyer_requete_post() {
+	static function envoyer_requete_post() {
 
 		ini_set('max_execution_time', 0);
         ini_set('memory_limit', '-1'); 
@@ -81,23 +108,6 @@ class FWAISettingsPage {
 			error_log("Tâche cron exécutée avec succès : " . print_r($response, true));
 		}
 
-		//envoie des variations
-		$url = home_url('variations');
-		$data = array('action' => 'add');
-
-		$args = array(
-			'body' => $data,
-			'timeout' => 15,
-			'blocking' => true,
-		);
-
-		$response = wp_remote_post($url, $args);
-		if (is_wp_error($response)) {
-			error_log("Erreur lors de l'exécution de la tâche cron : " . $response->get_error_message());
-		} else {
-			error_log("Tâche cron exécutée avec succès : " . print_r($response, true));
-		}
-
 		//envoi des categories
 		$url = home_url('category');
 		$data = array('action' => 'add');
@@ -115,8 +125,66 @@ class FWAISettingsPage {
 			error_log("Tâche cron exécutée avec succès : " . print_r($response, true));
 		}
 
-		//envoie des images
-		$url = home_url('images');
+
+	}
+
+	static function envoyer_requete_post_images() {
+			//envoie des images
+			$url = home_url('images');
+			$data = array('action' => 'add');
+	
+			$args = array(
+				'body' => $data,
+				'timeout' => 15,
+				'blocking' => true,
+			);
+	
+			$response = wp_remote_post($url, $args);
+			if (is_wp_error($response)) {
+				error_log("Erreur lors de l'exécution de la tâche cron : " . $response->get_error_message());
+			} else {
+				error_log("Tâche cron exécutée avec succès : " . print_r($response, true));
+			}
+	}
+
+	static function envoyer_requete_post_variations() {
+
+		ini_set('max_execution_time', 0);
+        ini_set('memory_limit', '-1'); 
+		
+		// récupéres les données de l'API 
+		Api::init();
+
+
+		//envoie des variations
+		$url = home_url('variations');
+		$data = array('action' => 'add');
+
+		$args = array(
+			'body' => $data,
+			'timeout' => 15,
+			'blocking' => true,
+		);
+
+		$response = wp_remote_post($url, $args);
+		if (is_wp_error($response)) {
+			error_log("Erreur lors de l'exécution de la tâche cron : " . $response->get_error_message());
+		} else {
+			error_log("Tâche cron exécutée avec succès : " . print_r($response, true));
+		}
+	}
+
+	
+	static function envoyer_requete_post_ppom() {
+
+		ini_set('max_execution_time', 0);
+        ini_set('memory_limit', '-1'); 
+		
+		// récupéres les données de l'API 
+		Api::init();
+
+		//envoie des variations
+		$url = home_url('ppom');
 		$data = array('action' => 'add');
 
 		$args = array(
@@ -270,29 +338,21 @@ class FWAISettingsPage {
 
 								<?php 
 
-                                if ($compteur === 1)	
-                                {
-                                    echo '<div id="resultadd" style="width:auto;display:block;height:auto;text-align:center;background-color:#ccccff;border:#7030a0 1px solid;padding-top:12px;box-shadow: 6px 6px 0px #aaa;color:#7030a0;">';
-                                                        
-                                    echo "<h2>".$compteur." ".$action." a été mis à jour</h2>"; 
-
-                                    echo '</div>';
-                                }
-								else if($compteur>0 ){
-									echo '<div id="resultadd" style="width:auto;display:block;height:auto;text-align:center;background-color:#ccccff;border:#7030a0 1px solid;padding-top:12px;box-shadow: 6px 6px 0px #aaa;color:#7030a0;">';
-									
-									echo "<h2>".$compteur." ".$action." ont été mis à jour</h2>"; 
-
-									echo'</div>';
-			
+							if ($compteur > 0) { 
+								echo '<div id="resultadd" style="width:auto;display:block;height:auto;text-align:center;background-color:#ccccff;border:#7030a0 1px solid;padding-top:12px;box-shadow: 6px 6px 0px #aaa;color:#7030a0;">';
+								
+								if ($compteur === 1) {
+									echo "<h2>{$compteur} {$action} a été mis à jour</h2>"; 
+								} else {
+									echo "<h2>{$compteur} {$action} ont été mis à jour</h2>"; 
 								}
-								else if ($compteur === 0 ){
-									echo '<div id="resultadd" style="width:auto;display:block;height:auto;text-align:center;background-color:#ccccff;border:#7030a0 1px solid;padding-top:12px;box-shadow: 6px 6px 0px #aaa;color:#7030a0;">';
-														
-									echo "<h2> aucun ".$action." n'a été mis à jour</h2>"; 
 
-									echo '</div>';
-								}
+								echo '</div>';
+							} else if ($compteur === 0) {
+								echo '<div id="resultadd" style="width:auto;display:block;height:auto;text-align:center;background-color:#ccccff;border:#7030a0 1px solid;padding-top:12px;box-shadow: 6px 6px 0px #aaa;color:#7030a0;">';
+								echo "<h2>Aucun {$action} n'a été mis à jour</h2>"; 
+								echo '</div>';
+							}
 								?>	
 										
 							</div>								

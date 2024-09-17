@@ -8,12 +8,25 @@ class Api {
     static private $apiStock = null;
     static private $apiPrice = null;
     static private $apiPrintData = null;
+    static private $apiPrintPriceList = null;
+    
 
     // Méthode pour obtenir les données Produits de l'API
-    static public function getApiData() {
-        // Retourner les données stockées
-        return self::$apiData;
+    // Ajout des paramètres limit et offset à la méthode getApiData
+    static public function getApiData($limit = null, $offset = null) {
+        // Si l'API a déjà été initialisée
+        if (self::$apiData !== null) {
+            // Si un limit est défini, appliquer la pagination
+            if ($limit !== null && $offset !== null) {
+                // Retourne seulement une portion de l'array en fonction du limit et de l'offset
+                return array_slice(self::$apiData, $offset, $limit);
+            }
+            // Retourner toutes les données stockées si pas de pagination
+            return self::$apiData;
+        }
+        return []; // Retourner un tableau vide si les données ne sont pas encore disponibles
     }
+
     // Méthode pour obtenir les données du stock de l'API
     static public function getApiStock() {
         // Retourner les données stockées
@@ -28,6 +41,11 @@ class Api {
     static public function getApiPrintData() {
         // Retourner les données stockées
         return self::$apiPrintData;
+    }
+    // Méthode pour obtenir les données printable de l'API
+    static public function getApiPrintPriceList() {
+        // Retourner les données stockées
+        return self::$apiPrintPriceList;
     }
 
     // récupéres les données de l'API 
@@ -59,6 +77,13 @@ class Api {
         self::$apiPrintData = Api::json_printdata($file);*/
         //self::$apiPrintData = Api::json_api_test_printdata();
         self::$apiPrintData = Api::json_api_printdata();
+
+        // Si non, récupérer les données de l'API et les stocker dans la propriété statique
+        // Chemin vers votre fichier JSON
+       /* $file = "printdata.json";//"stockunique.json";
+        self::$apiPrintData = Api::json_printdata($file);*/
+        //self::$apiPrintData = Api::json_api_test_printdata();
+        self::$apiPrintPriceList = Api::json_api_printpricelist();
 
     }
 

@@ -3,215 +3,6 @@ namespace fwai\Classes;
 use \WC_Product_Variation;
 
 class Variations {
-
-    // Fonction pour ajouter des variations de produit WooCommerce
-    public static function add_variations($product_id, $variant) {
-        // Gérer l'attribut de couleur
-        $color = self::handle_color_attribute($product_id, $variant);
-        error_log("Couleur attribuée: $color");
-    
-        // Gérer l'attribut de taille
-        $size = self::handle_size_attribute($product_id, $variant);
-        error_log("Taille attribuée: $size");
-    
-        // Vérification des termes (attributs couleur et taille)
-        $term_color = has_term($color, 'pa_color', $product_id);
-        $term_size = has_term($size, 'pa_size', $product_id);
-    
-        error_log("Term color trouvé: " . ($term_color ? 'oui' : 'non'));
-        error_log("Term size trouvé: " . ($term_size ? 'oui' : 'non'));
-    
-        // Si les termes correspondent, traiter les variations
-        if ($term_size || $term_color) {
-            $sku = $variant['sku'];
-            error_log("SKU: $sku");
-    
-            // Recherche des variations avec les attributs
-            $variations = self::get_variation_id_with_attributes($product_id, ['pa_color' => $color, 'pa_size' => $size]);
-            error_log("Variations trouvées:".print_r($variations, true));
-            if ($variations) {
-                // La variation existe, on la met à jour
-                error_log("Mise à jour de la variation ID: " . print_r($variations, true));
-                foreach ($variations as $variation_id) {
-                    self::update_variation($variation_id, $sku, $variant);
-                }
-            } else {
-                // La variation n'existe pas, on la crée
-                error_log("Création de la variation pour le produit ID: $product_id");
-                self::create_variation($product_id, $sku, $variant, $color, $size);
-            }
-        }
-    }
-    
-
-    // Fonction pour gérer l'attribut de couleur
-    private static function handle_color_attribute($product_id, $variant) {
-        $groupe_color_keys = array_filter(array_keys($variant), function($key) {
-            return strpos($key, 'color_group') === 0;
-        });
-
-        if (!empty($groupe_color_keys)) {
-            $color_groupe = current($groupe_color_keys);
-            $color_nom_attribut = explode('_', $color_groupe)[0];
-            $attribut_color_slug = 'pa_' . sanitize_title($color_nom_attribut);
-
-            FWAI_Attribut::ajouter_nouvel_attribut($color_nom_attribut, $attribut_color_slug);
-
-            $description_groupe_keys = array_filter(array_keys($variant), function($key) {
-                return strpos($key, 'color_description') === 0;
-            });
-            $description_groupe = current($description_groupe_keys);
-            $color = $variant[$description_groupe];
-
-            FWAI_Attribut::ajouter_termes_a_attribut($attribut_color_slug, $color);
-            self::associer_attribut_produit($product_id, $attribut_color_slug, $color);
-
-            return $color;
-        }
-        return '';
-    }
-
-    // Fonction pour gérer l'attribut de taille
-    private static function handle_size_attribute($product_id, $variant) {
-        $size_groupe_keys = array_filter(array_keys($variant), function($key) {
-            return strpos($key, 'size_textile') === 0;
-        });
-
-        if (!empty($size_groupe_keys)) {
-            $size_groupe = current($size_groupe_keys);
-            $size_nom_attribut = explode('_', $size_groupe)[0];
-            $attribut_size_slug = 'pa_' . sanitize_title($size_nom_attribut);
-
-            FWAI_Attribut::ajouter_nouvel_attribut($size_nom_attribut, $attribut_size_slug);
-
-            $size = $variant[$size_groupe];
-            FWAI_Attribut::ajouter_termes_a_attribut($attribut_size_slug, $size);
-            self::associer_attribut_produit($product_id, $attribut_size_slug, $size);
-
-            return $size;
-        }
-        return '';
-    }
-
-    // Fonction pour associer l'attribut au produit parent
-    static function associer_attribut_produit($product_id, $attribut_slug, $term) {
-        $term_id = get_term_by('slug', $term, $attribut_slug);
-
-        if ($term_id) {
-            wp_set_object_terms($product_id, $term, $attribut_slug, true);
-
-            $product_attributes = get_post_meta($product_id, '_product_attributes', true);
-
-            if (empty($product_attributes)) {
-                $product_attributes = [];
-            }
-
-            $product_attributes[$attribut_slug] = [
-                'name' => $attribut_slug,
-                'value' => $term,
-                'position' => 1,
-                'is_visible' => 1,
-                'is_variation' => 1,
-                'is_taxonomy' => 1
-            ];
-
-            update_post_meta($product_id, '_product_attributes', $product_attributes);
-        }
-    }
-
-    // Fonction optimisée pour obtenir les ID des variations avec les mêmes attributs
-    static function get_variation_id_with_attributes($product_id, $attributs_terms) {
-        $variation_ids = [];
-        $product = wc_get_product($product_id);
-        $variations = $product->get_children();
-    
-        if (empty($variations)) {
-            return false;
-        } else {
-            foreach ($variations as $variation_id) {
-                // Instancier la variation en utilisant son ID
-                $variation = new WC_Product_Variation($variation_id);
-                $attributes = $variation->get_attributes();
-    
-                // Vérifier si les attributs de la variation correspondent aux attributs spécifiés
-                $matches = true;
-                foreach ($attributs_terms as $attribut_slug => $term) {
-                    // Vérifier si l'attribut existe dans les attributs de la variation
-                    if (isset($attributes[$attribut_slug]) && $attributes[$attribut_slug] !== sanitize_title($term)) {
-                        // Les termes ne correspondent pas, donc cette variation ne correspond pas
-                        $matches = false;
-                        break; // Sortir de la boucle foreach des attributs
-                    }
-                }
-    
-                // Si tous les attributs correspondent, ajouter l'ID de la variation à la liste
-                if ($matches) {
-                    $variation_ids[] = $variation_id;
-                }
-            }
-            // Retourner les IDs des variations correspondantes
-            return $variation_ids;
-        }
-    }
-
-    // Fonction pour mettre à jour une variation existante
-    static function update_variation($variation_id, $sku, $variant) {
-        $variation_data = new WC_Product_Variation($variation_id);
-        $stock = Stock::get_stock($sku);
-        $price = Price::get_price($sku);
-    
-        // Debugging : log des informations avant la mise à jour de la variation
-        error_log("Mise à jour de la variation ID: $variation_id avec SKU: $sku");
-        error_log("Nouveau stock: $stock");
-        error_log("Nouveau prix: $price");
-    
-        $variation_data->set_regular_price($price);
-        $variation_data->set_stock_quantity($stock);
-        $variation_data->save();
-    
-        if (isset($variant['digital_assets'])) {
-            error_log("Mise à jour des images pour la variation ID: $variation_id");
-            Images::add_update_images_variation($variation_id, $variant['digital_assets']);
-        }
-    }
-    
-
-    // Fonction pour créer une nouvelle variation
-    static function create_variation($product_id, $sku, $variant, $color, $size) {
-        $attributs = [
-            'pa_color' => sanitize_title($color),
-            'pa_size' => sanitize_title($size)
-        ];
-    
-        $stock = Stock::get_stock($sku);
-        $price = Price::get_price($sku);
-    
-        // Debugging : log des informations avant la création de la variation
-        error_log("Création variation pour produit $product_id avec SKU $sku");
-        error_log("Attributs: " . print_r($attributs, true));
-        error_log("Stock: $stock");
-        error_log("Prix: $price");
-    
-        $variation_data = [
-            'attributes' => $attributs,
-            'regular_price' => $price,
-            'sku' => $sku,
-            'stock_quantity' => $stock,
-            'manage_stock' => 'true',
-            'parent_id' => $product_id,
-        ];
-    
-        $variation = new WC_Product_Variation();
-        $variation->set_props($variation_data);
-        $variation->set_parent_id($product_id);
-        $variation->save();
-    
-        error_log("Variation créée avec succès pour produit $product_id");
-    }
-    
-}
-
-/*class Variations {
     // Fonction pour ajouter un attribut de couleur à une variation de produit WooCommerce
     public static function add_variations($product_id, $variant) {
 
@@ -296,7 +87,7 @@ class Variations {
          //   var_dump($product_id);
          /*   var_dump($attribut_size_slug);
             var_dump($size);*/
-/*            if ($variations) {
+            if ($variations) {
                 error_log('existe');
              //   var_dump('existe');
                 //die;
@@ -396,6 +187,86 @@ class Variations {
                 }
             }
         }
+
+   /*     // Récupérer le groupe de l'attribut
+        $groupe = current($groupe_keys);
+        $groupe_key = explode('_', $groupe);
+        // Récupérer le nom de l'attribut
+        $nom_attribut = $groupe_key[0];
+        // Defini son slug
+        $attribut_slug='pa_'.sanitize_title($nom_attribut);
+
+        // Ajouter l'attribut s'il n'existe pas encore
+        self::ajouter_nouvel_attribut($nom_attribut,$attribut_slug);
+
+        // Récupérer le terme
+        $term = $variant[0][$groupe];
+
+        // Ajouter le terme à l'attribut s'il n'existe pas encore
+        self::ajouter_termes_a_attribut($attribut_slug, $term);
+        die;
+        // Associer l'attribut au produit parent s'il n'est pas déjà associé
+        self::associer_attribut_produit($product_id, $attribut_slug,$term);
+        $result = has_term($term, $attribut_slug, $product_id);
+        var_dump($result);
+        
+        // Vérifier si le produit contient déjà l'attribut avec le terme
+        if (has_term($term, $attribut_slug, $product_id)) {
+            var_dump('contient déjà l\'attribut');
+            $sku=$variant[0]['sku'];
+            // Obtenez l'ID de la variation existante avec les mêmes attributs
+            $variations = self::get_variation_id_with_attributes($product_id, $attribut_slug, $term);
+            var_dump($variations);
+            var_dump($product_id);
+            var_dump($attribut_slug);
+            var_dump($term);
+            if ($variations) {
+                var_dump('existe');
+                foreach ($variations as $variation_id) {
+                    // Instancier la variation en utilisant son ID
+                    $variation_data = new WC_Product_Variation($variation_id);
+                    // Recupere les elements de la variation existante
+                    $attributes = $variation_data->get_attributes();
+                    $sku = $variation_data->get_sku();
+                    var_dump($attributes);
+                    var_dump($sku);
+
+                    // Mettez à jour la variation existante
+                    $variation_data->set_regular_price('10'); // Mettez à jour les autres attributs si nécessaire
+                    $variation_data->save();
+                }
+            } 
+            else {
+                var_dump('existe pas');
+                var_dump($sku);
+                $term_slug = sanitize_title($term);
+                // Récupérer l'ID de l'attribut de couleur (s'il existe)
+                $attribute_id = wc_attribute_taxonomy_id_by_name($nom_attribut);
+                // La variation n'existe pas, créer une nouvelle variation
+                $variation_data = array(
+                    'attributes' => array(
+                        $attribut_slug => $term_slug,
+                    ),
+                    'regular_price' => '8,34', // Remplacez par le prix régulier de la variation
+                    'sku' => $variant[0]['sku'], // Remplacez par le SKU de la variation
+                    'stock_quantity'=>'100',
+                    'manage_stock'=>'true',
+                    'parent_id'=>$product_id,
+                    // Ajoutez d'autres propriétés de la variation si nécessaire
+                );
+             
+                // Créer la nouvelle variation
+                $variation = new WC_Product_Variation();
+                $variation->set_props($variation_data);
+                $variation->set_parent_id($product_id);
+                $variation->save();
+            }
+            // Rendre la variation visible en définissant la visibilité du produit parent
+            $product = wc_get_product($product_id);
+            $product->set_catalog_visibility('visible');
+            $product->save();
+        }*/
+
     }
 
     // Fonction pour associer l'attribut au produit parent
@@ -435,7 +306,7 @@ class Variations {
             var_dump($result);
             var_dump($resulte);
             die;*/
-/*        } 
+        } 
     }
 
     // Fonction pour obtenir les ID des variations avec les mêmes attributs
@@ -472,4 +343,34 @@ class Variations {
             return $variation_ids;
         }
     }
-}*/
+
+    // Fonction pour obtenir l'ID de la variation avec les mêmes attributs
+   /* static function get_variation_id_with_attributes($product_id, $nom_attribut, $term) {
+            $variation_ids = [];
+            $product = wc_get_product($product_id);
+            $variations = $product->get_children();
+
+            var_dump($variations);
+
+            if (empty($variations)){
+                var_dump('Variation pour ce produit existe pas');
+                return false;
+            }
+            else{
+                var_dump('Variation pour ce produit existe');
+                foreach ($variations as $variation_id) {
+                    // Instancier la variation en utilisant son ID
+                    $variation = new WC_Product_Variation($variation_id);
+                    $attributes = $variation->get_attributes();
+                    $sku = $variation->get_sku();
+                    var_dump($attributes[$nom_attribut]);
+                    if (isset($attributes) && $attributes[$nom_attribut] == sanitize_title($term)) {
+                        $variation_ids[] =$variation_id;
+                    }
+
+                }
+                // Retourner les IDs des variations
+                return $variation_ids;
+            }
+    }*/
+}

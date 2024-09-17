@@ -90,15 +90,14 @@ class Images {
     }
 
     static function add_update_images_variation($variation_id, $digital_assets) {
-        // Tableau des images à ajouter
-        $woo_variation_gallery_images = [82719,82720,82721];
+
         //var_dump($digital_assets);
         
            // Inclure le fichier nécessaire
            require_once ABSPATH . 'wp-admin/includes/media.php';
            require_once ABSPATH . 'wp-admin/includes/file.php';
            require_once ABSPATH . 'wp-admin/includes/image.php';
-           $i = 0;
+
             // Réinitialiser $galleryImages à chaque itération
             $galleryImages = [];
            foreach ($digital_assets as $image) {
@@ -107,11 +106,6 @@ class Images {
                $url = $image['url']; 
                // on recupere le nom du fichier
                $filename =basename($url);
-               // on crée le chemin dans media
-               $upload_dir = wp_upload_dir();
-               //$thumbnail_dir = $upload_dir['url'] . '/' .$filename;
-               //var_dump($thumbnail_dir);
-               //var_dump($filename);
    
                // Obtenir tous les attachements de la bibliothèque de médias
                $attachments = get_posts(array(
@@ -158,11 +152,7 @@ class Images {
         //var_dump($galleryImages);
            
         update_post_meta($variation_id, 'woo_variation_gallery_images', $galleryImages);
-        //   die;
-        // Ajouter les métadonnées pour chaque image dans le tableau
-        foreach ($woo_variation_gallery_images as $image_id) {
-            
-        }
+
     }
 
     static function add_image($url,$product_id) {

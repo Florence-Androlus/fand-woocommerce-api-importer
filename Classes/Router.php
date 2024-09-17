@@ -59,7 +59,6 @@ class Router {
                     }
                 }
             
-
                 // on redirige vers la page wp-admin/admin.php?page=fwai-settings (mais en GET) => si l'utilisateur rafraîchit, on ne resoumettra pas le formulaire (on rafraîchira la requête GET et non POST)
                 $url=home_url( 'wp-admin/admin.php?page=fwai-settings');
                 wp_redirect(add_query_arg(['compteur'=> $compteur,'action'=> "product"], $url));
@@ -67,10 +66,63 @@ class Router {
 
             } 
             else if (get_query_var('fwai-page') == 'variations') {
-               // var_dump('ajout variations');
+                // var_dump('ajout variations');
                 $compteur = 0;
-                $products = Api::getApiData();
-                
+                //$offset = isset($_GET['offset']) ? intval($_GET['offset']) : 0;
+                $offset = 0;
+                $lot_taille = 50; // Nombre de produits à traiter par lot
+ 
+                 // Obtenir les produits à importer avec l'offset
+                 //$products = Api::getApiData($lot_taille,$offset); // Assure-toi que la méthode prend en compte l'offset
+                      // On traite tous les produits par lot, jusqu'à épuisement des produits
+                 while (true) {
+                     // Obtenir les produits via l'API avec l'offset
+                     $products = Api::getApiData($lot_taille, $offset);    
+                     if (empty($products)) {
+                         break; // Sortir de la boucle si aucun produit n'est récupéré
+                     }     
+ 
+                     foreach ($products as $product) {
+                         $product_id=self::product_exist($product);
+                         if(isset($product_id)){
+                 //           var_dump($product_id);
+                             $variants=$product['variants'];
+                 //           var_dump($variants);
+                             if (count($variants) > 0 && $product_id) {
+                                 foreach ($variants as $variant){
+                                 //   var_dump($variant);
+                                 // set_time_limit(3000); // définir la limite de temps d'exécution à 30 secondes
+ 
+                                     Variations::add_variations($product_id,$variant);
+                                     $compteur++;
+                                 }
+                             }
+                             else 
+                             {
+                                //var_dump("Aucune variations trouvées dans le tableau.");
+                                error_log("Aucune variations trouvées dans le tableau.");
+                             }
+                         }
+                     }
+ 
+                     // Mise à jour de l'offset pour le prochain lot
+                     $offset += $lot_taille;
+                 }
+                 // on redirige vers la page wp-admin/admin.php?page=fwai-settings (mais en GET) => si l'utilisateur rafraîchit, on ne resoumettra pas le formulaire (on rafraîchira la requête GET et non POST)
+                 $url=home_url( 'wp-admin/admin.php?page=fwai-settings');
+                 wp_redirect(add_query_arg(['compteur'=> $compteur,'action'=> "variations"], $url));
+                 exit(); // on empêche le reste du code de s'exécuter, on laisse la redirection se faire tout de suite.
+ 
+             }
+/*            else if (get_query_var('fwai-page') == 'variations') {
+               // var_dump('ajout variations');
+               $compteur = 0;
+               $offset = isset($_GET['offset']) ? intval($_GET['offset']) : 0;
+               $lot_taille = 50; // Nombre de produits à traiter par lot
+
+                // Obtenir les produits à importer avec l'offset
+                $products = Api::getApiData($lot_taille,$offset); // Assure-toi que la méthode prend en compte l'offset
+                                   
                 if (is_array($products)) {
                     foreach ($products as $product) {
                         $product_id=self::product_exist($product);
@@ -94,12 +146,30 @@ class Router {
                         }
                     }
                 }
+
+                // Mise à jour de l'offset
+                $new_offset = $offset + $lot_taille;
+                $total_produits = count($products);
+                if ($new_offset >= $total_produits) {
+                    // var_dump('Importation des images continues.');
+                     // Si tous les produits n'ont pas été traités, redirection pour le prochain lot
+                     wp_redirect(add_query_arg(['compteur' => $compteur, 'action' => 'variations', 'offset' => $new_offset], home_url('variations')));
+                 } else {
+                 // Si aucun produit n'a été récupéré, cela signifie que tous les lots ont été traités
+                 error_log('Importation des images terminée.');
+                 //var_dump('Importation des images terminée.');
+                 //die;
+                 // Redirection vers la page une fois terminé
+                 $url = home_url('wp-admin/admin.php?page=fwai-settings');
+                 wp_redirect(add_query_arg(['compteur' => $compteur, 'action' => 'variations', 'finished' => '1'], $url));
+                 exit();
+                 }
                 // on redirige vers la page wp-admin/admin.php?page=fwai-settings (mais en GET) => si l'utilisateur rafraîchit, on ne resoumettra pas le formulaire (on rafraîchira la requête GET et non POST)
-                $url=home_url( 'wp-admin/admin.php?page=fwai-settings');
+/*                $url=home_url( 'wp-admin/admin.php?page=fwai-settings');
                 wp_redirect(add_query_arg(['compteur'=> $compteur,'action'=> "variations"], $url));
                 exit(); // on empêche le reste du code de s'exécuter, on laisse la redirection se faire tout de suite.
 
-            }
+            }*/
             else if (get_query_var('fwai-page') == 'category') {
                 $compteur=0;
                 //$data=Api::json_api_test_product();
@@ -132,7 +202,7 @@ class Router {
                 wp_redirect(add_query_arg(['compteur'=> $compteur,'action'=> "category"], $url));
                 exit(); // on empêche le reste du code de s'exécuter, on laisse la redirection se faire tout de suite.
             } 
-            else if (get_query_var('fwai-page') == 'images') {
+            /*else if (get_query_var('fwai-page') == 'images') {
 
                 $compteur=0;
                 $products = Api::getApiData();
@@ -168,7 +238,58 @@ class Router {
                 wp_redirect(add_query_arg(['compteur'=> $compteur,'action'=> "images"], $url));
                 exit(); // on empêche le reste du code de s'exécuter, on laisse la redirection se faire tout de suite.
                 
-            } 
+            } */
+            else if (get_query_var('fwai-page') == 'images') {
+                $compteur = 0;
+                //var_dump(isset($_GET['offset']));
+                $offset = isset($_GET['offset']) ? intval($_GET['offset']) : 0;
+                $lot_taille = 50; // Nombre de produits à traiter par lot
+                //var_dump($offset );
+                // Obtenir les produits à importer avec l'offset
+                $products = Api::getApiData($lot_taille,$offset); // Assure-toi que la méthode prend en compte l'offset
+                //var_dump($produits );
+                if (is_array($products)) {
+                    // Processus d'importation des images
+                    foreach ($products as $product) {
+                        // Gestion de la galerie d'image du produit
+                        $product_id = self::product_exist($product);
+                        //var_dump($product_id );
+                        if ($product_id) {
+                            $variant = $product['variants'][0];
+                            $images_keys = array_filter(array_keys($variant), function($key) {
+                                return strpos($key, 'digital_assets') === 0;
+                            });
+            
+                            if (count($images_keys) > 0) {
+                                $digital_assets = $product['variants'][0]['digital_assets'];
+                                Images::add_update_images($product_id, $digital_assets);
+                            }
+                        }
+                        $compteur++;
+                    }
+            
+                    // Mise à jour de l'offset
+                    $new_offset = $offset + $lot_taille;
+                    $total_produits = count($products);
+                   // var_dump($new_offset);
+                    ///var_dump($total_produits);
+
+                    if ($new_offset >= $total_produits) {
+                       // var_dump('Importation des images continues.');
+                        // Si tous les produits n'ont pas été traités, redirection pour le prochain lot
+                        wp_redirect(add_query_arg(['compteur' => $compteur, 'action' => 'images', 'offset' => $new_offset], home_url('images')));
+                    } else {
+                    // Si aucun produit n'a été récupéré, cela signifie que tous les lots ont été traités
+                    error_log('Importation des images terminée.');
+                    //var_dump('Importation des images terminée.');
+                    //die;
+                    // Redirection vers la page une fois terminé
+                    $url = home_url('wp-admin/admin.php?page=fwai-settings');
+                    wp_redirect(add_query_arg(['compteur' => $compteur, 'action' => 'images', 'finished' => '1'], $url));
+                    exit();
+                    }
+                }
+            }
             else if (get_query_var('fwai-page') == 'ppom') {
 
                 $compteur = 0;
@@ -183,9 +304,7 @@ class Router {
                         $zonemarquage=PrintData::getPrintData($master_code,$color_code,$apiPrintData);
 
                         // Access the product data
-                        if(isset($product['product_name'])){
-                        $productName = $product['product_name'];
-                        $ppom_id=FWAI_ppom::ppom_exist($productName);
+                        $ppom_id=FWAI_ppom::ppom_exist($master_code);
 
                         FWAI_ppom::update_ppom_field($ppom_id,$zonemarquage);
                         //insert champ ppom
@@ -198,7 +317,7 @@ class Router {
                         update_post_meta($product_id, $meta_key, $ppom_id);
            
                         $compteur++;
-                        }
+
                     }
                 }          
 

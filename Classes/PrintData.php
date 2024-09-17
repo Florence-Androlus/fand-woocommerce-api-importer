@@ -10,7 +10,7 @@ class PrintData {
             'techniques' => [], // Stocke les techniques uniques
             'technique_positions' => [] // Stocke les positions associées aux techniques
         ];
-    
+
         // Parcourir les produits
         foreach ($apiPrintData['products'] as $product) {
             if ($master_code === $product['master_code']) {
@@ -64,16 +64,28 @@ class PrintData {
                         if (!isset($technique_positions[$position_id]['printing_techniques'])) {
                             $technique_positions[$position_id]['printing_techniques'] = [];
                         }
-    
+
+                        $apiPrintPriceList = Api::getApiPrintPriceList();
+                        //var_dump($apiPrintPriceList['print_techniques']);
+                        foreach($apiPrintPriceList['print_techniques'] as $price){
+                           // var_dump($price);
+
+                            if($technique_id==$price['id']){
+                                $price=$price['setup'];
+                                break;
+                            }
+                        }
+                        
                         // Ajouter la technique uniquement si elle n'est pas déjà présente dans 'printing_techniques'
                         $technique_positions[$position_id]['printing_techniques'][] = [
                             'technique_id' => $technique_id,
                             'image_id' => $unique_techniques[$technique_id]['image_id'] ?? '',
-                            'image_url' => $unique_techniques[$technique_id]['image_url'] ?? ''
+                            'image_url' => $unique_techniques[$technique_id]['image_url'] ?? '',
+                            'price' => $price
                         ];
                     }
                 }
-    
+
                 // Réindexation des positions
                 $result['technique_positions'] = array_values($technique_positions);
     
@@ -83,7 +95,7 @@ class PrintData {
         }
     
         // Débogage pour vérifier le contenu du résultat
-        //var_dump($result['technique_positions'][1]);
+        //var_dump($result['technique_positions'][1]['printing_techniques']);
         //die;
     
         return $result; // Retourne les données combinées des images, techniques et positions
